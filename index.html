@@ -1,0 +1,2464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Daily Derivative · AP Calc AB Test Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  startup: {
+    typeset: false,
+    ready() {
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(() => { window.__mjReady = true; if (window.typesetApp) window.typesetApp(); });
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" defer></script>
+<style>
+:root {
+  --bg: #e9f0f4;
+  --grid-line: rgba(31, 95, 209, 0.07);
+  --paper: #ffffff;
+  --ink: #15233a;
+  --muted: #56647a;
+  --line: #d3dde6;
+  --blue: #1f5fd1;
+  --blue-soft: #e3ecfb;
+  --hi: #ffd43b;
+  --hi-soft: #fff3c2;
+  --good: #1b7a4f;
+  --good-soft: #dcf2e6;
+  --bad: #b8382a;
+  --bad-soft: #fbe2de;
+  --axis: #7b8798;
+  --plot-grid: #e6ecf2;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1724; --grid-line: rgba(120, 160, 230, 0.06); --paper: #172234; --ink: #e8eef7; --muted: #9eabbf;
+    --line: #2b3a52; --blue: #7aa7ff; --blue-soft: #1d2f4f; --hi: #ffd43b; --hi-soft: #3a3415;
+    --good: #5fd39c; --good-soft: #143326; --bad: #ff8a7a; --bad-soft: #3d1c19; --axis: #8b97a8; --plot-grid: #22314a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1724; --grid-line: rgba(120, 160, 230, 0.06); --paper: #172234; --ink: #e8eef7; --muted: #9eabbf;
+  --line: #2b3a52; --blue: #7aa7ff; --blue-soft: #1d2f4f; --hi: #ffd43b; --hi-soft: #3a3415;
+  --good: #5fd39c; --good-soft: #143326; --bad: #ff8a7a; --bad-soft: #3d1c19; --axis: #8b97a8; --plot-grid: #22314a;
+}
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55;
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 64px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+mjx-container[display="true"] { margin: 0.6em 0 !important; }
+
+/* Masthead */
+.mast { display: flex; align-items: center; gap: 14px; margin: 8px 0 22px; }
+.mast svg { flex: none; }
+.wordmark { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 6.5vw, 44px); line-height: 1; letter-spacing: -0.02em; margin: 0; }
+.wordmark small { display: block; font-family: var(--body); font-weight: 400; font-size: 15px; letter-spacing: 0; color: var(--muted); margin-top: 6px; }
+
+/* Up next */
+.next {
+  background: var(--paper); border: 2px solid var(--ink); border-radius: 14px; padding: 20px;
+  box-shadow: 6px 6px 0 var(--hi); margin-bottom: 26px;
+}
+.next h2 { font-family: var(--display); font-weight: 800; font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+.next p { margin: 0 0 14px; color: var(--muted); }
+.meter { height: 12px; border-radius: 6px; background: var(--plot-grid); overflow: hidden; margin: 14px 0 6px; display: flex; }
+.meter span { display: block; height: 100%; }
+.meter .g { background: var(--good); } .meter .b { background: var(--bad); }
+.meter-label { font-size: 14px; color: var(--muted); }
+
+.btn { border: 2px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 10px; padding: 10px 18px; font-weight: 700; }
+.btn:hover { filter: brightness(1.15); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Section headings */
+.sec-h { font-family: var(--display); font-weight: 600; font-size: 21px; margin: 28px 0 10px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip { border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 14px; }
+.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+
+/* Day grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; }
+.tile {
+  text-align: left; background: var(--paper); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 10px 12px 11px; display: flex; flex-direction: column; gap: 3px; position: relative; min-height: 86px;
+}
+.tile:hover { border-color: var(--ink); }
+.tile .d { font-family: var(--display); font-weight: 800; font-size: 20px; line-height: 1.1; padding-right: 24px; }
+.tile .t { font-size: 13px; color: var(--muted); line-height: 1.3; }
+.tile .s { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+.tile.ok { border-color: var(--good); background: var(--good-soft); }
+.tile.ok .s { background: var(--good); color: var(--paper); }
+.tile.no { border-color: var(--bad); background: var(--bad-soft); }
+.tile.no .s { background: var(--bad); color: var(--paper); }
+.tile.up { border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--hi); }
+.empty { color: var(--muted); padding: 10px 0; }
+
+.howto { background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-top: 28px; }
+.howto h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.howto p { margin: 6px 0; }
+.howto textarea { width: 100%; min-height: 70px; font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; border: 1.5px solid var(--line); border-radius: 8px; padding: 8px; background: var(--bg); color: var(--ink); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.note { font-size: 14px; color: var(--muted); }
+.sync-status { margin: 10px 0 4px; }
+#sync { margin-top: 0; }
+.sync-status .warn { color: var(--bad); font-weight: 700; }
+details.more { margin-top: 14px; border-top: 1.5px solid var(--line); padding-top: 10px; }
+details.more summary { cursor: pointer; font-weight: 700; color: var(--muted); }
+
+/* Question view */
+.topbar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.topbar .spacer { flex: 1; }
+.iconbtn { border: 1.5px solid var(--line); background: var(--paper); border-radius: 9px; padding: 7px 12px; font-size: 15px; }
+.iconbtn:hover { border-color: var(--ink); }
+.iconbtn:disabled { opacity: 0.35; cursor: not-allowed; }
+.qcard { background: var(--paper); border: 2px solid var(--ink); border-radius: 14px; padding: 22px 20px; }
+.qhead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.qhead h2 { font-family: var(--display); font-weight: 800; font-size: 30px; margin: 0; letter-spacing: -0.01em; }
+.match { background: var(--hi-soft); border: 1.5px solid var(--hi); border-radius: 8px; padding: 3px 10px; font-size: 14px; font-weight: 700; }
+.prompt { font-size: 18px; }
+.prompt p { margin: 0 0 10px; }
+figure { margin: 14px 0; }
+figure svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
+figcaption { text-align: center; font-size: 14px; color: var(--muted); margin-top: 4px; }
+.tbl-wrap { overflow-x: auto; margin: 12px 0; }
+table.vals { border-collapse: collapse; margin: 0 auto; min-width: 300px; }
+table.vals th, table.vals td { border: 1.5px solid var(--line); padding: 7px 14px; text-align: center; }
+table.vals th { background: var(--blue-soft); }
+table.vals td.hl, table.vals th.hl { background: var(--hi-soft); }
+
+details.decode { margin: 16px 0 6px; border: 1.5px dashed var(--blue); border-radius: 10px; padding: 0 14px; background: var(--blue-soft); }
+details.decode summary { cursor: pointer; padding: 10px 0; font-weight: 700; color: var(--blue); }
+details.decode div { padding: 0 0 12px; }
+
+.choices { display: grid; gap: 10px; margin: 16px 0; }
+.choice {
+  display: flex; gap: 12px; align-items: center; text-align: left; width: 100%;
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; background: var(--paper); min-height: 52px;
+}
+.choice:hover:not(:disabled) { border-color: var(--ink); }
+.choice .L { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center; font-weight: 700; }
+.choice[aria-pressed="true"] { border: 2px solid var(--blue); background: var(--blue-soft); }
+.choice[aria-pressed="true"] .L { background: var(--blue); border-color: var(--blue); color: var(--paper); }
+.choice.right { border: 2px solid var(--good); background: var(--good-soft); }
+.choice.right .L { background: var(--good); border-color: var(--good); color: var(--paper); }
+.choice.wrong { border: 2px solid var(--bad); background: var(--bad-soft); }
+.choice.wrong .L { background: var(--bad); border-color: var(--bad); color: var(--paper); }
+.choice:disabled { cursor: default; }
+.choice .body { flex: 1; min-width: 0; }
+
+.field { margin: 16px 0; }
+.field label { display: block; font-weight: 700; margin-bottom: 6px; }
+.field input {
+  width: 100%; font: 20px/1.3 var(--body); padding: 10px 12px; border: 2px solid var(--ink); border-radius: 10px;
+  background: var(--paper); color: var(--ink);
+}
+.field input:disabled { opacity: 0.75; }
+.field .help { font-size: 14px; color: var(--muted); margin-top: 6px; }
+.field .reads { font-size: 14px; margin-top: 4px; min-height: 1.4em; color: var(--blue); }
+.field .reads.err { color: var(--bad); }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+
+.verdict { margin-top: 20px; border-radius: 12px; padding: 14px 16px; border: 2px solid; }
+.verdict.ok { border-color: var(--good); background: var(--good-soft); }
+.verdict.no { border-color: var(--bad); background: var(--bad-soft); }
+.verdict strong.big { font-family: var(--display); font-size: 22px; display: block; margin-bottom: 4px; }
+.verdict .ans { margin-top: 6px; }
+
+.solution { margin-top: 18px; }
+.solution h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 0 0 10px; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li { counter-increment: s; position: relative; padding: 4px 0 14px 44px; border-left: 2px solid var(--line); margin-left: 15px; }
+.steps li:last-child { border-left-color: transparent; }
+.steps li::before {
+  content: counter(s); position: absolute; left: -16px; top: 0; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 700; font-size: 15px;
+}
+.steps li.final::before { background: var(--hi); border-color: var(--ink); color: #15233a; }
+.trap { margin-top: 6px; border-left: 5px solid var(--hi); background: var(--hi-soft); border-radius: 0 10px 10px 0; padding: 10px 14px; }
+.trap > b:first-child { display: block; }
+
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .qcard { padding: 18px 14px; }
+  .prompt { font-size: 17px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .verdict { animation: pop 0.28s ease-out; }
+  @keyframes pop { from { transform: scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+}
+
+/* Unit tabs */
+.tabs { display: flex; gap: 6px; margin: 0 0 18px; padding: 5px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; overflow-x: auto; }
+.tab { flex: 1 0 auto; border: 0; background: transparent; border-radius: 8px; padding: 9px 14px; font-weight: 700; font-size: 15px; color: var(--muted); white-space: nowrap; }
+.tab:hover { color: var(--ink); background: var(--bg); }
+.tab[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.meters2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+.meters2 .meter { margin: 4px 0; }
+.meters2 > div > .meter-label:first-child { font-weight: 700; color: var(--ink); }
+@media (max-width: 520px) { .meters2 { grid-template-columns: 1fr; gap: 8px; } }
+.sec-note { font-family: var(--body); font-weight: 400; font-size: 14px; color: var(--muted); margin-left: 6px; }
+.sub-h { font-family: var(--display); font-weight: 600; font-size: 16px; margin: 14px 0 8px; color: var(--muted); }
+.calc { border: 1.5px solid var(--line); border-radius: 8px; padding: 3px 10px; font-size: 14px; font-weight: 700; color: var(--blue); background: var(--blue-soft); }
+.calc.no { color: var(--muted); background: var(--paper); }
+.unit-chip { border: 1.5px solid var(--ink); border-radius: 8px; padding: 3px 10px; font-size: 14px; font-weight: 700; }
+.history { margin: 14px 0 4px; padding: 10px 14px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--bg); font-size: 15px; }
+.history ul { list-style: none; margin: 4px 0 0; padding: 0; }
+.history li { margin: 2px 0; }
+.history li.ok span { color: var(--good); font-weight: 700; }
+.history li.no span { color: var(--bad); font-weight: 700; }
+.with-units { display: flex; gap: 8px; }
+.with-units input { flex: 1; min-width: 0; }
+.with-units select { font: 17px var(--body); border: 2px solid var(--ink); border-radius: 10px; padding: 0 10px; background: var(--paper); color: var(--ink); }
+table.vals.fill caption { caption-side: top; font-size: 14px; color: var(--muted); padding-bottom: 6px; }
+table.vals.fill td { padding: 5px; min-width: 64px; vertical-align: top; }
+table.vals.fill td.right { background: var(--good-soft); }
+table.vals.fill td.wrong { background: var(--bad-soft); }
+.cell { width: 64px; font: 17px var(--body); text-align: center; padding: 6px 4px; border: 1.5px solid var(--ink); border-radius: 7px; background: var(--paper); color: var(--ink); }
+.cell:disabled { opacity: 0.85; }
+.cell-ans { display: block; font-size: 13px; color: var(--bad); margin-top: 3px; }
+.vnote { margin-top: 6px; font-weight: 700; }
+.csel { font: 16px var(--body); padding: 7px 8px; border: 1.5px solid var(--ink); border-radius: 7px; background: var(--paper); color: var(--ink); width: 100%; min-width: 150px; }
+.csel:disabled { opacity: 0.85; }
+table.vals.cls td { text-align: left; }
+table.vals.cls th[scope="row"] { white-space: nowrap; }
+.btn.twin { background: var(--hi); border-color: var(--ink); color: #15233a; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ============================================================
+   THE DAILY DERIVATIVE — AP Calculus AB test prep
+   Unit 2: 30 daily questions · Units 3 and 4: two matched practice tests each
+   ============================================================ */
+const T = String.raw;
+
+/* ---------- Shared table (matches FRQ 2 format) ---------- */
+const TABLE = { x: [1, 2, 3, 4], f: [3, -2, 5, 1], fp: [-1, 4, 2, -3], g: [2, 6, -1, 4], gp: [5, -3, 1, 2] };
+function tableHTML(hlCol) {
+  const rows = [['\\(x\\)', 'x'], ['\\(f(x)\\)', 'f'], ['\\(f\'(x)\\)', 'fp'], ['\\(g(x)\\)', 'g'], ['\\(g\'(x)\\)', 'gp']];
+  let h = '<div class="tbl-wrap"><table class="vals"><tbody>';
+  for (const [lab, k] of rows) {
+    h += '<tr><th scope="row">' + lab + '</th>';
+    TABLE[k].forEach((v, i) => {
+      const cls = (hlCol != null && TABLE.x[i] === hlCol) ? ' class="hl"' : '';
+      h += k === 'x' ? '<th' + cls + '>' + v + '</th>' : '<td' + cls + '>' + v + '</td>';
+    });
+    h += '</tr>';
+  }
+  return h + '</tbody></table></div>';
+}
+
+/* ---------- Graph specs ---------- */
+const GRAPH_DIFF = {
+  xmin: -5, xmax: 5, ymin: -3, ymax: 5,
+  curves: [
+    { f: x => 1 - (x + 2), a: -5, b: -2 },
+    { f: x => 1 + (x + 2) * (x + 2) / 3, a: -2, b: 1 },
+    { f: x => 1 + 1.5874 * Math.cbrt(x - 3), a: 1, b: 5 }
+  ],
+  closed: [[1, 4]], open: [[1, -1]], asym: [],
+  caption: 'Graph of f for −5 ≤ x ≤ 5'
+};
+const GRAPH_UNDEF = {
+  xmin: -5, xmax: 5, ymin: -5, ymax: 5,
+  curves: [
+    { f: x => 3 / (x + 1) + 1, a: -5, b: -1.0001 },
+    { f: x => 3 / (x + 1) + 1, a: -0.9999, b: 5 }
+  ],
+  closed: [[4, -2]], open: [[2, 2], [4, 1.6]], asym: [-1],
+  caption: 'Graph of f for −5 ≤ x ≤ 5 (dashed line is a vertical asymptote)'
+};
+
+/* ---------- The 30 questions ---------- */
+const Q = [
+/* Day 1 */ {
+  match: 'Test MC #1', topic: 'Product Rule', short: 'Product Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = f(x)\cdot g(x)\). If \(f(2) = 3\), \(f'(2) = -1\), \(g(2) = 4\), and \(g'(2) = 5\), what is the value of \(h'(2)\)?</p>`,
+  decode: T`<b>h</b> is two functions multiplied together, so this is a <b>Product Rule</b> question. You are not given formulas for f or g — only their values at x = 2. Write the Product Rule, then plug in numbers.`,
+  choices: [T`\(-5\)`, T`\(11\)`, T`\(19\)`, T`\(7\)`], ans: 1, ansTex: T`\(h'(2) = 11\)`,
+  steps: [
+    T`Write the Product Rule: \(h'(x) = f'(x)\,g(x) + f(x)\,g'(x)\). <br>(“derivative of the first times the second, plus the first times derivative of the second”)`,
+    T`Replace every \(x\) with 2: \(h'(2) = f'(2)\,g(2) + f(2)\,g'(2)\)`,
+    T`Substitute the given values: \(h'(2) = (-1)(4) + (3)(5)\)`,
+    T`Compute: \(-4 + 15 = 11\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A, \(-5\), is \(f'(2)\cdot g'(2)\). The derivative of a product is <i>not</i> the product of the derivatives.`
+},
+/* Day 2 */ {
+  match: 'Test MC #8', topic: 'Identifying the definition of the derivative', short: "Definition of f'(x)",
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Which of the following is equal to \(f'(x)\)?</p>`,
+  decode: T`They want the <b>limit definition of the derivative</b> written correctly. Check three things in each choice: (1) is there a limit as \(h\to 0\)? (2) is the top “f of the new x minus f of the old x”? (3) is the bottom the change in x?`,
+  choices: [
+    T`\(\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\)`,
+    T`\(\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(h)}{h}\)`,
+    T`\(\displaystyle\frac{f(x+h)-f(x)}{h}\)`,
+    T`\(\displaystyle\lim_{h\to 0}\frac{f(x)+h-f(x)}{h}\)`
+  ], ans: 0, ansTex: T`\(\displaystyle f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\)`,
+  steps: [
+    T`The derivative is the slope of a secant line as the two points get infinitely close. Slope = \(\dfrac{\text{change in } y}{\text{change in } x}\).`,
+    T`The two points are \(\big(x, f(x)\big)\) and \(\big(x+h, f(x+h)\big)\). Change in y: \(f(x+h) - f(x)\). Change in x: \((x+h) - x = h\).`,
+    T`Then let the gap shrink to zero: \(\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\). That matches <b>A</b>.`,
+    T`Why the others fail: <b>B</b> subtracts \(f(h)\) instead of \(f(x)\). <b>C</b> has no limit — that is just the slope of a secant line (an average rate of change). <b>D</b> has \(f(x)+h\) instead of \(f(x+h)\); it simplifies to 1 every time. <b>Answer: A</b>`
+  ],
+  trap: T`Watch for <b>where the h goes</b>: \(f(x+h)\) means “plug \(x+h\) into f,” which is different from \(f(x)+h\).`
+},
+/* Day 3 */ {
+  match: 'Test MC #4', topic: 'Properties of a tangent line', short: 'Tangent line facts',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>The line tangent to the graph of \(f\) at \(x = -1\) has equation \(y = 4x + 7\). Which of the following must be true?</p>`,
+  decode: T`A tangent line gives you <b>two</b> facts about f at the point of tangency: it <b>touches</b> the graph there (same y-value), and its <b>slope equals the derivative</b> there.`,
+  choices: [
+    T`\(f(-1) = 4\) and \(f'(-1) = 7\)`,
+    T`\(f(-1) = 3\) and \(f'(-1) = 4\)`,
+    T`\(f(-1) = 11\) and \(f'(-1) = 4\)`,
+    T`\(f(-1) = 3\) and \(f'(-1) = 3\)`
+  ], ans: 1, ansTex: T`\(f(-1) = 3\) and \(f'(-1) = 4\)`,
+  steps: [
+    T`<b>Property 1:</b> the tangent line touches the graph at \(x=-1\), so \(f(-1)\) equals the line’s y-value at \(x=-1\).`,
+    T`Plug in: \(y = 4(-1) + 7 = 3\). So \(f(-1) = 3\).`,
+    T`<b>Property 2:</b> the slope of the tangent line equals the derivative at the point. The slope of \(y = 4x+7\) is 4, so \(f'(-1) = 4\).`,
+    T`Both facts together: <b>Answer: B</b>`
+  ],
+  trap: T`7 is the <i>y-intercept</i> of the line — it has nothing to do with \(f'\). And 11 comes from plugging in \(+1\) instead of \(-1\).`
+},
+/* Day 4 */ {
+  match: 'Test FRQ 1(a)', topic: 'Average rate of change on a closed interval', short: 'Average rate of change',
+  group: 'frq1', type: 'num',
+  prompt: T`<p>Let \(f(x) = x^3 - 4x + 1\).</p><p>Find the <b>average rate of change</b> of \(f\) on the interval \([-1, 3]\).</p>`,
+  decode: T`“Average rate of change” on an interval = the <b>slope between the two endpoints</b>. You do <b>not</b> take a derivative. Plug both endpoints into f, then use the slope formula.`,
+  answer: 3, ansTex: T`\(3\)`, label: 'Average rate of change =',
+  steps: [
+    T`Average rate of change on \([a,b]\) is \(\dfrac{f(b)-f(a)}{b-a}\). Here \(a=-1\) and \(b=3\).`,
+    T`\(f(3) = 3^3 - 4(3) + 1 = 27 - 12 + 1 = 16\)`,
+    T`\(f(-1) = (-1)^3 - 4(-1) + 1 = -1 + 4 + 1 = 4\)`,
+    T`\(\dfrac{f(3)-f(-1)}{3-(-1)} = \dfrac{16-4}{4} = \dfrac{12}{4} = 3\)`
+  ],
+  trap: T`If you took a derivative, you answered a different question (that’s <i>instantaneous</i> rate of change). Also watch the denominator: \(3-(-1) = 4\), not 2.`
+},
+/* Day 5 */ {
+  match: 'Test MC #2', topic: 'Quotient Rule', short: 'Quotient Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = \dfrac{f(x)}{g(x)}\). If \(f(3) = 4\), \(f'(3) = 2\), \(g(3) = -2\), and \(g'(3) = 1\), what is \(h'(3)\)?</p>`,
+  decode: T`A function divided by a function → <b>Quotient Rule</b>. Order matters: the bottom function goes first in the numerator. “Low d-high minus high d-low, over low squared.”`,
+  choices: [T`\(2\)`, T`\(0\)`, T`\(-2\)`, T`\(4\)`], ans: 2, ansTex: T`\(h'(3) = -2\)`,
+  steps: [
+    T`Quotient Rule: \(h'(x) = \dfrac{g(x)\,f'(x) - f(x)\,g'(x)}{\big[g(x)\big]^2}\)`,
+    T`At \(x = 3\): \(h'(3) = \dfrac{g(3)\,f'(3) - f(3)\,g'(3)}{\big[g(3)\big]^2}\)`,
+    T`Substitute: \(\dfrac{(-2)(2) - (4)(1)}{(-2)^2} = \dfrac{-4 - 4}{4}\)`,
+    T`\(= \dfrac{-8}{4} = -2\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice A (2) is what you get if you flip the order in the numerator. With the Quotient Rule, the <b>minus sign makes order matter</b> — always start with the bottom function.`
+},
+/* Day 6 */ {
+  match: 'Test MC #6', topic: 'Trig derivatives at a radian value', short: 'Trig derivatives',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>If \(f(x) = 3\sin x - 2\cos x\), then \(f'\!\left(\dfrac{\pi}{3}\right) =\)</p>`,
+  decode: T`Two jobs: (1) take the derivative using the trig rules, (2) evaluate at \(\frac{\pi}{3}\) using the unit circle. Don’t plug in first — derivative first, then plug in.`,
+  choices: [T`\(\dfrac{3}{2} + \sqrt{3}\)`, T`\(\dfrac{3}{2} - \sqrt{3}\)`, T`\(\dfrac{3\sqrt{3}}{2} + 1\)`, T`\(-\dfrac{3}{2} + \sqrt{3}\)`],
+  ans: 0, ansTex: T`\(\dfrac{3}{2} + \sqrt{3}\)`,
+  steps: [
+    T`Rules: \(\dfrac{d}{dx}\sin x = \cos x\) and \(\dfrac{d}{dx}\cos x = -\sin x\).`,
+    T`\(f'(x) = 3\cos x - 2(-\sin x) = 3\cos x + 2\sin x\)`,
+    T`Unit circle: \(\cos\frac{\pi}{3} = \frac{1}{2}\) and \(\sin\frac{\pi}{3} = \frac{\sqrt{3}}{2}\).`,
+    T`\(f'\!\left(\frac{\pi}{3}\right) = 3\cdot\frac{1}{2} + 2\cdot\frac{\sqrt{3}}{2} = \frac{3}{2} + \sqrt{3}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice B comes from forgetting that the derivative of cosine is <b>negative</b> sine. Minus times minus is plus.`
+},
+/* Day 7 */ {
+  match: 'Test MC #3', topic: 'Piecewise: continuous and differentiable?', short: 'Piecewise functions',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(f(x) = \begin{cases} x^2 + 1, & x \le 1 \\ 2x, & x > 1 \end{cases}\)</p><p>Which of the following is true about \(f\) at \(x = 1\)?</p>`,
+  decode: T`Two separate tests at the “break point” x = 1. <b>Continuous?</b> → do the pieces give the same <i>y-value</i>? <b>Differentiable?</b> → do the pieces give the same <i>slope</i> (derivative)? You need both to be differentiable.`,
+  choices: [
+    T`\(f\) is neither continuous nor differentiable at \(x=1\)`,
+    T`\(f\) is continuous but not differentiable at \(x=1\)`,
+    T`\(f\) is differentiable but not continuous at \(x=1\)`,
+    T`\(f\) is both continuous and differentiable at \(x=1\)`
+  ], ans: 3, ansTex: 'continuous and differentiable at \\(x = 1\\)',
+  steps: [
+    T`<b>Continuity:</b> plug \(x = 1\) into both pieces. Left: \(1^2 + 1 = 2\). Right: \(2(1) = 2\). They match, so \(f\) is continuous at \(x = 1\).`,
+    T`<b>Differentiability:</b> take the derivative of each piece. Left: \(\frac{d}{dx}(x^2+1) = 2x\). Right: \(\frac{d}{dx}(2x) = 2\).`,
+    T`Plug \(x=1\) into each derivative. Left: \(2(1) = 2\). Right: \(2\). The slopes match.`,
+    T`Same y-value <i>and</i> same slope, so \(f\) is both continuous and differentiable at \(x=1\). <b>Answer: D</b>`
+  ],
+  trap: T`Choice C can <b>never</b> be correct on any test: a function that is differentiable at a point must be continuous there.`
+},
+/* Day 8 */ {
+  match: 'Test FRQ 2(a)', topic: 'Sum/difference rules from a table', short: 'Table: sum & difference',
+  group: 'frq2', type: 'num', table: 3,
+  prompt: T`<p>The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>{TABLE}<p>Let \(h(x) = 3f(x) - 2g(x) + x^2\). Find \(h'(3)\).</p>`,
+  decode: T`Differentiate term by term (constants stay attached), <i>then</i> plug in x = 3. Since you need \(h'\), you’ll read from the <b>\(f'\)</b> and <b>\(g'\)</b> rows, not the \(f\) and \(g\) rows.`,
+  answer: 10, ansTex: T`\(h'(3) = 10\)`, label: T`\(h'(3) =\)`,
+  steps: [
+    T`Differentiate each term: \(h'(x) = 3f'(x) - 2g'(x) + 2x\)`,
+    T`Plug in \(x = 3\): \(h'(3) = 3f'(3) - 2g'(3) + 2(3)\)`,
+    T`From the table, \(f'(3) = 2\) and \(g'(3) = 1\): \(h'(3) = 3(2) - 2(1) + 6\)`,
+    T`\(= 6 - 2 + 6 = 10\)`
+  ],
+  trap: T`Using the \(f(3)\) and \(g(3)\) rows by mistake gives \(3(5) - 2(-1) + 6 = 23\). Circle the rows you need before you start.`
+},
+/* Day 9 */ {
+  match: 'Test MC #7', topic: 'Derivatives in disguise', short: 'Derivative in disguise',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>\(\displaystyle\lim_{h\to 0}\frac{(2+h)^3 - 8}{h} =\)</p>`,
+  decode: T`This is a derivative wearing a costume. Match it to \(\displaystyle\lim_{h\to 0}\frac{f(a+h)-f(a)}{h} = f'(a)\). Find the function \(f\) and the number \(a\), then just take \(f'(a)\) — no algebra with the limit needed.`,
+  choices: [T`\(0\)`, T`\(8\)`, T`\(12\)`, T`nonexistent`], ans: 2, ansTex: T`\(12\)`,
+  steps: [
+    T`Compare to \(\dfrac{f(a+h) - f(a)}{h}\). The \((2+h)^3\) tells you \(f(x) = x^3\) and \(a = 2\).`,
+    T`Check the second term: \(f(2) = 2^3 = 8\). ✓ It matches, so the limit equals \(f'(2)\).`,
+    T`Power Rule: \(f'(x) = 3x^2\).`,
+    T`\(f'(2) = 3(2)^2 = 12\). <b>Answer: C</b>`
+  ],
+  trap: T`Plugging in \(h = 0\) gives \(\frac{0}{0}\), which is <i>not</i> 0 and not “does not exist” — it means more work is needed. Recognizing the derivative is the shortcut.`
+},
+/* Day 10 */ {
+  match: 'Test MC #5', topic: "Reading a graph: where is f' undefined?", short: 'Graph: not differentiable',
+  group: 'mc', type: 'mc', graph: GRAPH_DIFF,
+  prompt: T`<p>The graph of \(f\) is shown. At which values of \(x\) in the open interval \(-5 < x < 5\) is \(f\) <b>not differentiable</b>?</p>`,
+  decode: T`“Not differentiable” = the derivative does not exist there. Scan the graph for the three graph shapes that break a derivative: a <b>sharp corner</b>, a <b>break/jump</b> (discontinuity), or a <b>vertical tangent</b> (the graph goes straight up and down for an instant).`,
+  choices: [T`\(x = -2\) only`, T`\(x = 1\) only`, T`\(x = -2\) and \(x = 1\) only`, T`\(x = -2,\ x = 1,\) and \(x = 3\)`],
+  ans: 3, ansTex: T`\(x = -2,\ 1,\) and \(3\)`,
+  steps: [
+    T`\(x = -2\): <b>corner</b>. The slope just to the left is \(-1\), and just to the right it’s 0. Different slopes from each side → no derivative.`,
+    T`\(x = 1\): <b>jump discontinuity</b> (closed dot at \((1,4)\), graph restarts at \((1,-1)\)). Not continuous → not differentiable.`,
+    T`\(x = 3\): <b>vertical tangent</b>. The curve is perfectly steep at \((3,1)\), and a vertical line’s slope is undefined.`,
+    T`All three. <b>Answer: D</b>`
+  ],
+  trap: T`The vertical tangent at \(x=3\) is the one students miss — the graph looks smooth and connected, but the slope there is undefined.`
+},
+/* Day 11 */ {
+  match: 'Test MC #1', topic: 'Product Rule', short: 'Product Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = x^3 f(x)\), where \(f(1) = -2\) and \(f'(1) = 4\). What is \(h'(1)\)?</p>`,
+  decode: T`\(x^3\) is multiplied by \(f(x)\), so it’s a <b>Product Rule</b> problem. The first function is \(x^3\) (you know its derivative); the second is \(f(x)\) (you’re given its values).`,
+  choices: [T`\(12\)`, T`\(-6\)`, T`\(-2\)`, T`\(10\)`], ans: 2, ansTex: T`\(h'(1) = -2\)`,
+  steps: [
+    T`Product Rule: \(h'(x) = \big(x^3\big)'\,f(x) + x^3\,f'(x) = 3x^2 f(x) + x^3 f'(x)\)`,
+    T`At \(x = 1\): \(h'(1) = 3(1)^2 f(1) + (1)^3 f'(1)\)`,
+    T`Substitute: \(3(1)(-2) + (1)(4)\)`,
+    T`\(= -6 + 4 = -2\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice A (12) is \(3x^2 \cdot f'(x)\) — multiplying derivatives. Choice B (−6) forgets the second half of the rule.`
+},
+/* Day 12 */ {
+  match: 'Test FRQ 1(b)', topic: 'Instantaneous rate of change', short: 'Instantaneous rate',
+  group: 'frq1', type: 'num',
+  prompt: T`<p>Let \(f(x) = x^3 - 4x + 1\).</p><p>Find the <b>instantaneous rate of change</b> of \(f\) at \(x = 2\).</p>`,
+  decode: T`“Instantaneous rate of change at x = 2” is just another name for \(f'(2)\). Take the derivative, then plug in 2. (Compare with “average” rate of change, which uses two points and no derivative.)`,
+  answer: 8, ansTex: T`\(f'(2) = 8\)`, label: 'Instantaneous rate of change =',
+  steps: [
+    T`Instantaneous rate of change at \(x=2\) means \(f'(2)\).`,
+    T`Power Rule on each term: \(f'(x) = 3x^2 - 4\) (the constant 1 has derivative 0).`,
+    T`\(f'(2) = 3(2)^2 - 4 = 12 - 4 = 8\)`
+  ],
+  trap: T`Answering \(f(2) = 1\) gives the <i>height</i> of the graph, not its rate of change.`
+},
+/* Day 13 */ {
+  match: 'Test MC #2', topic: 'Quotient Rule', short: 'Quotient Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = \dfrac{g(x)}{x^2}\). If \(g(2) = 6\) and \(g'(2) = -1\), what is \(h'(2)\)?</p>`,
+  decode: T`Function on top, \(x^2\) on bottom → <b>Quotient Rule</b>. The “low” function is \(x^2\), so “d-low” is \(2x\). Remember the bottom gets <b>squared</b>: \((x^2)^2 = x^4\).`,
+  choices: [T`\(-\dfrac{7}{4}\)`, T`\(\dfrac{7}{4}\)`, T`\(-7\)`, T`\(-\dfrac{1}{4}\)`], ans: 0, ansTex: T`\(h'(2) = -\dfrac{7}{4}\)`,
+  steps: [
+    T`Quotient Rule with “high” \(= g(x)\) and “low” \(= x^2\): \(h'(x) = \dfrac{x^2\,g'(x) - g(x)\cdot 2x}{\big(x^2\big)^2}\)`,
+    T`At \(x=2\): \(h'(2) = \dfrac{(2)^2 g'(2) - g(2)\cdot 2(2)}{(2^2)^2} = \dfrac{4(-1) - 6(4)}{16}\)`,
+    T`\(= \dfrac{-4 - 24}{16} = \dfrac{-28}{16}\)`,
+    T`\(= -\dfrac{7}{4}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice C (−7) is \(-28\) divided by \(4\) — forgetting to square the bottom. The denominator is \(\big(x^2\big)^2\), which is 16 at \(x=2\).`
+},
+/* Day 14 */ {
+  match: 'Test MC #3', topic: 'Piecewise: continuous and differentiable?', short: 'Piecewise functions',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(f(x) = \begin{cases} x^2, & x \le 2 \\ 3x - 2, & x > 2 \end{cases}\)</p><p>Which of the following is true about \(f\) at \(x = 2\)?</p>`,
+  decode: T`Same two tests as always at the break point. Same <b>y-values</b>? → continuous. Same <b>slopes</b>? → differentiable.`,
+  choices: [
+    T`\(f\) is neither continuous nor differentiable at \(x=2\)`,
+    T`\(f\) is continuous but not differentiable at \(x=2\)`,
+    T`\(f\) is differentiable but not continuous at \(x=2\)`,
+    T`\(f\) is both continuous and differentiable at \(x=2\)`
+  ], ans: 1, ansTex: 'continuous but not differentiable at \\(x = 2\\)',
+  steps: [
+    T`<b>Continuity:</b> Left: \(2^2 = 4\). Right: \(3(2) - 2 = 4\). Match → continuous.`,
+    T`<b>Derivatives of each piece:</b> Left: \(2x\). Right: \(3\).`,
+    T`At \(x=2\): left slope \(2(2) = 4\), right slope \(3\). \(4 \ne 3\), so the graph has a corner.`,
+    T`Connected but with a corner → continuous, not differentiable. <b>Answer: B</b>`
+  ],
+  trap: T`Many students stop after checking continuity. A matching y-value does <b>not</b> guarantee a derivative — always check the slopes too.`
+},
+/* Day 15 */ {
+  match: 'Test FRQ 2(b)', topic: 'Product Rule from a table', short: 'Table: Product Rule',
+  group: 'frq2', type: 'num', table: 2,
+  prompt: T`<p>The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>{TABLE}<p>Let \(k(x) = f(x)\,g(x)\). Find \(k'(2)\).</p>`,
+  decode: T`A product → <b>Product Rule</b>. Write the rule with \(x = 2\) everywhere, then read all four needed numbers from the \(x = 2\) column.`,
+  answer: 30, ansTex: T`\(k'(2) = 30\)`, label: T`\(k'(2) =\)`,
+  steps: [
+    T`Product Rule: \(k'(x) = f'(x)\,g(x) + f(x)\,g'(x)\)`,
+    T`At \(x=2\): \(k'(2) = f'(2)\,g(2) + f(2)\,g'(2)\)`,
+    T`From the table: \(f'(2)=4,\ g(2)=6,\ f(2)=-2,\ g'(2)=-3\). So \(k'(2) = (4)(6) + (-2)(-3)\)`,
+    T`\(= 24 + 6 = 30\)`
+  ],
+  trap: T`Watch the double negative: \((-2)(-3) = +6\). On the test, writing \((4)(6)+(-2)(-3)\) with no simplifying earns full credit.`
+},
+/* Day 16 */ {
+  match: 'Test MC #4', topic: 'Slope of a tangent line from two points', short: 'Tangent slope, 2 points',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>The line tangent to the graph of \(f\) at \(x = 3\) passes through the points \((3, 5)\) and \((7, -3)\). What is the value of \(f'(3)\)?</p>`,
+  decode: T`\(f'(3)\) = the slope of the tangent line at \(x=3\). You’re given two points on that line, so this is just the <b>slope formula</b>.`,
+  choices: [T`\(-2\)`, T`\(2\)`, T`\(-\dfrac{1}{2}\)`, T`\(5\)`], ans: 0, ansTex: T`\(f'(3) = -2\)`,
+  steps: [
+    T`The derivative at a point equals the slope of the tangent line there: \(f'(3) = \) slope of this line.`,
+    T`Slope formula: \(m = \dfrac{y_2 - y_1}{x_2 - x_1} = \dfrac{-3 - 5}{7 - 3}\)`,
+    T`\(= \dfrac{-8}{4} = -2\). <b>Answer: A</b>`
+  ],
+  trap: T`5 is \(f(3)\) (the y-value), not \(f'(3)\). And \(-\frac{1}{2}\) comes from putting x on top — slope is always <b>rise over run</b>.`
+},
+/* Day 17 */ {
+  match: 'Test MC #6', topic: 'Trig derivatives at a radian value', short: 'Trig derivatives',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>If \(f(x) = \tan x + \sec x\), what is \(f'\!\left(\dfrac{\pi}{4}\right)\)?</p>`,
+  decode: T`Know your trig derivative rules, then use the unit circle at \(\frac{\pi}{4}\). For secant, remember \(\sec x = \frac{1}{\cos x}\).`,
+  choices: [T`\(1 + \sqrt{2}\)`, T`\(2 + \sqrt{2}\)`, T`\(2\sqrt{2}\)`, T`\(3\)`], ans: 1, ansTex: T`\(2 + \sqrt{2}\)`,
+  steps: [
+    T`Rules: \(\dfrac{d}{dx}\tan x = \sec^2 x\) and \(\dfrac{d}{dx}\sec x = \sec x\tan x\). So \(f'(x) = \sec^2 x + \sec x\tan x\).`,
+    T`At \(\frac{\pi}{4}\): \(\cos\frac{\pi}{4} = \frac{\sqrt{2}}{2}\), so \(\sec\frac{\pi}{4} = \frac{2}{\sqrt{2}} = \sqrt{2}\). Also \(\tan\frac{\pi}{4} = 1\).`,
+    T`\(\sec^2\frac{\pi}{4} = (\sqrt{2})^2 = 2\)`,
+    T`\(f'\!\left(\frac{\pi}{4}\right) = 2 + \sqrt{2}\cdot 1 = 2 + \sqrt{2}\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A comes from forgetting to <b>square</b> secant in the derivative of tangent.`
+},
+/* Day 18 */ {
+  match: 'Test MC #7', topic: 'Derivatives in disguise', short: 'Derivative in disguise',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>\(\displaystyle\lim_{h\to 0}\frac{\sin\!\left(\frac{\pi}{6}+h\right) - \frac{1}{2}}{h} =\)</p>`,
+  decode: T`Look for the pattern \(\dfrac{f(a+h)-f(a)}{h}\). What function is being “plugged into”? What number is \(a\)? Is the \(\frac{1}{2}\) really \(f(a)\)?`,
+  choices: [T`\(\dfrac{1}{2}\)`, T`\(\dfrac{\sqrt{3}}{2}\)`, T`\(-\dfrac{\sqrt{3}}{2}\)`, T`\(0\)`], ans: 1, ansTex: T`\(\dfrac{\sqrt{3}}{2}\)`,
+  steps: [
+    T`Match to \(\dfrac{f(a+h)-f(a)}{h}\): \(f(x) = \sin x\) and \(a = \frac{\pi}{6}\).`,
+    T`Check: \(f\!\left(\frac{\pi}{6}\right) = \sin\frac{\pi}{6} = \frac{1}{2}\). ✓ So the limit is \(f'\!\left(\frac{\pi}{6}\right)\).`,
+    T`\(f'(x) = \cos x\)`,
+    T`\(f'\!\left(\frac{\pi}{6}\right) = \cos\frac{\pi}{6} = \frac{\sqrt{3}}{2}\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A (\(\frac{1}{2}\)) is \(\sin\frac{\pi}{6}\) — the function value, not the derivative.`
+},
+/* Day 19 */ {
+  match: 'Test FRQ 1(c)', topic: 'Equation of a tangent line', short: 'Tangent line equation',
+  group: 'frq1', type: 'line', lineF: x => -x - 1,
+  prompt: T`<p>Let \(f(x) = x^3 - 4x + 1\).</p><p>Write an equation for the line tangent to the graph of \(f\) at \(x = 1\).</p>`,
+  decode: T`Every tangent line needs <b>a point</b> and <b>a slope</b>. Point: \(\big(1, f(1)\big)\). Slope: \(f'(1)\). Then use point-slope form \(y - y_1 = m(x - x_1)\). You do <b>not</b> need to simplify.`,
+  ansTex: T`\(y + 2 = -1(x - 1)\), which is the same line as \(y = -x - 1\)`, label: 'Tangent line equation:',
+  steps: [
+    T`<b>Point:</b> \(f(1) = 1^3 - 4(1) + 1 = -2\). The point is \((1, -2)\).`,
+    T`<b>Slope:</b> \(f'(x) = 3x^2 - 4\), so \(f'(1) = 3 - 4 = -1\).`,
+    T`<b>Point-slope form:</b> \(y - (-2) = -1(x - 1)\), or \(y + 2 = -1(x - 1)\).`,
+    T`That is a complete answer. (If you want slope-intercept: \(y = -x - 1\).)`
+  ],
+  trap: T`Using \(f'(x)\) in place of a number for the slope gives a curve, not a line. The slope must be the <b>number</b> \(f'(1)\).`
+},
+/* Day 20 */ {
+  match: 'Test MC #5', topic: 'Reading a graph: where is f undefined?', short: 'Graph: f undefined',
+  group: 'mc', type: 'mc', graph: GRAPH_UNDEF,
+  prompt: T`<p>The graph of \(f\) is shown. For which values of \(x\) is \(f(x)\) <b>undefined</b>?</p>`,
+  decode: T`\(f(a)\) is defined only if the graph has an actual point at \(x=a\) — a solid curve or a <b>filled dot</b>. An <b>open circle</b> alone, or a vertical asymptote, means there is no value there.`,
+  choices: [T`\(x = -1\) only`, T`\(x = -1\) and \(x = 2\) only`, T`\(x = -1,\ x = 2,\) and \(x = 4\)`, T`\(x = 2\) and \(x = 4\) only`],
+  ans: 1, ansTex: T`\(x = -1\) and \(x = 2\)`,
+  steps: [
+    T`\(x = -1\): vertical asymptote. The graph never reaches \(x=-1\), so \(f(-1)\) is undefined.`,
+    T`\(x = 2\): open circle (a hole) and no filled dot anywhere above or below it. \(f(2)\) is undefined.`,
+    T`\(x = 4\): open circle on the curve, <b>but</b> a filled dot at \((4, -2)\). So \(f(4) = -2\) — it <i>is</i> defined (just not continuous).`,
+    T`Undefined only at \(x=-1\) and \(x=2\). <b>Answer: B</b>`
+  ],
+  trap: T`“Undefined” is not the same as “discontinuous.” At \(x=4\), \(f\) is discontinuous (and not differentiable), but \(f(4)\) exists.`
+},
+/* Day 21 */ {
+  match: 'Test MC #1', topic: 'Product Rule', short: 'Product Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = (2x + 1)\,g(x)\). If \(g(0) = 5\) and \(g'(0) = -3\), find \(h'(0)\).</p>`,
+  decode: T`\((2x+1)\) times \(g(x)\) → <b>Product Rule</b>. The derivative of \(2x + 1\) is 2. Careful: when \(x = 0\), the factor \((2x+1)\) becomes 1, not 0.`,
+  choices: [T`\(-6\)`, T`\(13\)`, T`\(7\)`, T`\(-3\)`], ans: 2, ansTex: T`\(h'(0) = 7\)`,
+  steps: [
+    T`Product Rule: \(h'(x) = (2x+1)'\,g(x) + (2x+1)\,g'(x) = 2g(x) + (2x+1)g'(x)\)`,
+    T`At \(x=0\): \(h'(0) = 2g(0) + \big(2(0)+1\big)g'(0)\)`,
+    T`Substitute: \(2(5) + (1)(-3)\)`,
+    T`\(= 10 - 3 = 7\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice A (−6) is \(2\cdot g'(0)\) — the product of the derivatives again.`
+},
+/* Day 22 */ {
+  match: 'Test FRQ 2(c)', topic: 'Quotient Rule from a table', short: 'Table: Quotient Rule',
+  group: 'frq2', type: 'num', table: 4,
+  prompt: T`<p>The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>{TABLE}<p>Let \(q(x) = \dfrac{f(x)}{g(x)}\). Find \(q'(4)\).</p>`,
+  decode: T`A quotient → <b>Quotient Rule</b>. Write it out with \(x = 4\) plugged in, then fill in from the \(x = 4\) column. An unsimplified fraction is a complete answer.`,
+  answer: -7 / 8, ansTex: T`\(q'(4) = \dfrac{-14}{16} = -\dfrac{7}{8}\)`, label: T`\(q'(4) =\)`,
+  steps: [
+    T`Quotient Rule: \(q'(x) = \dfrac{g(x)f'(x) - f(x)g'(x)}{\big[g(x)\big]^2}\)`,
+    T`From the table at \(x = 4\): \(f(4) = 1,\ f'(4) = -3,\ g(4) = 4,\ g'(4) = 2\).`,
+    T`\(q'(4) = \dfrac{(4)(-3) - (1)(2)}{(4)^2}\)`,
+    T`\(= \dfrac{-12 - 2}{16} = \dfrac{-14}{16}\). (Simplifying to \(-\frac{7}{8}\) is optional.)`
+  ],
+  trap: T`Writing \(\dfrac{f'(4)}{g'(4)} = -\frac{3}{2}\) is the most common mistake. There is no shortcut — use the full rule.`
+},
+/* Day 23 */ {
+  match: 'Test MC #8', topic: 'Identifying the definition of the derivative', short: "Which is NOT f'(3)?",
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(f\) be a differentiable function. Which of the following is <b>NOT</b> equal to \(f'(3)\)?</p>`,
+  decode: T`There’s more than one correct way to write the derivative at a point. Three of these are correct forms; one is broken. For each, ask: is the bottom the <b>change in x</b>, and does it go to 0?`,
+  choices: [
+    T`\(\displaystyle\lim_{h\to 0}\frac{f(3+h)-f(3)}{h}\)`,
+    T`\(\displaystyle\lim_{x\to 3}\frac{f(x)-f(3)}{x-3}\)`,
+    T`\(\displaystyle\lim_{h\to 0}\frac{f(3+h)-f(3)}{(3+h)-3}\)`,
+    T`\(\displaystyle\lim_{x\to 3}\frac{f(x)-f(3)}{x+3}\)`
+  ], ans: 3, ansTex: T`D: \(\displaystyle\lim_{x\to 3}\frac{f(x)-f(3)}{x+3}\) is not \(f'(3)\)`,
+  steps: [
+    T`<b>A</b> is the “h-form” at a point: \(\displaystyle f'(a) = \lim_{h\to 0}\frac{f(a+h)-f(a)}{h}\) with \(a = 3\). ✓`,
+    T`<b>B</b> is the “x approaches a” form: \(\displaystyle f'(a) = \lim_{x\to a}\frac{f(x)-f(a)}{x-a}\) with \(a=3\). ✓`,
+    T`<b>C</b> looks different, but \((3+h) - 3 = h\), so it’s identical to A. ✓`,
+    T`<b>D</b> has \(x + 3\) in the bottom. That’s not a change in x (as \(x\to 3\) it goes to 6, not 0), so it’s not a slope at all. <b>Answer: D</b>`
+  ],
+  trap: T`Choice C is designed to look wrong. Simplify the denominator before deciding.`
+},
+/* Day 24 */ {
+  match: 'Test MC #2', topic: 'Quotient Rule', short: 'Quotient Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(h(x) = \dfrac{x + f(x)}{g(x)}\). If \(f(1) = 2\), \(f'(1) = 3\), \(g(1) = 4\), and \(g'(1) = -2\), what is \(h'(1)\)?</p>`,
+  decode: T`Quotient Rule, where the “high” function is the whole numerator \(x + f(x)\). Find the value of the top <i>and</i> the derivative of the top at \(x=1\) first, then use the rule.`,
+  choices: [T`\(\dfrac{11}{8}\)`, T`\(\dfrac{5}{8}\)`, T`\(-\dfrac{11}{8}\)`, T`\(-2\)`], ans: 0, ansTex: T`\(h'(1) = \dfrac{11}{8}\)`,
+  steps: [
+    T`Top: \(N(x) = x + f(x)\). Then \(N(1) = 1 + 2 = 3\) and \(N'(x) = 1 + f'(x)\), so \(N'(1) = 1 + 3 = 4\).`,
+    T`Quotient Rule: \(h'(1) = \dfrac{g(1)\,N'(1) - N(1)\,g'(1)}{\big[g(1)\big]^2}\)`,
+    T`Substitute: \(\dfrac{(4)(4) - (3)(-2)}{4^2} = \dfrac{16 + 6}{16}\)`,
+    T`\(= \dfrac{22}{16} = \dfrac{11}{8}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice B (\(\frac{5}{8}\)) comes from \(16 - 6\): subtracting a negative is <b>adding</b>.`
+},
+/* Day 25 */ {
+  match: 'Test FRQ 1(d)', topic: 'Horizontal tangents with the Quotient Rule', short: 'Horizontal tangents',
+  group: 'frq1', type: 'set', answer: [0, 2],
+  prompt: T`<p>Let \(g(x) = \dfrac{x^2}{x - 1}\).</p><p>Find all values of \(x\) at which the graph of \(g\) has a <b>horizontal tangent line</b>.</p>`,
+  decode: T`“Horizontal tangent” = slope is 0 = \(g'(x) = 0\). Use the Quotient Rule to find \(g'(x)\), then set it equal to 0. A fraction equals 0 when its <b>numerator</b> is 0.`,
+  ansTex: T`\(x = 0\) and \(x = 2\)`, label: 'x-values (separate with a comma):', help: 'Example: 1, 5',
+  steps: [
+    T`Horizontal tangent means slope 0, so solve \(g'(x) = 0\).`,
+    T`Quotient Rule (high \(= x^2\), low \(= x-1\)): \(g'(x) = \dfrac{(x-1)(2x) - x^2(1)}{(x-1)^2}\)`,
+    T`Simplify the top: \(2x^2 - 2x - x^2 = x^2 - 2x = x(x - 2)\). So \(g'(x) = \dfrac{x(x-2)}{(x-1)^2}\).`,
+    T`Set the numerator equal to 0: \(x(x-2) = 0\), so \(x = 0\) or \(x = 2\).`,
+    T`Check the denominator isn’t 0 there: \((0-1)^2 = 1\) and \((2-1)^2 = 1\). ✓ Both work: \(x = 0\) and \(x = 2\).`
+  ],
+  trap: T`\(x = 1\) makes the <i>denominator</i> 0 — that’s where \(g\) is undefined (a vertical asymptote), not a horizontal tangent.`
+},
+/* Day 26 */ {
+  match: 'Test MC #3', topic: 'Piecewise: make it differentiable', short: 'Piecewise: find a and b',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>Let \(f(x) = \begin{cases} ax^2, & x \le 1 \\ 4x + b, & x > 1 \end{cases}\)</p><p>For what values of \(a\) and \(b\) is \(f\) differentiable at \(x = 1\)?</p>`,
+  decode: T`Differentiable needs <b>two</b> equations: the y-values match (continuity) and the slopes match. Two unknowns, two equations. Start with the slope equation — it only has \(a\) in it.`,
+  choices: [T`\(a = 2,\ b = -2\)`, T`\(a = 2,\ b = 2\)`, T`\(a = 4,\ b = 0\)`, T`\(a = 1,\ b = -3\)`], ans: 0, ansTex: T`\(a = 2,\ b = -2\)`,
+  steps: [
+    T`<b>Slopes match:</b> derivative of left piece is \(2ax\); right piece is \(4\). At \(x=1\): \(2a(1) = 4\), so \(a = 2\).`,
+    T`<b>Y-values match:</b> \(a(1)^2 = 4(1) + b\), which is \(a = 4 + b\).`,
+    T`Substitute \(a = 2\): \(2 = 4 + b\), so \(b = -2\).`,
+    T`<b>Answer: A</b> (\(a = 2,\ b = -2\))`
+  ],
+  trap: T`Choices C and D are both <i>continuous</i> at \(x=1\), but their slopes don’t match. Continuity alone is not enough.`
+},
+/* Day 27 */ {
+  match: 'Test MC #6', topic: 'Trig derivatives at a radian value', short: 'Trig + Product Rule',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>If \(f(x) = x^2 \cos x\), then \(f'(\pi) =\)</p>`,
+  decode: T`\(x^2\) times \(\cos x\) is a product, so use the <b>Product Rule</b> with the trig derivative inside. Then evaluate at \(\pi\) (where \(\cos\pi = -1\) and \(\sin\pi = 0\)).`,
+  choices: [T`\(-2\pi\)`, T`\(2\pi\)`, T`\(-2\pi - \pi^2\)`, T`\(0\)`], ans: 0, ansTex: T`\(f'(\pi) = -2\pi\)`,
+  steps: [
+    T`Product Rule: \(f'(x) = (x^2)'\cos x + x^2(\cos x)' = 2x\cos x + x^2(-\sin x)\)`,
+    T`So \(f'(x) = 2x\cos x - x^2\sin x\).`,
+    T`At \(\pi\): \(\cos\pi = -1\) and \(\sin\pi = 0\). \(f'(\pi) = 2\pi(-1) - \pi^2(0)\)`,
+    T`\(= -2\pi\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice C uses \(\sin\pi = 1\). On the unit circle, \(\pi\) is the point \((-1, 0)\), so \(\cos\pi=-1\) and \(\sin\pi = 0\).`
+},
+/* Day 28 */ {
+  match: 'Test FRQ 2(d)', topic: 'Product Rule from a table', short: 'Table: Product Rule',
+  group: 'frq2', type: 'num', table: 1,
+  prompt: T`<p>The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>{TABLE}<p>Let \(p(x) = x^2\,g(x)\). Find \(p'(1)\).</p>`,
+  decode: T`\(x^2\) times \(g(x)\) → <b>Product Rule</b>. You take the derivative of \(x^2\) yourself, and read \(g(1)\) and \(g'(1)\) from the table.`,
+  answer: 9, ansTex: T`\(p'(1) = 9\)`, label: T`\(p'(1) =\)`,
+  steps: [
+    T`Product Rule: \(p'(x) = 2x\,g(x) + x^2\,g'(x)\)`,
+    T`From the table: \(g(1) = 2\) and \(g'(1) = 5\).`,
+    T`\(p'(1) = 2(1)(2) + (1)^2(5)\)`,
+    T`\(= 4 + 5 = 9\)`
+  ],
+  trap: T`This problem never uses \(f\). Tests often include extra rows you don’t need — that’s not a mistake.`
+},
+/* Day 29 */ {
+  match: 'Test MC #7', topic: 'Derivatives in disguise', short: 'Derivative in disguise',
+  group: 'mc', type: 'mc',
+  prompt: T`<p>\(\displaystyle\lim_{x\to 4}\frac{\sqrt{x} - 2}{x - 4} =\)</p>`,
+  decode: T`This one is in the “x approaches a” costume: \(\displaystyle\lim_{x\to a}\frac{f(x)-f(a)}{x-a} = f'(a)\). Identify \(f\) and \(a\), and check that the 2 really is \(f(a)\).`,
+  choices: [T`\(\dfrac{1}{4}\)`, T`\(\dfrac{1}{2}\)`, T`\(0\)`, T`nonexistent`], ans: 0, ansTex: T`\(\dfrac{1}{4}\)`,
+  steps: [
+    T`Match to \(\dfrac{f(x)-f(a)}{x-a}\): \(f(x) = \sqrt{x}\) and \(a = 4\).`,
+    T`Check: \(f(4) = \sqrt{4} = 2\). ✓ So the limit is \(f'(4)\).`,
+    T`Write \(\sqrt{x} = x^{1/2}\). Power Rule: \(f'(x) = \frac{1}{2}x^{-1/2} = \dfrac{1}{2\sqrt{x}}\).`,
+    T`\(f'(4) = \dfrac{1}{2\sqrt{4}} = \dfrac{1}{4}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice B (\(\frac{1}{2}\)) forgets the \(\sqrt{x}\) in the bottom of the derivative.`
+},
+/* Day 30 */ {
+  match: 'Test FRQ 2(e)', topic: 'Definition of the derivative with a table', short: 'Table: definition',
+  group: 'frq2', type: 'num', table: 2,
+  prompt: T`<p>The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>{TABLE}<p>Find the value of \(\displaystyle\lim_{x\to 2}\frac{g(x) - 6}{x - 2}\).</p>`,
+  decode: T`This is the definition of the derivative hiding in a table problem. If 6 is \(g(\text{something})\), the limit is \(g'\) of that something. Look up which x makes \(g(x) = 6\).`,
+  answer: -3, ansTex: T`\(g'(2) = -3\)`, label: 'Limit =',
+  steps: [
+    T`From the table, \(g(2) = 6\). So the limit is \(\displaystyle\lim_{x\to 2}\frac{g(x) - g(2)}{x - 2}\).`,
+    T`That is exactly the definition \(\displaystyle g'(a) = \lim_{x\to a}\frac{g(x)-g(a)}{x-a}\) with \(a = 2\).`,
+    T`So the limit equals \(g'(2)\), and the table says \(g'(2) = -3\).`
+  ],
+  trap: T`On a free response, show the connection: write “\(= g'(2)\)” before the number. The answer alone may not earn full credit.`
+}
+];
+Q.forEach((q, i) => { q.day = i + 1; });
+
+/* ============================================================
+   UNIT 3 TEST SPRINT — two matched practice tests (A and B)
+   Every item mirrors one line of the Unit 3 study guide.
+   ============================================================ */
+function vtable(rows, hl) {
+  // rows: [[labelTeX, [values...]], ...]; first row is the header row
+  let h = '<div class="tbl-wrap"><table class="vals"><tbody>';
+  rows.forEach(([lab, vals], r) => {
+    h += '<tr><th scope="row">' + lab + '</th>';
+    vals.forEach((v, i) => {
+      const cls = (hl != null && i === hl) ? ' class="hl"' : '';
+      h += r === 0 ? '<th' + cls + '>' + v + '</th>' : '<td' + cls + '>' + v + '</td>';
+    });
+    h += '</tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+const fg = (t) => [['\\(x\\)', t.x], ['\\(f(x)\\)', t.f], ["\\(f'(x)\\)", t.fp], ['\\(g(x)\\)', t.g], ["\\(g'(x)\\)", t.gp]];
+const ff = (t) => [['\\(x\\)', t.x], ['\\(f(x)\\)', t.f], ["\\(f'(x)\\)", t.fp]];
+
+/* ---- Shared data ---- */
+const A8 = { x: [1, 2, 3, 4], f: [3, 1, 4, 2], fp: [6, -2, 5, 3], g: [2, 3, 4, 1], gp: [4, -1, 2, 7] };
+const B8 = { x: [1, 2, 3, 4], f: [4, 3, 1, 2], fp: [2, -3, 6, 5], g: [3, 1, 2, 4], gp: [-1, 2, 3, -2] };
+const A7 = { x: [1, 2, 3, 4], f: [2, 4, 5, 7], fp: [3, 5, 2, 6] };
+const B7 = { x: [2, 3, 5, 7], f: [5, 7, 2, 9], fp: [3, 4, 1, 2] };
+const A11 = { x: [0, 1, 2, 3], f: [1, 3, 6, 10], fp: [1, 2, 4, 5] };
+const B11 = { x: [-1, 0, 2, 4], f: [-2, 1, 5, 9], fp: [5, 2, 4, 3] };
+
+const STEM8 = (t) => T`<p>The functions \(f\) and \(g\) are differentiable. The table gives values of \(f\), \(f'\), \(g\), and \(g'\) at selected values of \(x\).</p>${vtable(fg(t))}`;
+const STEM_A10 = T`<p>A particle moves along a straight line. Its position at time \(t\) seconds is \(s(t) = 2t^2 - 5\cos t\) feet, for \(t \ge 0\).</p>`;
+const STEM_B10 = T`<p>A particle moves along a straight line. Its position at time \(t\) seconds is \(s(t) = t^3 - 4t^2 + e^{t/2}\) meters, for \(t \ge 0\).</p>`;
+const STEM11 = (t) => T`<p>The function \(f\) is one-to-one and differentiable. The table gives values of \(f\) and \(f'\). Let \(f^{-1}\) be the inverse of \(f\).</p>${vtable(ff(t))}`;
+const INV_LABELS = ['\\(x\\)', '\\(f^{-1}(x)\\)', "\\(\\big(f^{-1}\\big)'(x)\\)"];
+const UNITS_A = ['feet', 'ft/sec', 'ft/sec²', 'seconds'];
+const UNITS_B = ['meters', 'm/sec', 'm/sec²', 'seconds'];
+
+const U3 = [
+/* ===================== PRACTICE TEST A ===================== */
+{ id: 'u3A-mc1', set: 'A', code: 'MC 1', twin: 'u3B-mc1', match: 'Test MC #1', topic: 'Chain Rule with function notation', short: 'Chain Rule: f(g(x))',
+  type: 'mc',
+  prompt: T`<p>Let \(h(x) = f\big(g(x)\big)\). If \(g(2) = 3\), \(g'(2) = -2\), \(f(3) = 5\), \(f'(3) = 4\), and \(f'(2) = 7\), what is the value of \(h'(2)\)?</p>`,
+  decode: T`A function <b>inside</b> another function → <b>Chain Rule</b>: derivative of the outside (evaluated at the inside), times derivative of the inside. You’ll be given extra values on purpose. The key move: \(f'\) gets evaluated at \(g(2)\), not at 2.`,
+  choices: [T`\(-14\)`, T`\(-8\)`, T`\(12\)`, T`\(-10\)`], ans: 1, ansTex: T`\(h'(2) = -8\)`,
+  steps: [
+    T`Chain Rule: \(h'(x) = f'\big(g(x)\big)\cdot g'(x)\)`,
+    T`At \(x = 2\): \(h'(2) = f'\big(g(2)\big)\cdot g'(2)\)`,
+    T`Work inside out: \(g(2) = 3\), so \(f'\big(g(2)\big) = f'(3) = 4\).`,
+    T`\(h'(2) = 4\cdot(-2) = -8\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A (−14) uses \(f'(2)\) instead of \(f'(g(2))\). The outside derivative is evaluated at the <b>inside value</b>, which is 3 here. \(f'(2) = 7\) was given just to catch this.`
+},
+{ id: 'u3A-mc2', set: 'A', code: 'MC 2', twin: 'u3B-mc2', match: 'Test MC #2', topic: 'Tangent line to an implicit curve', short: 'Implicit tangent line',
+  type: 'mc',
+  prompt: T`<p>Which of the following is an equation of the line tangent to the curve \(x^2 + xy + y^2 = 7\) at the point \((1, 2)\)?</p>`,
+  decode: T`The equation mixes x’s and y’s, so you can’t solve for y easily. Use <b>implicit differentiation</b> to get \(\frac{dy}{dx}\), plug in the point to get the slope, then write point-slope form.`,
+  choices: [T`\(y - 2 = -\tfrac{5}{4}(x - 1)\)`, T`\(y - 1 = -\tfrac{4}{5}(x - 2)\)`, T`\(y - 2 = -\tfrac{4}{5}(x - 1)\)`, T`\(y - 2 = \tfrac{4}{5}(x - 1)\)`],
+  ans: 2, ansTex: T`\(y - 2 = -\tfrac{4}{5}(x - 1)\)`,
+  steps: [
+    T`Differentiate every term with respect to \(x\). Every time you differentiate a \(y\), attach \(\frac{dy}{dx}\). The middle term \(xy\) needs the Product Rule: \(\;2x + \Big(y + x\frac{dy}{dx}\Big) + 2y\frac{dy}{dx} = 0\)`,
+    T`Plug in the point right away (it saves algebra): \(x = 1,\ y = 2\): \(\;2 + 2 + 1\cdot\frac{dy}{dx} + 4\frac{dy}{dx} = 0\)`,
+    T`\(4 + 5\frac{dy}{dx} = 0 \;\Rightarrow\; \frac{dy}{dx} = -\frac{4}{5}\)`,
+    T`Point-slope with \((1, 2)\): \(y - 2 = -\frac{4}{5}(x - 1)\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice B swaps the point: the number next to \(y\) must be the <b>y-coordinate</b> (2), and the number next to \(x\) the x-coordinate (1). Choice A comes from flipping the fraction when solving for \(\frac{dy}{dx}\).`
+},
+{ id: 'u3A-mc3', set: 'A', code: 'MC 3', twin: 'u3B-mc3', match: 'Test MC #3', topic: 'Chain Rule with trig functions', short: 'Chain Rule: trig',
+  type: 'mc',
+  prompt: T`<p>If \(y = \sin^3(2x)\), then \(\dfrac{dy}{dx} =\)</p>`,
+  decode: T`\(\sin^3(2x)\) means \(\big(\sin(2x)\big)^3\). That’s <b>three layers</b>: a cube on the outside, sine in the middle, \(2x\) on the inside. The Chain Rule peels them one at a time and multiplies a derivative for each layer.`,
+  choices: [T`\(3\sin^2(2x)\cos(2x)\)`, T`\(6\sin^2(2x)\cos(2x)\)`, T`\(3\cos^2(2x)\)`, T`\(-6\sin^2(2x)\cos(2x)\)`],
+  ans: 1, ansTex: T`\(6\sin^2(2x)\cos(2x)\)`,
+  steps: [
+    T`Rewrite: \(y = \big(\sin(2x)\big)^3\).`,
+    T`<b>Outer layer</b> (the cube): \(3\big(\sin(2x)\big)^2\)`,
+    T`<b>Middle layer</b> (sine): derivative is \(\cos(2x)\)`,
+    T`<b>Inner layer</b> (\(2x\)): derivative is \(2\)`,
+    T`Multiply all three: \(3\sin^2(2x)\cdot\cos(2x)\cdot 2 = 6\sin^2(2x)\cos(2x)\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A stops one layer early: it forgets the derivative of the innermost \(2x\). Count your layers, and make sure you have one derivative factor for each.`
+},
+{ id: 'u3A-mc4', set: 'A', code: 'MC 4', twin: 'u3B-mc4', match: 'Test MC #4', topic: 'Chain Rule with inverse trig', short: 'Chain Rule: inverse trig',
+  type: 'mc',
+  prompt: T`<p>If \(f(x) = \arcsin\!\left(\dfrac{x}{2}\right)\), what is \(f'(1)\)?</p>`,
+  decode: T`\(\arcsin\) (also written \(\sin^{-1}\)) has its own derivative rule: \(\dfrac{d}{dx}\arcsin u = \dfrac{1}{\sqrt{1-u^2}}\cdot u'\). The inside here is \(u = \frac{x}{2}\), so don’t forget to multiply by its derivative.`,
+  choices: [T`\(\dfrac{\pi}{6}\)`, T`\(\dfrac{\sqrt{3}}{3}\)`, T`\(\dfrac{2\sqrt{3}}{3}\)`, T`\(\dfrac{\sqrt{3}}{6}\)`],
+  ans: 1, ansTex: T`\(f'(1) = \dfrac{1}{\sqrt{3}} = \dfrac{\sqrt{3}}{3}\)`,
+  steps: [
+    T`Rule: \(\dfrac{d}{dx}\arcsin u = \dfrac{1}{\sqrt{1-u^2}}\cdot u'\), with \(u = \dfrac{x}{2}\) and \(u' = \dfrac{1}{2}\).`,
+    T`\(f'(x) = \dfrac{1}{\sqrt{1-\left(\frac{x}{2}\right)^2}}\cdot\dfrac{1}{2}\)`,
+    T`At \(x = 1\): \(\sqrt{1 - \frac{1}{4}} = \sqrt{\frac{3}{4}} = \frac{\sqrt{3}}{2}\), so \(f'(1) = \dfrac{1}{\sqrt{3}/2}\cdot\dfrac{1}{2} = \dfrac{2}{\sqrt{3}}\cdot\dfrac{1}{2} = \dfrac{1}{\sqrt{3}}\)`,
+    T`Rationalize: \(\dfrac{1}{\sqrt{3}} = \dfrac{\sqrt{3}}{3}\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice C forgets the inner derivative \(\frac{1}{2}\). Choice A is \(\arcsin\frac{1}{2} = \frac{\pi}{6}\), which is the <i>function value</i>, not the derivative. Answer choices are often rationalized, so \(\frac{1}{\sqrt{3}}\) shows up as \(\frac{\sqrt{3}}{3}\).`
+},
+{ id: 'u3A-mc5', set: 'A', code: 'MC 5', twin: 'u3B-mc5', match: 'Test MC #5', topic: 'Chain Rule with e-functions', short: 'Chain Rule: eˣ',
+  type: 'mc',
+  prompt: T`<p>If \(f(x) = e^{x^2 - 3x}\), then \(f'(3) =\)</p>`,
+  decode: T`\(e^{\text{something}}\) differentiates to \(e^{\text{same something}}\) <b>times the derivative of the exponent</b>. The exponent is the “inside” function.`,
+  choices: [T`\(1\)`, T`\(0\)`, T`\(3\)`, T`\(3e^{3}\)`],
+  ans: 2, ansTex: T`\(f'(3) = 3\)`,
+  steps: [
+    T`Rule: \(\dfrac{d}{dx}e^{u} = e^{u}\cdot u'\), with \(u = x^2 - 3x\) and \(u' = 2x - 3\).`,
+    T`\(f'(x) = e^{x^2 - 3x}\,(2x - 3)\)`,
+    T`At \(x = 3\): exponent \(= 9 - 9 = 0\), so \(e^0 = 1\). And \(2(3) - 3 = 3\).`,
+    T`\(f'(3) = 1\cdot 3 = 3\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice A (1) is \(e^0\) alone: the derivative of the exponent was dropped. The exponent being 0 makes \(e^0 = 1\), not the whole answer 0 or 1.`
+},
+{ id: 'u3A-mc6', set: 'A', code: 'MC 6', twin: 'u3B-mc6', match: 'Test MC #6', topic: 'Finding dy/dx implicitly', short: 'Implicit dy/dx',
+  type: 'mc',
+  prompt: T`<p>If \(x^3 + y^3 = 6xy\), then \(\dfrac{dy}{dx} =\)</p>`,
+  decode: T`Differentiate both sides with respect to \(x\). Each \(y\)-term gets a \(\frac{dy}{dx}\) attached; \(6xy\) is a product, so it needs the Product Rule. Then gather every \(\frac{dy}{dx}\) term on one side and factor it out.`,
+  choices: [T`\(-\dfrac{x^2}{y^2}\)`, T`\(\dfrac{x^2 - 2y}{y^2 - 2x}\)`, T`\(\dfrac{2y - x^2}{y^2}\)`, T`\(\dfrac{2y - x^2}{y^2 - 2x}\)`],
+  ans: 3, ansTex: T`\(\dfrac{dy}{dx} = \dfrac{2y - x^2}{y^2 - 2x}\)`,
+  steps: [
+    T`Differentiate: \(3x^2 + 3y^2\frac{dy}{dx} = 6y + 6x\frac{dy}{dx}\) (Product Rule on \(6xy\): \(6\cdot y + 6x\cdot\frac{dy}{dx}\)).`,
+    T`Move all \(\frac{dy}{dx}\) terms left, everything else right: \(3y^2\frac{dy}{dx} - 6x\frac{dy}{dx} = 6y - 3x^2\)`,
+    T`Factor: \(\frac{dy}{dx}\,(3y^2 - 6x) = 6y - 3x^2\)`,
+    T`Divide: \(\frac{dy}{dx} = \dfrac{6y - 3x^2}{3y^2 - 6x} = \dfrac{2y - x^2}{y^2 - 2x}\) (divide top and bottom by 3). <b>Answer: D</b>`
+  ],
+  trap: T`Choice A treats \(6xy\) like a constant (derivative 0). Choice C forgets the \(6x\frac{dy}{dx}\) piece of the Product Rule. Choice B has the top flipped: careful with signs when moving terms across the equal sign.`
+},
+{ id: 'u3A-mc7', set: 'A', code: 'MC 7', twin: 'u3B-mc7', match: 'Test MC #7', topic: 'Derivative of an inverse from a table', short: 'Inverse derivative: table',
+  type: 'mc',
+  prompt: T`<p>The function \(f\) is differentiable and one-to-one. Selected values of \(f\) and \(f'\) are shown. If \(g\) is the inverse function of \(f\), what is \(g'(4)\)?</p>${vtable(ff(A7))}`,
+  decode: T`The inverse switches inputs and outputs. To find \(g'(4)\), first find which \(x\) makes \(f(x) = 4\). Then the inverse slope is the <b>reciprocal</b> of \(f'\) at <i>that</i> x: \(g'(b) = \dfrac{1}{f'(a)}\) where \(f(a) = b\).`,
+  choices: [T`\(\dfrac{1}{5}\)`, T`\(\dfrac{1}{6}\)`, T`\(5\)`, T`\(6\)`],
+  ans: 0, ansTex: T`\(g'(4) = \dfrac{1}{5}\)`,
+  steps: [
+    T`Find where \(f\) outputs 4: the table shows \(f(2) = 4\). So the point \((2, 4)\) is on \(f\), and \((4, 2)\) is on \(g\).`,
+    T`Inverse derivative rule: \(g'(4) = \dfrac{1}{f'\big(g(4)\big)} = \dfrac{1}{f'(2)}\)`,
+    T`From the table, \(f'(2) = 5\). So \(g'(4) = \dfrac{1}{5}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice B uses the x = 4 column: \(\frac{1}{f'(4)}\). For an inverse, 4 is an <b>output</b> of \(f\), so you look for 4 in the \(f(x)\) row, not the \(x\) row.`
+},
+{ id: 'u3A-8a', set: 'A', code: 'FRQ 8a', twin: 'u3B-8a', match: 'Test FRQ 8', topic: 'Inverse derivative from a table (show the setup)', short: 'Inverse derivative setup', calc: false,
+  type: 'num', answer: 1 / 5, label: T`\(h'(4) =\)`,
+  prompt: T`${STEM8(A8)}<p>Let \(h\) be the inverse function of \(f\). Find \(h'(4)\). Show the setup you would write on the test.</p>`,
+  decode: T`“Show the setup” means two little charts: one for \(f\) and one for its inverse \(h\). Find the column where \(f(x) = 4\), write that point and slope for \(f\), then <b>flip the point</b> and <b>flip the slope</b> (reciprocal) for \(h\).`,
+  ansTex: T`\(h'(4) = \dfrac{1}{f'(3)} = \dfrac{1}{5}\)`,
+  steps: [
+    T`Look for 4 in the \(f(x)\) row: \(f(3) = 4\). So \(h(4) = 3\).`,
+    T`<b>Setup (two charts):</b>${vtable([['', ['\\(x\\)', 'value', 'slope']], ['\\(f\\)', ['\\(3\\)', '\\(f(3) = 4\\)', "\\(f'(3) = 5\\)"]], ['\\(h = f^{-1}\\)', ['\\(4\\)', '\\(h(4) = 3\\)', "\\(h'(4) = \\tfrac{1}{5}\\)"]]])}The x and y values swap; the slope becomes its reciprocal.`,
+    T`Written out: \(h'(4) = \dfrac{1}{f'\big(h(4)\big)} = \dfrac{1}{f'(3)} = \dfrac{1}{5}\)`
+  ],
+  trap: T`Using the x = 4 column gives \(\frac{1}{f'(4)} = \frac{1}{3}\), the most common mistake. On the free response, the two charts (or the line \(h'(4) = \frac{1}{f'(3)}\)) earn the setup point even if your arithmetic slips.`
+},
+{ id: 'u3A-8b', set: 'A', code: 'FRQ 8b', twin: 'u3B-8b', match: 'Test FRQ 8', topic: 'Chain Rule with function notation from a table', short: 'Chain Rule from a table', calc: false,
+  type: 'num', answer: 12, label: T`\(k'(1) =\)`,
+  prompt: T`${STEM8(A8)}<p>Let \(k(x) = g\big(f(x)\big)\). Find \(k'(1)\).</p>`,
+  decode: T`Outside function \(g\), inside function \(f\). Chain Rule: \(k'(1) = g'\big(f(1)\big)\cdot f'(1)\). Work it in order: find \(f(1)\) first, then look up \(g'\) at <b>that</b> number.`,
+  ansTex: T`\(k'(1) = g'(3)\cdot f'(1) = 2\cdot 6 = 12\)`,
+  steps: [
+    T`Chain Rule: \(k'(x) = g'\big(f(x)\big)\cdot f'(x)\), so \(k'(1) = g'\big(f(1)\big)\cdot f'(1)\).`,
+    T`Inside first: \(f(1) = 3\). So we need \(g'(3)\), which is \(2\).`,
+    T`\(f'(1) = 6\).`,
+    T`\(k'(1) = g'(3)\cdot f'(1) = 2\cdot 6 = 12\)`
+  ],
+  trap: T`Using \(g'(1)\) instead of \(g'(f(1))\) gives \(4\cdot 6 = 24\). The answer \(g'(3)\cdot f'(1)\) written out, even without multiplying, is what graders look for.`
+},
+{ id: 'u3A-8c', set: 'A', code: 'FRQ 8c', twin: 'u3B-8c', match: 'Test FRQ 8', topic: 'Tangent line with a trig function', short: 'Tangent line: trig', calc: false,
+  type: 'line', lineF: x => Math.sqrt(3) + 3 * (x - Math.PI / 9), label: 'Tangent line equation:',
+  prompt: T`<p>Let \(p(x) = 2\sin(3x)\). Write an equation for the line tangent to the graph of \(p\) at \(x = \dfrac{\pi}{9}\).</p>`,
+  decode: T`A tangent line needs a <b>point</b> \(\big(\frac{\pi}{9}, p(\frac{\pi}{9})\big)\) and a <b>slope</b> \(p'(\frac{\pi}{9})\). The derivative needs the Chain Rule because of the \(3x\) inside the sine. Use the unit circle at \(3\cdot\frac{\pi}{9} = \frac{\pi}{3}\).`,
+  ansTex: T`\(y - \sqrt{3} = 3\left(x - \dfrac{\pi}{9}\right)\)`,
+  help: 'Type sqrt(3) for √3 and pi for π. Example: y - sqrt(3) = 3(x - pi/9)',
+  steps: [
+    T`<b>Point:</b> \(p\!\left(\frac{\pi}{9}\right) = 2\sin\!\left(\frac{\pi}{3}\right) = 2\cdot\frac{\sqrt{3}}{2} = \sqrt{3}\). The point is \(\left(\frac{\pi}{9}, \sqrt{3}\right)\).`,
+    T`<b>Derivative</b> (Chain Rule): \(p'(x) = 2\cos(3x)\cdot 3 = 6\cos(3x)\)`,
+    T`<b>Slope:</b> \(p'\!\left(\frac{\pi}{9}\right) = 6\cos\!\left(\frac{\pi}{3}\right) = 6\cdot\frac{1}{2} = 3\)`,
+    T`<b>Point-slope form:</b> \(y - \sqrt{3} = 3\left(x - \dfrac{\pi}{9}\right)\). No need to simplify.`
+  ],
+  trap: T`Forgetting the inner derivative 3 gives slope \(2\cos\frac{\pi}{3} = 1\). Also, evaluate the trig at \(3x = \frac{\pi}{3}\), not at \(\frac{\pi}{9}\).`
+},
+{ id: 'u3A-10a', set: 'A', code: 'FRQ 10a', twin: 'u3B-10a', match: 'Test FRQ 10', topic: 'Velocity function from position', short: 'Velocity function', calc: true,
+  type: 'expr', exprF: t => 4 * t + 5 * Math.sin(t), label: T`\(v(t) =\)`,
+  help: 'Use t as the variable. Example: 3t^2 - 2cos(t)',
+  prompt: T`${STEM_A10}<p>Find the velocity function \(v(t)\).</p>`,
+  decode: T`Velocity is the derivative of position: \(v(t) = s'(t)\). Differentiate term by term.`,
+  ansTex: T`\(v(t) = 4t + 5\sin t\)`,
+  steps: [
+    T`\(v(t) = s'(t) = \dfrac{d}{dt}\big(2t^2\big) - 5\,\dfrac{d}{dt}(\cos t)\)`,
+    T`\(\dfrac{d}{dt}\big(2t^2\big) = 4t\) and \(\dfrac{d}{dt}(\cos t) = -\sin t\)`,
+    T`\(v(t) = 4t - 5(-\sin t) = 4t + 5\sin t\)`
+  ],
+  trap: T`Minus times the negative from \(\frac{d}{dt}\cos t\) makes a <b>plus</b>. Writing \(4t - 5\sin t\) is the classic sign error.`
+},
+{ id: 'u3A-10b', set: 'A', code: 'FRQ 10b', twin: 'u3B-10b', match: 'Test FRQ 10', topic: 'Instantaneous rate of change of position, with units', short: 'IROC with units', calc: true,
+  type: 'num', answer: 8 + 5 * Math.sin(2), tol: 0.0015, units: UNITS_A, unitAns: 'ft/sec', label: T`Rate at \(t = 2\):`,
+  help: 'Give 3 decimal places (calculator in radian mode). Then choose the units.',
+  prompt: T`${STEM_A10}<p>Find the instantaneous rate of change of the particle’s position at \(t = 2\). Include units.</p>`,
+  decode: T`“Instantaneous rate of change of position” is just a fancy name for <b>velocity</b> at that moment: \(v(2)\). Units are position units over time units: feet per second.`,
+  ansTex: T`\(v(2) = 8 + 5\sin 2 \approx 12.546\) ft/sec`,
+  steps: [
+    T`Instantaneous rate of change of \(s\) at \(t = 2\) means \(s'(2) = v(2)\).`,
+    T`From part (a): \(v(t) = 4t + 5\sin t\), so \(v(2) = 8 + 5\sin(2)\).`,
+    T`Calculator in <b>radian</b> mode: \(\sin 2 \approx 0.909297\), so \(v(2) \approx 8 + 4.546 = 12.546\).`,
+    T`Units: feet per second. <b>Answer: 12.546 ft/sec</b>`
+  ],
+  trap: T`If your calculator is in <b>degree</b> mode you’ll get 8.174. Calculus always uses radians. And a velocity answer without “ft/sec” loses the units point.`
+},
+{ id: 'u3A-10c', set: 'A', code: 'FRQ 10c', twin: 'u3B-10c', match: 'Test FRQ 10', topic: 'Acceleration function', short: 'Acceleration function', calc: true,
+  type: 'expr', exprF: t => 4 + 5 * Math.cos(t), label: T`\(a(t) =\)`,
+  help: 'Use t as the variable.',
+  prompt: T`${STEM_A10}<p>Find the acceleration function \(a(t)\).</p>`,
+  decode: T`Acceleration is the derivative of velocity (the second derivative of position): \(a(t) = v'(t) = s''(t)\). Start from your answer to part (a).`,
+  ansTex: T`\(a(t) = 4 + 5\cos t\)`,
+  steps: [
+    T`Start from velocity: \(v(t) = 4t + 5\sin t\).`,
+    T`\(a(t) = v'(t) = 4 + 5\cos t\)`
+  ],
+  trap: T`Differentiate the <b>velocity</b>, not the position again. \(\frac{d}{dt}\sin t = \cos t\) (positive).`
+},
+{ id: 'u3A-10d', set: 'A', code: 'FRQ 10d', twin: 'u3B-10d', match: 'Test FRQ 10', topic: 'Acceleration at a time, with units', short: 'Acceleration with units', calc: true,
+  type: 'num', answer: 4 + 5 * Math.cos(2), tol: 0.0015, units: UNITS_A, unitAns: 'ft/sec²', label: T`\(a(2) =\)`,
+  help: 'Give 3 decimal places. Then choose the units.',
+  prompt: T`${STEM_A10}<p>Find the acceleration of the particle at \(t = 2\). Include units.</p>`,
+  decode: T`Plug \(t = 2\) into \(a(t)\). Acceleration units are velocity units per time unit: feet per second per second, written ft/sec².`,
+  ansTex: T`\(a(2) = 4 + 5\cos 2 \approx 1.919\) ft/sec²`,
+  steps: [
+    T`\(a(t) = 4 + 5\cos t\), so \(a(2) = 4 + 5\cos(2)\).`,
+    T`Radian mode: \(\cos 2 \approx -0.416147\), so \(5\cos 2 \approx -2.081\).`,
+    T`\(a(2) \approx 4 - 2.081 = 1.919\)`,
+    T`<b>Answer: 1.919 ft/sec²</b>`
+  ],
+  trap: T`ft/sec is velocity; ft/sec² is acceleration. Mixing these up is the most common lost point on this part.`
+},
+{ id: 'u3A-11a', set: 'A', code: 'FRQ 11a', twin: 'u3B-11a', match: 'Test FRQ 11', topic: 'Complete the table for the inverse', short: 'Inverse table', calc: true,
+  type: 'table', src: A11, cells: [A11.f, A11.x, A11.fp.map(v => 1 / v)],
+  cellTex: [A11.f.map(String), A11.x.map(String), ['1', '\\tfrac{1}{2}', '\\tfrac{1}{4}', '\\tfrac{1}{5}']],
+  prompt: T`${STEM11(A11)}<p>Complete the table for \(f^{-1}\). Each column of your table comes from the same column of the \(f\) table.</p>`,
+  decode: T`For an inverse, <b>x and y trade places</b>: the outputs of \(f\) become the inputs of \(f^{-1}\). The slope of the inverse is the <b>reciprocal</b> of the slope of \(f\) at the matching point.`,
+  ansTex: 'the completed table below',
+  steps: [
+    T`<b>x row:</b> the inputs of \(f^{-1}\) are the outputs of \(f\): \(1, 3, 6, 10\).`,
+    T`<b>\(f^{-1}(x)\) row:</b> the outputs of \(f^{-1}\) are the inputs of \(f\): \(0, 1, 2, 3\).`,
+    T`<b>Slope row:</b> \(\big(f^{-1}\big)'(f(a)) = \dfrac{1}{f'(a)}\), so take the reciprocal of each \(f'\) value: \(1, \tfrac{1}{2}, \tfrac{1}{4}, \tfrac{1}{5}\).`,
+    T`${vtable([[INV_LABELS[0], ['1', '3', '6', '10']], [INV_LABELS[1], ['0', '1', '2', '3']], [INV_LABELS[2], ['\\(1\\)', '\\(\\tfrac12\\)', '\\(\\tfrac14\\)', '\\(\\tfrac15\\)']]])}`
+  ],
+  trap: T`The slopes become <b>reciprocals</b>, not negatives. \(-\frac{1}{f'}\) is the slope of a <i>perpendicular</i> line, which is a different idea.`
+},
+{ id: 'u3A-11b', set: 'A', code: 'FRQ 11b', twin: 'u3B-11b', match: 'Test FRQ 11', topic: 'Tangent line to f from a table', short: 'Tangent line to f', calc: true,
+  type: 'line', lineF: x => 3 + 2 * (x - 1), label: 'Tangent line to f at x = 1:',
+  prompt: T`${STEM11(A11)}<p>Write an equation for the line tangent to the graph of \(f\) at \(x = 1\).</p>`,
+  decode: T`Everything comes from the \(x = 1\) column: the point is \(\big(1, f(1)\big)\) and the slope is \(f'(1)\).`,
+  ansTex: T`\(y - 3 = 2(x - 1)\)`,
+  steps: [
+    T`Point: \(f(1) = 3\), so \((1, 3)\).`,
+    T`Slope: \(f'(1) = 2\).`,
+    T`\(y - 3 = 2(x - 1)\)`
+  ],
+  trap: T`The slope is \(f'(1)\), from the \(f'\) row, not \(f(1)\).`
+},
+{ id: 'u3A-11c', set: 'A', code: 'FRQ 11c', twin: 'u3B-11c', match: 'Test FRQ 11', topic: 'Tangent line to the inverse', short: 'Tangent line to f⁻¹', calc: true,
+  type: 'line', lineF: x => 1 + (x - 3) / 2, label: T`Tangent line to \(f^{-1}\) at \(x = 3\):`,
+  prompt: T`${STEM11(A11)}<p>Write an equation for the line tangent to the graph of \(f^{-1}\) at \(x = 3\).</p>`,
+  decode: T`For the inverse at \(x = 3\): the point is \(\big(3, f^{-1}(3)\big)\) and the slope is \(\big(f^{-1}\big)'(3)\). Use your completed inverse table, or flip the point and the slope from \(f\).`,
+  ansTex: T`\(y - 1 = \tfrac{1}{2}(x - 3)\)`,
+  steps: [
+    T`Find 3 in the \(f(x)\) row: \(f(1) = 3\). So \(f^{-1}(3) = 1\), and the point is \((3, 1)\).`,
+    T`Slope: \(\big(f^{-1}\big)'(3) = \dfrac{1}{f'(1)} = \dfrac{1}{2}\)`,
+    T`\(y - 1 = \tfrac{1}{2}(x - 3)\)`
+  ],
+  trap: T`Compare with part (b): the point \((1, 3)\) flipped to \((3, 1)\), and the slope \(2\) flipped to \(\frac{1}{2}\). Inverse tangent lines always mirror the original this way.`
+},
+
+/* ===================== PRACTICE TEST B ===================== */
+{ id: 'u3B-mc1', set: 'B', code: 'MC 1', twin: 'u3A-mc1', match: 'Test MC #1', topic: 'Chain Rule with function notation', short: 'Chain Rule: f(g(x))',
+  type: 'mc',
+  prompt: T`<p>Let \(h(x) = f\big(x^2 + 1\big)\). If \(f'(2) = -4\) and \(f'(5) = 3\), find \(h'(2)\).</p>`,
+  decode: T`The inside function is \(x^2 + 1\). Chain Rule: \(h'(x) = f'\big(x^2 + 1\big)\cdot 2x\). At \(x = 2\), the inside equals \(5\), so you need \(f'(5)\).`,
+  choices: [T`\(3\)`, T`\(-16\)`, T`\(12\)`, T`\(6\)`],
+  ans: 2, ansTex: T`\(h'(2) = 12\)`,
+  steps: [
+    T`Chain Rule: \(h'(x) = f'\big(x^2 + 1\big)\cdot\dfrac{d}{dx}\big(x^2 + 1\big) = f'\big(x^2 + 1\big)\cdot 2x\)`,
+    T`At \(x = 2\): the inside is \(2^2 + 1 = 5\), so \(h'(2) = f'(5)\cdot 2(2)\).`,
+    T`\(h'(2) = 3\cdot 4 = 12\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice B uses \(f'(2)\): evaluate \(f'\) at the <b>inside value</b> (5), not at 2. Choice A forgets the inner derivative \(2x\).`
+},
+{ id: 'u3B-mc2', set: 'B', code: 'MC 2', twin: 'u3A-mc2', match: 'Test MC #2', topic: 'Tangent line to an implicit curve', short: 'Implicit tangent line',
+  type: 'mc',
+  prompt: T`<p>The point \((1, 2)\) lies on the curve \(y^2 - 3xy + x^2 = -1\). Which of the following is an equation of the tangent line to the curve at this point?</p>`,
+  decode: T`Implicit differentiation, then plug in \(x = 1,\ y = 2\) to get the slope. The \(-3xy\) term needs the Product Rule.`,
+  choices: [T`\(y - 2 = 4(x - 1)\)`, T`\(y - 2 = -4(x - 1)\)`, T`\(y - 2 = \tfrac{1}{4}(x - 1)\)`, T`\(y - 1 = 4(x - 2)\)`],
+  ans: 0, ansTex: T`\(y - 2 = 4(x - 1)\)`,
+  steps: [
+    T`Differentiate: \(2y\frac{dy}{dx} - 3\Big(y + x\frac{dy}{dx}\Big) + 2x = 0\)`,
+    T`Plug in \(x = 1,\ y = 2\): \(4\frac{dy}{dx} - 6 - 3\frac{dy}{dx} + 2 = 0\)`,
+    T`\(\frac{dy}{dx} - 4 = 0 \;\Rightarrow\; \frac{dy}{dx} = 4\)`,
+    T`\(y - 2 = 4(x - 1)\). <b>Answer: A</b>`
+  ],
+  trap: T`Distribute the \(-3\) to <b>both</b> pieces of the Product Rule: \(-3y\) and \(-3x\frac{dy}{dx}\). Missing one sign there gives choice B.`
+},
+{ id: 'u3B-mc3', set: 'B', code: 'MC 3', twin: 'u3A-mc3', match: 'Test MC #3', topic: 'Chain Rule with trig functions', short: 'Chain Rule: trig',
+  type: 'mc',
+  prompt: T`<p>If \(f(x) = \sec(2x)\), what is \(f'\!\left(\dfrac{\pi}{8}\right)\)?</p>`,
+  decode: T`\(\dfrac{d}{dx}\sec u = \sec u\tan u\cdot u'\). Here \(u = 2x\), so multiply by 2. At \(x = \frac{\pi}{8}\), the inside is \(\frac{\pi}{4}\).`,
+  choices: [T`\(\sqrt{2}\)`, T`\(2\)`, T`\(4\)`, T`\(2\sqrt{2}\)`],
+  ans: 3, ansTex: T`\(f'\!\left(\tfrac{\pi}{8}\right) = 2\sqrt{2}\)`,
+  steps: [
+    T`\(f'(x) = \sec(2x)\tan(2x)\cdot 2\)`,
+    T`At \(x = \frac{\pi}{8}\): \(2x = \frac{\pi}{4}\). \(\sec\frac{\pi}{4} = \frac{1}{\cos(\pi/4)} = \frac{2}{\sqrt{2}} = \sqrt{2}\), and \(\tan\frac{\pi}{4} = 1\).`,
+    T`\(f'\!\left(\frac{\pi}{8}\right) = 2\cdot\sqrt{2}\cdot 1 = 2\sqrt{2}\). <b>Answer: D</b>`
+  ],
+  trap: T`Choice A (\(\sqrt{2}\)) forgets the inner derivative 2. Choice C uses \(\sec^2\) (that’s the derivative of <i>tangent</i>, not secant).`
+},
+{ id: 'u3B-mc4', set: 'B', code: 'MC 4', twin: 'u3A-mc4', match: 'Test MC #4', topic: 'Chain Rule with inverse trig', short: 'Chain Rule: inverse trig',
+  type: 'mc',
+  prompt: T`<p>\(\dfrac{d}{dx}\Big[\tan^{-1}\!\big(x^2\big)\Big] =\)</p>`,
+  decode: T`\(\tan^{-1}\) means <b>arctan</b> (the inverse function), not \(\frac{1}{\tan}\). Rule: \(\dfrac{d}{dx}\arctan u = \dfrac{1}{1+u^2}\cdot u'\), with \(u = x^2\).`,
+  choices: [T`\(\dfrac{2x}{1+x^2}\)`, T`\(\dfrac{1}{1+x^4}\)`, T`\(\dfrac{2x}{1+x^4}\)`, T`\(\dfrac{2x}{\sqrt{1-x^4}}\)`],
+  ans: 2, ansTex: T`\(\dfrac{2x}{1+x^4}\)`,
+  steps: [
+    T`Rule: \(\dfrac{d}{dx}\arctan u = \dfrac{u'}{1+u^2}\), with \(u = x^2\) and \(u' = 2x\).`,
+    T`\(u^2 = \big(x^2\big)^2 = x^4\)`,
+    T`\(\dfrac{d}{dx}\tan^{-1}\!\big(x^2\big) = \dfrac{2x}{1+x^4}\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice A forgets to square the inside (\(u^2 = x^4\), not \(x^2\)). Choice D uses the arcsine rule. Learn which rule has the square root: <b>arcsin</b> does, <b>arctan</b> doesn’t.`
+},
+{ id: 'u3B-mc5', set: 'B', code: 'MC 5', twin: 'u3A-mc5', match: 'Test MC #5', topic: 'Chain Rule with e-functions', short: 'Chain Rule: eˣ',
+  type: 'mc',
+  prompt: T`<p>If \(y = x\,e^{2x}\), then \(\dfrac{dy}{dx} =\)</p>`,
+  decode: T`Two things are happening: \(x\) times \(e^{2x}\) is a <b>product</b> (Product Rule), and \(e^{2x}\) itself needs the <b>Chain Rule</b> (times 2).`,
+  choices: [T`\(e^{2x}(1 + 2x)\)`, T`\(2x\,e^{2x}\)`, T`\(e^{2x}(1 + x)\)`, T`\(2e^{2x}\)`],
+  ans: 0, ansTex: T`\(e^{2x}(1 + 2x)\)`,
+  steps: [
+    T`Product Rule: \(\dfrac{dy}{dx} = (x)'\,e^{2x} + x\,\big(e^{2x}\big)'\)`,
+    T`\((x)' = 1\) and \(\big(e^{2x}\big)' = e^{2x}\cdot 2\) (Chain Rule).`,
+    T`\(\dfrac{dy}{dx} = e^{2x} + 2x\,e^{2x} = e^{2x}(1 + 2x)\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice C forgets the Chain Rule factor 2 on \(e^{2x}\). Choice B only does half of the Product Rule.`
+},
+{ id: 'u3B-mc6', set: 'B', code: 'MC 6', twin: 'u3A-mc6', match: 'Test MC #6', topic: 'Finding dy/dx implicitly', short: 'Implicit dy/dx',
+  type: 'mc',
+  prompt: T`<p>If \(\sin y = x + y^2\), then \(\dfrac{dy}{dx} =\)</p>`,
+  decode: T`Differentiate both sides. \(\sin y\) becomes \(\cos y\,\frac{dy}{dx}\) (Chain Rule, since y depends on x). Then collect the \(\frac{dy}{dx}\) terms and factor.`,
+  choices: [T`\(\dfrac{1}{\cos y}\)`, T`\(\dfrac{1}{\cos y - 2y}\)`, T`\(\dfrac{1 + 2y}{\cos y}\)`, T`\(\dfrac{1}{\cos y + 2y}\)`],
+  ans: 1, ansTex: T`\(\dfrac{dy}{dx} = \dfrac{1}{\cos y - 2y}\)`,
+  steps: [
+    T`Differentiate: \(\cos y\,\frac{dy}{dx} = 1 + 2y\,\frac{dy}{dx}\)`,
+    T`Collect \(\frac{dy}{dx}\) terms on the left: \(\cos y\,\frac{dy}{dx} - 2y\,\frac{dy}{dx} = 1\)`,
+    T`Factor: \(\frac{dy}{dx}\,(\cos y - 2y) = 1\)`,
+    T`\(\frac{dy}{dx} = \dfrac{1}{\cos y - 2y}\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice C forgets that \(\frac{d}{dx}y^2 = 2y\frac{dy}{dx}\) (it treats the \(\frac{dy}{dx}\) as missing). Choice D forgets to change the sign when moving \(2y\frac{dy}{dx}\) across.`
+},
+{ id: 'u3B-mc7', set: 'B', code: 'MC 7', twin: 'u3A-mc7', match: 'Test MC #7', topic: 'Derivative of an inverse from a table', short: 'Inverse derivative: table',
+  type: 'mc',
+  prompt: T`<p>The table gives values of a one-to-one differentiable function \(f\) and its derivative. Let \(g = f^{-1}\). What is the value of \(g'(7)\)?</p>${vtable([['\\(x\\)', B7.x], ['\\(f(x)\\)', B7.f], ["\\(f'(x)\\)", B7.fp]])}`,
+  decode: T`Find 7 in the <b>\(f(x)\) row</b> (it’s an output of \(f\)). That column’s x-value is \(g(7)\). Then \(g'(7)\) is the reciprocal of \(f'\) in that same column.`,
+  choices: [T`\(4\)`, T`\(\dfrac{1}{2}\)`, T`\(-\dfrac{1}{4}\)`, T`\(\dfrac{1}{4}\)`],
+  ans: 3, ansTex: T`\(g'(7) = \dfrac{1}{4}\)`,
+  steps: [
+    T`\(f(3) = 7\), so \(g(7) = 3\).`,
+    T`\(g'(7) = \dfrac{1}{f'\big(g(7)\big)} = \dfrac{1}{f'(3)}\)`,
+    T`\(f'(3) = 4\), so \(g'(7) = \dfrac{1}{4}\). <b>Answer: D</b>`
+  ],
+  trap: T`Choice B is \(\frac{1}{f'(7)}\), from looking up 7 in the x row. Choice C is the <i>negative</i> reciprocal; that’s for perpendicular lines, not inverses.`
+},
+{ id: 'u3B-8a', set: 'B', code: 'FRQ 8a', twin: 'u3A-8a', match: 'Test FRQ 8', topic: 'Inverse derivative from a table (show the setup)', short: 'Inverse derivative setup', calc: false,
+  type: 'num', answer: -1 / 3, label: T`\(h'(3) =\)`,
+  prompt: T`${STEM8(B8)}<p>The function \(h\) is the inverse of \(f\). Find the value of \(h'(3)\), showing the work that leads to your answer.</p>`,
+  decode: T`Same setup as always, two charts. Where does \(f\) <b>output</b> 3? Use that column. Then flip the point and take the reciprocal of the slope. A negative slope stays negative.`,
+  ansTex: T`\(h'(3) = \dfrac{1}{f'(2)} = -\dfrac{1}{3}\)`,
+  steps: [
+    T`Look for 3 in the \(f(x)\) row: \(f(2) = 3\), so \(h(3) = 2\).`,
+    T`<b>Setup (two charts):</b>${vtable([['', ['\\(x\\)', 'value', 'slope']], ['\\(f\\)', ['\\(2\\)', '\\(f(2) = 3\\)', "\\(f'(2) = -3\\)"]], ['\\(h = f^{-1}\\)', ['\\(3\\)', '\\(h(3) = 2\\)', "\\(h'(3) = -\\tfrac{1}{3}\\)"]]])}`,
+    T`\(h'(3) = \dfrac{1}{f'(2)} = \dfrac{1}{-3} = -\dfrac{1}{3}\)`
+  ],
+  trap: T`The x = 3 column gives \(\frac{1}{f'(3)} = \frac{1}{6}\). Wrong column. And the reciprocal of \(-3\) is \(-\frac13\); the sign doesn’t flip.`
+},
+{ id: 'u3B-8b', set: 'B', code: 'FRQ 8b', twin: 'u3A-8b', match: 'Test FRQ 8', topic: 'Chain Rule with function notation from a table', short: 'Chain Rule from a table', calc: false,
+  type: 'num', answer: -9, label: T`\(k'(3) =\)`,
+  prompt: T`${STEM8(B8)}<p>Let \(k(x) = f\big(g(x)\big)\). Find \(k'(3)\).</p>`,
+  decode: T`Outside \(f\), inside \(g\). \(k'(3) = f'\big(g(3)\big)\cdot g'(3)\). Look up \(g(3)\) first; that number is where you evaluate \(f'\).`,
+  ansTex: T`\(k'(3) = f'(2)\cdot g'(3) = (-3)(3) = -9\)`,
+  steps: [
+    T`\(k'(x) = f'\big(g(x)\big)\cdot g'(x)\), so \(k'(3) = f'\big(g(3)\big)\cdot g'(3)\).`,
+    T`Inside first: \(g(3) = 2\), so we need \(f'(2) = -3\).`,
+    T`\(g'(3) = 3\).`,
+    T`\(k'(3) = (-3)(3) = -9\)`
+  ],
+  trap: T`\(f'(3)\cdot g'(3) = 6\cdot 3 = 18\) is the classic wrong answer. The outside derivative is evaluated at \(g(3)\), never at 3 itself.`
+},
+{ id: 'u3B-8c', set: 'B', code: 'FRQ 8c', twin: 'u3A-8c', match: 'Test FRQ 8', topic: 'Tangent line with a trig function', short: 'Tangent line: trig', calc: false,
+  type: 'line', lineF: x => Math.PI / 2 - x, label: 'Tangent line equation:',
+  help: 'Type pi for π. Example: y - pi/4 = -1(x - pi/4)',
+  prompt: T`<p>Let \(q(x) = x + \cos(2x)\). Write an equation for the line tangent to the graph of \(q\) at \(x = \dfrac{\pi}{4}\).</p>`,
+  decode: T`Point: \(\big(\frac{\pi}{4}, q(\frac{\pi}{4})\big)\). Slope: \(q'(\frac{\pi}{4})\). The \(\cos(2x)\) needs the Chain Rule, and the trig gets evaluated at \(2\cdot\frac{\pi}{4} = \frac{\pi}{2}\).`,
+  ansTex: T`\(y - \dfrac{\pi}{4} = -1\left(x - \dfrac{\pi}{4}\right)\)`,
+  steps: [
+    T`<b>Point:</b> \(q\!\left(\frac{\pi}{4}\right) = \frac{\pi}{4} + \cos\frac{\pi}{2} = \frac{\pi}{4} + 0 = \frac{\pi}{4}\). The point is \(\left(\frac{\pi}{4}, \frac{\pi}{4}\right)\).`,
+    T`<b>Derivative:</b> \(q'(x) = 1 - \sin(2x)\cdot 2 = 1 - 2\sin(2x)\)`,
+    T`<b>Slope:</b> \(q'\!\left(\frac{\pi}{4}\right) = 1 - 2\sin\frac{\pi}{2} = 1 - 2 = -1\)`,
+    T`\(y - \dfrac{\pi}{4} = -1\left(x - \dfrac{\pi}{4}\right)\)`
+  ],
+  trap: T`Leaving out the inner derivative 2 gives slope 0, which would be a horizontal line. When the answer comes out that neat, double-check the Chain Rule.`
+},
+{ id: 'u3B-10a', set: 'B', code: 'FRQ 10a', twin: 'u3A-10a', match: 'Test FRQ 10', topic: 'Velocity function from position', short: 'Velocity function', calc: true,
+  type: 'expr', exprF: t => 3 * t * t - 8 * t + 0.5 * Math.exp(t / 2), label: T`\(v(t) =\)`,
+  help: 'Use t as the variable. Type e^(t/2) for the exponential.',
+  prompt: T`${STEM_B10}<p>Find the velocity function \(v(t)\).</p>`,
+  decode: T`\(v(t) = s'(t)\). The \(e^{t/2}\) term needs the Chain Rule: the exponent \(\frac{t}{2}\) has derivative \(\frac{1}{2}\).`,
+  ansTex: T`\(v(t) = 3t^2 - 8t + \tfrac{1}{2}e^{t/2}\)`,
+  steps: [
+    T`\(\dfrac{d}{dt}\big(t^3\big) = 3t^2\) and \(\dfrac{d}{dt}\big(-4t^2\big) = -8t\)`,
+    T`\(\dfrac{d}{dt}\,e^{t/2} = e^{t/2}\cdot\dfrac{1}{2}\) (Chain Rule)`,
+    T`\(v(t) = 3t^2 - 8t + \tfrac{1}{2}e^{t/2}\)`
+  ],
+  trap: T`Writing \(e^{t/2}\) without the \(\frac{1}{2}\) out front is the classic e-function mistake.`
+},
+{ id: 'u3B-10b', set: 'B', code: 'FRQ 10b', twin: 'u3A-10b', match: 'Test FRQ 10', topic: 'Rate of change of position, with units', short: 'IROC with units', calc: true,
+  type: 'num', answer: 3 + 0.5 * Math.exp(1.5), tol: 0.0015, units: UNITS_B, unitAns: 'm/sec', label: T`Rate at \(t = 3\):`,
+  help: 'Give 3 decimal places. Then choose the units.',
+  prompt: T`${STEM_B10}<p>At what rate is the position of the particle changing at time \(t = 3\)? Include units.</p>`,
+  decode: T`“Rate the position is changing” = the derivative of position = <b>velocity</b>. So this is \(v(3)\), in meters per second.`,
+  ansTex: T`\(v(3) = 3 + \tfrac{1}{2}e^{1.5} \approx 5.241\) m/sec`,
+  steps: [
+    T`The rate of change of position is \(s'(3) = v(3)\).`,
+    T`\(v(3) = 3(3)^2 - 8(3) + \tfrac{1}{2}e^{3/2} = 27 - 24 + \tfrac{1}{2}e^{1.5}\)`,
+    T`\(e^{1.5} \approx 4.481689\), so \(\tfrac{1}{2}e^{1.5} \approx 2.241\).`,
+    T`\(v(3) \approx 3 + 2.241 = 5.241\). <b>Answer: 5.241 m/sec</b>`
+  ],
+  trap: T`This is the same question as “instantaneous rate of change of position” and “velocity at t = 3”. Three different wordings, one meaning: plug into \(v(t)\).`
+},
+{ id: 'u3B-10c', set: 'B', code: 'FRQ 10c', twin: 'u3A-10c', match: 'Test FRQ 10', topic: 'Acceleration function', short: 'Acceleration function', calc: true,
+  type: 'expr', exprF: t => 6 * t - 8 + 0.25 * Math.exp(t / 2), label: T`\(a(t) =\)`,
+  help: 'Use t as the variable.',
+  prompt: T`${STEM_B10}<p>Find the acceleration function \(a(t)\).</p>`,
+  decode: T`\(a(t) = v'(t)\). Differentiate your velocity function from part (a). The \(\frac{1}{2}e^{t/2}\) term picks up another \(\frac{1}{2}\).`,
+  ansTex: T`\(a(t) = 6t - 8 + \tfrac{1}{4}e^{t/2}\)`,
+  steps: [
+    T`Start from \(v(t) = 3t^2 - 8t + \tfrac{1}{2}e^{t/2}\).`,
+    T`\(\dfrac{d}{dt}\big(3t^2 - 8t\big) = 6t - 8\)`,
+    T`\(\dfrac{d}{dt}\Big(\tfrac{1}{2}e^{t/2}\Big) = \tfrac{1}{2}\cdot\tfrac{1}{2}e^{t/2} = \tfrac{1}{4}e^{t/2}\)`,
+    T`\(a(t) = 6t - 8 + \tfrac{1}{4}e^{t/2}\)`
+  ],
+  trap: T`The Chain Rule factor \(\frac{1}{2}\) gets multiplied in <b>again</b> each time you differentiate, so \(\frac12\) becomes \(\frac14\).`
+},
+{ id: 'u3B-10d', set: 'B', code: 'FRQ 10d', twin: 'u3A-10d', match: 'Test FRQ 10', topic: 'Acceleration at a time, with units', short: 'Acceleration with units', calc: true,
+  type: 'num', answer: 10 + 0.25 * Math.exp(1.5), tol: 0.0015, units: UNITS_B, unitAns: 'm/sec²', label: T`\(a(3) =\)`,
+  help: 'Give 3 decimal places. Then choose the units.',
+  prompt: T`${STEM_B10}<p>Find the acceleration of the particle at \(t = 3\). Include units.</p>`,
+  decode: T`Plug \(t = 3\) into \(a(t)\). Acceleration units: meters per second per second, m/sec².`,
+  ansTex: T`\(a(3) = 10 + \tfrac{1}{4}e^{1.5} \approx 11.120\) m/sec²`,
+  steps: [
+    T`\(a(3) = 6(3) - 8 + \tfrac{1}{4}e^{1.5} = 10 + \tfrac{1}{4}e^{1.5}\)`,
+    T`\(\tfrac{1}{4}e^{1.5} \approx 1.120\)`,
+    T`\(a(3) \approx 11.120\). <b>Answer: 11.120 m/sec²</b>`
+  ],
+  trap: T`m/sec is velocity; <b>m/sec²</b> is acceleration. Check that your units match the quantity, not just the number.`
+},
+{ id: 'u3B-11a', set: 'B', code: 'FRQ 11a', twin: 'u3A-11a', match: 'Test FRQ 11', topic: 'Complete the table for the inverse', short: 'Inverse table', calc: true,
+  type: 'table', src: B11, cells: [B11.f, B11.x, B11.fp.map(v => 1 / v)],
+  cellTex: [B11.f.map(String), B11.x.map(String), ['\\tfrac{1}{5}', '\\tfrac{1}{2}', '\\tfrac{1}{4}', '\\tfrac{1}{3}']],
+  prompt: T`${STEM11(B11)}<p>Complete the table of values for \(f^{-1}\) and its derivative. Each column of your table comes from the same column of the \(f\) table.</p>`,
+  decode: T`Inputs and outputs swap. The derivative of the inverse is the <b>reciprocal</b> of \(f'\) from the same column.`,
+  ansTex: 'the completed table below',
+  steps: [
+    T`<b>x row</b> = the \(f(x)\) values: \(-2, 1, 5, 9\).`,
+    T`<b>\(f^{-1}(x)\) row</b> = the original x-values: \(-1, 0, 2, 4\).`,
+    T`<b>Slope row</b> = reciprocals of \(f'\): \(\tfrac15, \tfrac12, \tfrac14, \tfrac13\).`,
+    T`${vtable([[INV_LABELS[0], ['−2', '1', '5', '9']], [INV_LABELS[1], ['−1', '0', '2', '4']], [INV_LABELS[2], ['\\(\\tfrac15\\)', '\\(\\tfrac12\\)', '\\(\\tfrac14\\)', '\\(\\tfrac13\\)']]])}`
+  ],
+  trap: T`Keep each column together. The slope \(\frac{1}{5}\) belongs with the point \((-2, -1)\) because they both came from the \(x = -1\) column of \(f\).`
+},
+{ id: 'u3B-11b', set: 'B', code: 'FRQ 11b', twin: 'u3A-11b', match: 'Test FRQ 11', topic: 'Tangent line to f from a table', short: 'Tangent line to f', calc: true,
+  type: 'line', lineF: x => 5 + 4 * (x - 2), label: 'Tangent line to f at x = 2:',
+  prompt: T`${STEM11(B11)}<p>Write an equation for the line tangent to the graph of \(f\) at \(x = 2\).</p>`,
+  decode: T`Use the \(x = 2\) column: point \(\big(2, f(2)\big)\), slope \(f'(2)\).`,
+  ansTex: T`\(y - 5 = 4(x - 2)\)`,
+  steps: [
+    T`Point: \(f(2) = 5\), so \((2, 5)\).`,
+    T`Slope: \(f'(2) = 4\).`,
+    T`\(y - 5 = 4(x - 2)\)`
+  ],
+  trap: T`Read \(f'(2)\) from the derivative row. The value \(f(2) = 5\) is the y-coordinate, not the slope.`
+},
+{ id: 'u3B-11c', set: 'B', code: 'FRQ 11c', twin: 'u3A-11c', match: 'Test FRQ 11', topic: 'Tangent line to the inverse', short: 'Tangent line to f⁻¹', calc: true,
+  type: 'line', lineF: x => 2 + (x - 5) / 4, label: T`Tangent line to \(f^{-1}\) at \(x = 5\):`,
+  prompt: T`${STEM11(B11)}<p>Write an equation for the line tangent to the graph of \(f^{-1}\) at \(x = 5\).</p>`,
+  decode: T`5 is an <b>output</b> of \(f\). Find its column, flip the point, and take the reciprocal of the slope.`,
+  ansTex: T`\(y - 2 = \tfrac{1}{4}(x - 5)\)`,
+  steps: [
+    T`\(f(2) = 5\), so \(f^{-1}(5) = 2\). Point: \((5, 2)\).`,
+    T`Slope: \(\big(f^{-1}\big)'(5) = \dfrac{1}{f'(2)} = \dfrac{1}{4}\)`,
+    T`\(y - 2 = \tfrac{1}{4}(x - 5)\)`
+  ],
+  trap: T`Compare with part (b): \((2, 5)\) with slope 4 became \((5, 2)\) with slope \(\frac{1}{4}\). If your inverse line doesn’t mirror the original like this, recheck the column.`
+}
+];
+
+
+/* ============================================================
+   UNIT 4 TEST SPRINT: two matched practice tests (A and B)
+   Every item mirrors one line of the Unit 4 study sheet.
+   ============================================================ */
+const pl = pts => x => {
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [x0, y0] = pts[i], [x1, y1] = pts[i + 1];
+    if (x >= x0 && x <= x1) return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+  }
+  return NaN;
+};
+const graphOf = (pts, o) => Object.assign({ asym: [], open: [], curves: [{ a: pts[0][0], b: pts[pts.length - 1][0], f: pl(pts) }], closed: pts }, o);
+
+const VA = [[0, -2], [1, 0], [3, 3], [5, 3], [7, 0], [8, 0], [9, -2]];
+const VB = [[0, 3], [2, 0], [4, -2], [5, -2], [6, 0], [8, 3]];
+const GRAPH_VA = graphOf(VA, { xmin: 0, xmax: 9, ymin: -3, ymax: 3, xlab: 't', ylab: 'v(t)', caption: 'Graph of the velocity v(t), 0 ≤ t ≤ 9 (straight segments)' });
+const GRAPH_VB = graphOf(VB, { xmin: 0, xmax: 8, ymin: -3, ymax: 3, xlab: 't', ylab: 'v(t)', caption: 'Graph of the velocity v(t), 0 ≤ t ≤ 8 (straight segments)' });
+const GRAPH_LA = graphOf([[-3, -2], [-1, 2], [1, 2], [3, -2], [5, 0]], { xmin: -3, xmax: 5, ymin: -3, ymax: 3, caption: 'Graph of f (straight segments)' });
+const GRAPH_LB = graphOf([[-2, 1], [0, -2], [2, 2], [4, 1]], { xmin: -2, xmax: 4, ymin: -3, ymax: 3, caption: 'Graph of f (straight segments)' });
+
+const DIR = [['right', 'Moving right'], ['left', 'Moving left'], ['stop', 'Stopped']];
+const SPD = [['up', 'Speeding up'], ['down', 'Slowing down'], ['neither', 'Neither (constant speed)']];
+const POS = [['inc', 'Position increasing'], ['dec', 'Position decreasing']];
+
+const STEM_A8 = T`<p>A particle moves along the \(x\)-axis. The graph of its velocity \(v(t)\), for \(0 \le t \le 9\) seconds, is made of straight line segments.</p>`;
+const STEM_B8 = T`<p>A particle moves along the \(x\)-axis. The graph of its velocity \(v(t)\), for \(0 \le t \le 8\) seconds, is made of straight line segments.</p>`;
+const TA9 = { t: [0, 2, 5, 9, 12], H: [180, 160, 137, 115, 103] };
+const TB9 = { t: [0, 1, 3, 4, 7], D: ['2.0', '4.8', '7.5', '8.4', '10.3'] };
+const STEM_A9 = T`<p>A cup of coffee is cooling on a desk. Its temperature \(H(t)\), in degrees Fahrenheit (°F), is recorded at selected times \(t\), in minutes.</p>${vtable([['\\(t\\) (min)', TA9.t], ['\\(H(t)\\) (°F)', TA9.H]])}`;
+const STEM_B9 = T`<p>Snow is falling during a storm. The depth of the snow \(D(t)\), in inches, is recorded at selected times \(t\), in hours after the storm began.</p>${vtable([['\\(t\\) (hr)', TB9.t], ['\\(D(t)\\) (in)', TB9.D]])}`;
+const UNITS_A9 = ['°F', '°F/min', 'min/°F', 'minutes'];
+const UNITS_B9 = ['inches', 'in/hr', 'hr/in', 'hours'];
+
+const U4 = [
+/* ===================== PRACTICE TEST A ===================== */
+{ id: 'u4A-mc1', set: 'A', code: 'MC 1', twin: 'u4B-mc1', match: 'Test MC #1', topic: 'Approximating a derivative from a table', short: 'Derivative from a table', calc: true,
+  type: 'mc',
+  prompt: T`<p>The table gives selected values of a differentiable function \(f\). What is the best approximation of \(f'(5)\) using the data in the table?</p>${vtable([['\\(x\\)', [0, 2, 5, 7, 10]], ['\\(f(x)\\)', [12, 16, 21, 25, 40]]], 2)}`,
+  decode: T`You can’t take a derivative of numbers, so you <b>estimate the slope</b> with a difference quotient. When \(x = 5\) is in the table, the best estimate uses the closest data on <b>both sides</b>: \(\dfrac{f(7) - f(2)}{7 - 2}\).`,
+  choices: [T`\(0.556\)`, T`\(1.8\)`, T`\(2.8\)`, T`\(4.5\)`], ans: 1, ansTex: T`\(f'(5) \approx \dfrac{25 - 16}{7 - 2} = 1.8\)`,
+  steps: [
+    T`The neighbors of \(x = 5\) are \(x = 2\) and \(x = 7\).`,
+    T`Slope between them: \(\dfrac{f(7) - f(2)}{7 - 2} = \dfrac{25 - 16}{5}\)`,
+    T`\(= \dfrac{9}{5} = 1.8\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice D divides by 2 (counting columns) instead of \(7 - 2 = 5\). Always subtract the actual \(x\)-values. Choice A is the reciprocal: it’s <b>change in output over change in input</b>, not the other way around.`
+},
+{ id: 'u4A-mc2', set: 'A', code: 'MC 2', twin: 'u4B-mc2', match: 'Test MC #2', topic: 'Derivative in context: rate in − rate out', short: 'Rate in − rate out', calc: true,
+  type: 'mc',
+  prompt: T`<p>Water flows into a tank at a rate of \(E(t) = 50 + 10\sin\!\left(\dfrac{t}{2}\right)\) gallons per hour and drains out at a rate of \(L(t) = 40 + 3t\) gallons per hour, where \(t\) is in hours. At time \(t = 5\), is the amount of water in the tank increasing or decreasing, and at what rate?</p>`,
+  decode: T`The amount of water changes at <b>(rate in) − (rate out)</b>. Find \(E(5) - L(5)\) on your calculator (radian mode). The <b>sign</b> tells you increasing (+) or decreasing (−).`,
+  choices: [T`Decreasing at about 4.564 gallons per hour`, T`Increasing at about 110.985 gallons per hour`, T`Increasing at about 0.985 gallons per hour`, T`Decreasing at about 0.985 gallons per hour`],
+  ans: 2, ansTex: T`\(E(5) - L(5) \approx 0.985\) gal/hr, so increasing`,
+  steps: [
+    T`Rate of change of the water amount: \(A'(t) = E(t) - L(t)\).`,
+    T`\(E(5) = 50 + 10\sin(2.5) \approx 50 + 5.985 = 55.985\) (radian mode).`,
+    T`\(L(5) = 40 + 3(5) = 55\).`,
+    T`\(A'(5) \approx 55.985 - 55 = 0.985 > 0\). Positive means the amount is <b>increasing</b>. <b>Answer: C</b>`
+  ],
+  trap: T`Choice A is what a calculator in <b>degree</b> mode gives. Choice B adds the rates instead of subtracting. Water draining <b>out</b> always gets subtracted.`
+},
+{ id: 'u4A-mc3', set: 'A', code: 'MC 3', twin: 'u4B-mc3', match: 'Test MC #3', topic: 'Particle motion with a calculator', short: 'Speeding up or slowing down', calc: true,
+  type: 'mc',
+  prompt: T`<p>A particle moves along a line with velocity \(v(t) = t\cos t + 1\) for \(t \ge 0\). Which of the following is true at \(t = 2\)?</p>`,
+  decode: T`“Speeding up or slowing down” compares the <b>signs</b> of velocity and acceleration. Same sign → speeding up. Opposite signs → slowing down. Find \(v(2)\) directly, and \(a(2) = v'(2)\) with your calculator’s derivative function (radian mode).`,
+  choices: [T`\(v(2) \approx 0.168\), and the particle is speeding up`, T`\(v(2) \approx 0.168\), and the particle is slowing down`, T`\(v(2) \approx 2.999\), and the particle is speeding up`, T`\(v(2) \approx -2.235\), and the particle is slowing down`],
+  ans: 1, ansTex: T`\(v(2) \approx 0.168 > 0\) and \(a(2) \approx -2.235 < 0\): slowing down`,
+  steps: [
+    T`\(v(2) = 2\cos 2 + 1 \approx 2(-0.4161) + 1 \approx 0.168\). Positive.`,
+    T`\(a(2) = v'(2)\). Calculator: \(\dfrac{d}{dt}\big(t\cos t + 1\big)\Big|_{t=2} \approx -2.235\). Negative.`,
+    T`(By hand: \(v'(t) = \cos t - t\sin t\), so \(v'(2) = \cos 2 - 2\sin 2 \approx -2.235\).)`,
+    T`\(v > 0\) and \(a < 0\) have <b>opposite signs</b>, so the particle is slowing down. <b>Answer: B</b>`
+  ],
+  trap: T`Choice C is degree mode. Choice D reports the <b>acceleration</b> as if it were the velocity. And “a is negative” does <b>not</b> automatically mean slowing down: you always compare it with the sign of \(v\).`
+},
+{ id: 'u4A-mc4', set: 'A', code: 'MC 4', twin: 'u4B-mc4', match: 'Test MC #4', topic: 'Approximating with linearization', short: 'Linear approximation', calc: false,
+  type: 'mc',
+  prompt: T`<p>A differentiable function \(f\) has \(f(3) = 4\) and \(f'(3) = -2\). Using the line tangent to the graph of \(f\) at \(x = 3\), what is the approximation of \(f(3.2)\)?</p>`,
+  decode: T`The tangent line at \(x = 3\) is \(L(x) = f(3) + f'(3)(x - 3)\). Near \(x = 3\), the tangent line and the curve are almost the same, so plug \(3.2\) into \(L\).`,
+  choices: [T`\(4.4\)`, T`\(3.8\)`, T`\(3.6\)`, T`\(-2.4\)`], ans: 2, ansTex: T`\(f(3.2) \approx 3.6\)`,
+  steps: [
+    T`Tangent line: \(L(x) = 4 - 2(x - 3)\).`,
+    T`\(L(3.2) = 4 - 2(3.2 - 3) = 4 - 2(0.2)\)`,
+    T`\(= 4 - 0.4 = 3.6\). <b>Answer: C</b>`
+  ],
+  trap: T`Choice D forgets to subtract 3: \(4 - 2(3.2)\). Choice A loses the negative slope. The step size is \(x - a = 0.2\), not \(3.2\).`
+},
+{ id: 'u4A-mc5', set: 'A', code: 'MC 5', twin: 'u4B-mc5', match: 'Test MC #5', topic: 'L’Hôpital’s Rule from a graph', short: 'L’Hôpital from a graph', calc: false,
+  type: 'mc',
+  prompt: T`<p>The graph of the function \(f\), made of straight segments, is shown. What is \(\displaystyle\lim_{x \to 2} \frac{f(x)}{x^2 - 4}\)?</p>`,
+  graph: GRAPH_LA,
+  decode: T`First <b>plug in</b>: read \(f(2)\) from the graph, and \(2^2 - 4 = 0\). If you get \(\frac{0}{0}\), L’Hôpital lets you replace top and bottom with their <b>derivatives</b>. On a line-segment graph, \(f'(2)\) is the <b>slope</b> of the segment through \(x = 2\).`,
+  choices: [T`\(-\dfrac{1}{2}\)`, T`\(-2\)`, T`\(0\)`, T`The limit does not exist.`], ans: 0, ansTex: T`\(\displaystyle\lim_{x\to 2}\frac{f(x)}{x^2-4} = \frac{f'(2)}{2(2)} = -\frac{1}{2}\)`,
+  steps: [
+    T`Plug in: \(f(2) = 0\) (the graph crosses the \(x\)-axis there) and \(2^2 - 4 = 0\). That’s \(\frac{0}{0}\), so L’Hôpital applies.`,
+    T`The segment from \((1, 2)\) to \((3, -2)\) has slope \(\dfrac{-2 - 2}{3 - 1} = -2\), so \(f'(2) = -2\).`,
+    T`The derivative of the bottom is \(2x\), which is \(4\) at \(x = 2\).`,
+    T`\(\displaystyle\lim_{x \to 2}\frac{f(x)}{x^2 - 4} = \frac{f'(2)}{2\cdot 2} = \frac{-2}{4} = -\frac{1}{2}\). <b>Answer: A</b>`
+  ],
+  trap: T`Choice B takes the derivative of the top only. Choice D is the \(\frac{0}{0}\) panic: zero over zero is a signal to use L’Hôpital, not a final answer. On the FRQ, write “\(\frac{0}{0}\)” or show both limits are 0 to earn the point for using the rule.`
+},
+{ id: 'u4A-6', set: 'A', code: 'FRQ 6', twin: 'u4B-6', match: 'Test FRQ 6', topic: 'Finding the linearization equation', short: 'Linearization equation', calc: false,
+  type: 'line', lineF: x => 4 + 3 / 8 * (x - 4), label: T`\(L(x) =\) (or \(y =\))`,
+  help: 'Any correct form works, e.g. y = 4 + 3/8(x - 4). No need to simplify.',
+  prompt: T`<p>Let \(f(x) = \sqrt{3x + 4}\). Find the linearization \(L(x)\) of \(f\) at \(x = 4\).</p>`,
+  decode: T`“Linearization” is just the <b>tangent line</b>, written as \(L(x) = f(a) + f'(a)(x - a)\). You need two numbers: \(f(4)\) and \(f'(4)\). The derivative needs the Chain Rule because of the \(3x + 4\) inside the root.`,
+  ansTex: T`\(L(x) = 4 + \tfrac{3}{8}(x - 4)\)`,
+  steps: [
+    T`<b>Point:</b> \(f(4) = \sqrt{12 + 4} = \sqrt{16} = 4\).`,
+    T`<b>Derivative</b> (Chain Rule): \(f'(x) = \dfrac{1}{2\sqrt{3x + 4}}\cdot 3 = \dfrac{3}{2\sqrt{3x + 4}}\)`,
+    T`<b>Slope:</b> \(f'(4) = \dfrac{3}{2\cdot 4} = \dfrac{3}{8}\)`,
+    T`\(L(x) = 4 + \dfrac{3}{8}(x - 4)\)`
+  ],
+  trap: T`Forgetting the inside derivative 3 gives slope \(\frac{1}{8}\). Also, the slope is \(f'(4)\), evaluated at the number, not the formula \(f'(x)\) left in the equation.`
+},
+{ id: 'u4A-7', set: 'A', code: 'FRQ 7', twin: 'u4B-7', match: 'Test FRQ 7', topic: 'Over- or underestimate from concavity', short: 'Over or under?', calc: false,
+  type: 'mc',
+  prompt: T`<p>Let \(f(x) = \sqrt{3x + 4}\), with linearization \(L(x) = 4 + \tfrac{3}{8}(x - 4)\) at \(x = 4\) (from FRQ 6). The value \(L(4.2) = 4.075\) is used to approximate \(f(4.2)\). Which statement correctly describes this approximation?</p>`,
+  decode: T`Over or under depends on <b>concavity</b>, which comes from the <b>second derivative</b>. Concave down (\(f'' < 0\)): the curve bends below its tangent line, so the line is too high → <b>overestimate</b>. Concave up (\(f'' > 0\)): the line is below the curve → <b>underestimate</b>.`,
+  choices: [
+    T`Underestimate, because \(f''(x) < 0\), so the graph of \(f\) lies above its tangent line`,
+    T`Overestimate, because \(f'(x) > 0\), so \(f\) is increasing`,
+    T`Overestimate, because \(f''(x) < 0\), so \(f\) is concave down and its graph lies below the tangent line`,
+    T`Underestimate, because \(f'(x) > 0\), so the graph of \(f\) lies above its tangent line`
+  ],
+  ans: 2, ansTex: T`Overestimate, since \(f'' < 0\) (concave down)`,
+  steps: [
+    T`From FRQ 6: \(f'(x) = \dfrac{3}{2}(3x + 4)^{-1/2}\).`,
+    T`Differentiate again (Chain Rule): \(f''(x) = \dfrac{3}{2}\cdot\left(-\dfrac{1}{2}\right)(3x + 4)^{-3/2}\cdot 3 = -\dfrac{9}{4(3x + 4)^{3/2}}\)`,
+    T`The denominator is positive, so \(f''(x) < 0\) near \(x = 4\). The graph is <b>concave down</b>.`,
+    T`A concave-down graph bends <b>below</b> its tangent line, so the tangent line value is too big: \(L(4.2) = 4.075\) is an <b>overestimate</b>. <b>Answer: C</b>`
+  ],
+  trap: T`Increasing or decreasing (\(f'\)) has <b>nothing</b> to do with over/under. On the free response, the justification must name the <b>second derivative</b> (or concavity): “Since \(f''(x) < 0\), the graph is concave down, so the tangent line lies above the curve.”`
+},
+{ id: 'u4A-8a', set: 'A', code: 'FRQ 8a', twin: 'u4B-8a', match: 'Test FRQ 8', topic: 'Moving right, left, or stopped from a velocity graph', short: 'Right, left, stopped', calc: false,
+  type: 'classify', graph: GRAPH_VA, opts: DIR,
+  rows: [[T`\(0 < t < 1\)`, 'left'], [T`\(t = 1\)`, 'stop'], [T`\(1 < t < 7\)`, 'right'], [T`\(7 \le t \le 8\)`, 'stop'], [T`\(8 < t \le 9\)`, 'left']],
+  prompt: T`${STEM_A8}<p>For each time or interval, decide whether the particle is moving right, moving left, or stopped.</p>`,
+  decode: T`Direction comes from the <b>sign of velocity</b> only. Above the \(t\)-axis (\(v > 0\)): moving right. Below (\(v < 0\)): moving left. On the axis (\(v = 0\)): stopped. Don’t look at whether the graph goes up or down; look at which side of the axis it’s on.`,
+  ansTex: T`Right on \(1 < t < 7\); left on \(0 \le t < 1\) and \(8 < t \le 9\); stopped at \(t = 1\) and on \(7 \le t \le 8\)`,
+  steps: [
+    T`\(0 < t < 1\): graph is below the axis, \(v(t) < 0\) → <b>moving left</b>.`,
+    T`\(t = 1\): \(v(1) = 0\) → <b>stopped</b> (for an instant, while it turns around).`,
+    T`\(1 < t < 7\): graph is above the axis, \(v(t) > 0\) → <b>moving right</b>. This includes \(3 < t < 5\), where velocity is constant but still positive.`,
+    T`\(7 \le t \le 8\): \(v(t) = 0\) the whole time → <b>stopped</b>. \(8 < t \le 9\): \(v(t) < 0\) → <b>moving left</b>.`,
+    T`<b>Write it like this on the test:</b> “The particle moves right on \(1 < t < 7\) because \(v(t) > 0\). It moves left on \(0 \le t < 1\) and \(8 < t \le 9\) because \(v(t) < 0\). It is stopped at \(t = 1\) and for \(7 \le t \le 8\) because \(v(t) = 0\).”`
+  ],
+  trap: T`On \(5 < t < 7\) the graph is going <b>down</b>, but the particle is still moving <b>right</b> because \(v\) is still positive. A falling velocity graph means slowing down, not turning around.`
+},
+{ id: 'u4A-8b', set: 'A', code: 'FRQ 8b', twin: 'u4B-8b', match: 'Test FRQ 8', topic: 'Speeding up or slowing down from a velocity graph', short: 'Speeding up / slowing down', calc: false,
+  type: 'classify', graph: GRAPH_VA, opts: SPD,
+  rows: [[T`\(0 < t < 1\)`, 'down'], [T`\(1 < t < 3\)`, 'up'], [T`\(3 < t < 5\)`, 'neither'], [T`\(5 < t < 7\)`, 'down'], [T`\(8 < t < 9\)`, 'up']],
+  prompt: T`${STEM_A8}<p>For each interval, decide whether the particle is speeding up, slowing down, or neither.</p>`,
+  decode: T`Compare <b>two signs</b>. Velocity: above or below the axis. Acceleration: the <b>slope</b> of the velocity graph (going up = positive, going down = negative). Same signs → speeding up. Opposite signs → slowing down. Slope 0 → constant speed.`,
+  ansTex: T`Speeding up on \(1 < t < 3\) and \(8 < t < 9\); slowing down on \(0 < t < 1\) and \(5 < t < 7\); neither on \(3 < t < 5\)`,
+  steps: [
+    T`\(0 < t < 1\): \(v < 0\) (below axis), \(a > 0\) (graph rising) → opposite → <b>slowing down</b>.`,
+    T`\(1 < t < 3\): \(v > 0\), \(a > 0\) → same → <b>speeding up</b>.`,
+    T`\(3 < t < 5\): \(a = 0\) (flat segment) → constant speed, <b>neither</b>.`,
+    T`\(5 < t < 7\): \(v > 0\), \(a < 0\) → opposite → <b>slowing down</b>. \(8 < t < 9\): \(v < 0\), \(a < 0\) → same → <b>speeding up</b>.`,
+    T`<b>Write it like this:</b> “Speeding up on \(1 < t < 3\) and \(8 < t < 9\) because \(v(t)\) and \(a(t)\) have the same sign. Slowing down on \(0 < t < 1\) and \(5 < t < 7\) because \(v(t)\) and \(a(t)\) have opposite signs.”`
+  ],
+  trap: T`On \(8 < t < 9\) the graph goes <b>down</b>, but the particle is <b>speeding up</b>: it’s moving left faster and faster. Speed is how far the graph is from the axis, so heading away from the axis means speeding up.`
+},
+{ id: 'u4A-8c', set: 'A', code: 'FRQ 8c', twin: 'u4B-8c', match: 'Test FRQ 8', topic: 'Intervals of increasing and decreasing position from v(t)', short: 'Increasing / decreasing', calc: false,
+  type: 'classify', opts: POS,
+  rows: [[T`\(0 < t < 2\)`, 'inc'], [T`\(2 < t < 4\)`, 'dec'], [T`\(4 < t < 6\)`, 'inc']],
+  prompt: T`<p>A particle moves along the \(x\)-axis with velocity \(v(t) = t^2 - 6t + 8\) for \(0 \le t \le 6\). On which intervals is the particle’s position increasing, and on which is it decreasing?</p>`,
+  decode: T`Position increases where its derivative, the <b>velocity</b>, is positive, and decreases where velocity is negative. So: set \(v(t) = 0\), factor, and make a <b>sign chart</b> for \(v\).`,
+  ansTex: T`Increasing on \(0 < t < 2\) and \(4 < t < 6\); decreasing on \(2 < t < 4\)`,
+  steps: [
+    T`Set \(v(t) = 0\): \(t^2 - 6t + 8 = (t - 2)(t - 4) = 0\), so \(t = 2\) and \(t = 4\).`,
+    T`Test a value in each interval: \(v(1) = 3 > 0\), \(v(3) = -1 < 0\), \(v(5) = 3 > 0\).`,
+    T`<b>Sign chart:</b>${vtable([['\\(t\\)', ['\\(0<t<2\\)', '\\(2<t<4\\)', '\\(4<t<6\\)']], ['\\(v(t)\\)', ['\\(+\\)', '\\(-\\)', '\\(+\\)']], ['position', ['increasing', 'decreasing', 'increasing']]])}`,
+    T`<b>Write it like this:</b> “The position is increasing on \(0 < t < 2\) and \(4 < t < 6\) because \(v(t) > 0\) there. It is decreasing on \(2 < t < 4\) because \(v(t) < 0\).”`
+  ],
+  trap: T`The justification must be about the sign of \(v(t)\), the <b>derivative</b> of position. Saying “because the graph goes up” earns nothing. At \(t = 2\) and \(t = 4\) itself, \(v = 0\), so those times are left out of both lists.`
+},
+{ id: 'u4A-8d', set: 'A', code: 'FRQ 8d', twin: 'u4B-8d', match: 'Test FRQ 8', topic: 'Evaluating a limit with L’Hôpital’s Rule', short: 'L’Hôpital limit', calc: false,
+  type: 'num', answer: 2, label: T`\(\displaystyle\lim_{x\to 0}\frac{1 - \cos(2x)}{x^2} =\)`,
+  prompt: T`<p>Find \(\displaystyle\lim_{x \to 0} \frac{1 - \cos(2x)}{x^2}\). Show the work that justifies using L’Hôpital’s Rule.</p>`,
+  decode: T`Plug in first: \(1 - \cos 0 = 0\) and \(0^2 = 0\). That \(\frac{0}{0}\) is your permission to use L’Hôpital: differentiate the top and the bottom <b>separately</b> (not the Quotient Rule). If you get \(\frac{0}{0}\) again, do it again.`,
+  ansTex: T`\(2\)`,
+  steps: [
+    T`Check the form: \(\displaystyle\lim_{x\to 0}\big(1 - \cos 2x\big) = 0\) and \(\displaystyle\lim_{x\to 0}x^2 = 0\). It’s \(\frac{0}{0}\), so L’Hôpital applies.`,
+    T`Differentiate top and bottom: \(\displaystyle\lim_{x\to 0}\frac{2\sin(2x)}{2x}\). Plugging in gives \(\frac{0}{0}\) again.`,
+    T`Apply it again: \(\displaystyle\lim_{x\to 0}\frac{4\cos(2x)}{2}\)`,
+    T`\(= \dfrac{4\cos 0}{2} = \dfrac{4}{2} = 2\)`
+  ],
+  trap: T`The derivative of \(-\cos(2x)\) is \(+2\sin(2x)\): two sign flips and a Chain Rule 2. Missing the 2 on the second round gives 1. And never use the Quotient Rule here; L’Hôpital differentiates top and bottom on their own.`
+},
+{ id: 'u4A-9a', set: 'A', code: 'FRQ 9a', twin: 'u4B-9a', match: 'Test FRQ 9', topic: 'Average rate of change from a table, with units', short: 'Average rate with units', calc: true,
+  type: 'num', answer: -45 / 7, tol: 0.0015, units: UNITS_A9, unitAns: '°F/min', label: T`Average rate on \(2 \le t \le 9\):`,
+  help: 'A fraction like -45/7 is fine, or give 3 decimal places. Then choose the units.',
+  prompt: T`${STEM_A9}<p>Find the average rate of change of \(H(t)\) over the interval \(2 \le t \le 9\). Include units.</p>`,
+  decode: T`Average rate of change is the slope between the two <b>endpoints</b>: \(\dfrac{H(9) - H(2)}{9 - 2}\). Units are output units per input unit: °F per minute.`,
+  ansTex: T`\(\dfrac{115 - 160}{9 - 2} = -\dfrac{45}{7} \approx -6.429\) °F/min`,
+  steps: [
+    T`\(\dfrac{H(9) - H(2)}{9 - 2} = \dfrac{115 - 160}{7}\)`,
+    T`\(= -\dfrac{45}{7} \approx -6.429\)`,
+    T`Units: degrees Fahrenheit per minute. <b>Answer: \(-6.429\) °F/min</b>`
+  ],
+  trap: T`Only the endpoints matter for an <b>average</b> rate; the value at \(t = 5\) is a distraction. Keep the negative sign: the coffee is cooling.`
+},
+{ id: 'u4A-9b', set: 'A', code: 'FRQ 9b', twin: 'u4B-9b', match: 'Test FRQ 9', topic: 'Approximating the instantaneous rate of change', short: 'Approximate IROC', calc: true,
+  type: 'num', answer: -5.5, tol: 0.0015, units: UNITS_A9, unitAns: '°F/min', label: T`\(H'(7) \approx\)`,
+  help: 'Give your answer as a number or fraction. Then choose the units.',
+  prompt: T`${STEM_A9}<p>Use the data in the table to approximate \(H'(7)\). Include units.</p>`,
+  decode: T`\(t = 7\) isn’t in the table, so you can’t read \(H'(7)\) directly. Approximate it with the slope between the two data points that <b>surround</b> it: \(t = 5\) and \(t = 9\).`,
+  ansTex: T`\(H'(7) \approx \dfrac{115 - 137}{9 - 5} = -5.5\) °F/min`,
+  steps: [
+    T`The table times on either side of \(t = 7\) are \(t = 5\) and \(t = 9\).`,
+    T`\(H'(7) \approx \dfrac{H(9) - H(5)}{9 - 5} = \dfrac{115 - 137}{4}\)`,
+    T`\(= -\dfrac{22}{4} = -5.5\) °F/min`
+  ],
+  trap: T`On the free response, write the difference quotient \(\frac{H(9) - H(5)}{9 - 5}\) itself. A bare “−5.5” with no setup can lose the point even if it’s right.`
+},
+{ id: 'u4A-9c', set: 'A', code: 'FRQ 9c', twin: 'u4B-9c', match: 'Test FRQ 9', topic: 'Derivative in context, described with a sentence', short: 'Interpret H′(10)', calc: true,
+  type: 'mc',
+  prompt: T`${STEM_A9}<p>The temperature is modeled by \(H(t) = 70 + 110e^{-0.1t}\). Use your calculator to find \(H'(10)\). Which sentence correctly interprets the result?</p>`,
+  decode: T`Find \(H'(10)\) with the calculator’s derivative function. A full interpretation has four pieces: <b>when</b> (at \(t = 10\) minutes), <b>what</b> (the coffee’s temperature), <b>direction</b> (increasing/decreasing from the sign), and <b>how fast, with units</b>.`,
+  choices: [
+    T`At \(t = 10\) minutes, the coffee’s temperature is \(-4.047\) °F.`,
+    T`At \(t = 10\) minutes, the coffee’s temperature is decreasing at a rate of about 4.047 °F per minute.`,
+    T`Over the first 10 minutes, the coffee’s temperature decreases by an average of 4.047 °F per minute.`,
+    T`At \(t = 10\) minutes, the coffee’s temperature is decreasing at a rate of about 110.467 °F per minute.`
+  ],
+  ans: 1, ansTex: T`\(H'(10) \approx -4.047\): at \(t = 10\) min, the temperature is decreasing at about 4.047 °F/min`,
+  steps: [
+    T`Calculator: \(\dfrac{d}{dt}\big(70 + 110e^{-0.1t}\big)\Big|_{t=10} \approx -4.047\).`,
+    T`(By hand: \(H'(t) = -11e^{-0.1t}\), so \(H'(10) = -11e^{-1} \approx -4.047\).)`,
+    T`Negative means the temperature is going <b>down</b>. Units: °F per minute.`,
+    T`“At \(t = 10\) minutes, the temperature of the coffee is decreasing at a rate of 4.047 °F per minute.” <b>Answer: B</b>`
+  ],
+  trap: T`Choice A calls a <b>rate</b> a temperature. Choice C describes an <b>average</b> over an interval, but a derivative is at one instant. Choice D is \(H(10)\), the temperature itself, not the derivative.`
+},
+
+/* ===================== PRACTICE TEST B ===================== */
+{ id: 'u4B-mc1', set: 'B', code: 'MC 1', twin: 'u4A-mc1', match: 'Test MC #1', topic: 'Approximating a derivative from a table', short: 'Derivative from a table', calc: true,
+  type: 'mc',
+  prompt: T`<p>The temperature \(W(t)\), in °C, of a pot of water is recorded at selected times \(t\), in minutes. Using the data in the table, what is the best approximation of \(W'(4)\)?</p>${vtable([['\\(t\\)', [1, 3, 4, 6, 9]], ['\\(W(t)\\)', [40, 35, 31, 25, 19]]], 2)}`,
+  decode: T`\(t = 4\) is in the table, so use the closest data on <b>both sides</b> (\(t = 3\) and \(t = 6\)) and find the slope between them.`,
+  choices: [T`\(3.333\)`, T`\(-0.3\)`, T`\(-2.625\)`, T`\(-3.333\)`], ans: 3, ansTex: T`\(W'(4) \approx \dfrac{25 - 35}{6 - 3} \approx -3.333\) °C/min`,
+  steps: [
+    T`The neighbors of \(t = 4\) are \(t = 3\) and \(t = 6\).`,
+    T`\(\dfrac{W(6) - W(3)}{6 - 3} = \dfrac{25 - 35}{3} = -\dfrac{10}{3}\)`,
+    T`\(\approx -3.333\) °C per minute. <b>Answer: D</b>`
+  ],
+  trap: T`Choice C is the average rate over the <b>whole</b> table, which is too wide to estimate the rate at \(t = 4\). Choice A drops the sign: the water is cooling, so the rate is negative.`
+},
+{ id: 'u4B-mc2', set: 'B', code: 'MC 2', twin: 'u4A-mc2', match: 'Test MC #2', topic: 'Derivative in context: rate in − rate out', short: 'Rate in − rate out', calc: true,
+  type: 'mc',
+  prompt: T`<p>Cars enter a parking garage at a rate of \(E(t) = 120 + 40\sin\!\left(\dfrac{t}{3}\right)\) cars per hour and leave at a rate of \(L(t) = 25t\) cars per hour, where \(t\) is hours after the garage opens. At \(t = 7\), is the number of cars in the garage increasing or decreasing, and at what rate?</p>`,
+  decode: T`Net rate = <b>rate in − rate out</b> = \(E(7) - L(7)\). Radian mode. A negative result means the number of cars is decreasing.`,
+  choices: [T`Decreasing at about 26.077 cars per hour`, T`Increasing at about 26.077 cars per hour`, T`Decreasing at about 53.371 cars per hour`, T`Increasing at about 323.923 cars per hour`],
+  ans: 0, ansTex: T`\(E(7) - L(7) \approx -26.077\) cars/hr, so decreasing`,
+  steps: [
+    T`Net rate: \(N'(t) = E(t) - L(t)\).`,
+    T`\(E(7) = 120 + 40\sin\!\left(\frac{7}{3}\right) \approx 120 + 28.923 = 148.923\)`,
+    T`\(L(7) = 25(7) = 175\)`,
+    T`\(N'(7) \approx 148.923 - 175 = -26.077 < 0\): <b>decreasing</b> at about 26.077 cars per hour. <b>Answer: A</b>`
+  ],
+  trap: T`Choice C is degree mode. Choice B reports the rate but misreads the sign. The rate is “decreasing at 26.077,” which is the same as a rate of change of \(-26.077\).`
+},
+{ id: 'u4B-mc3', set: 'B', code: 'MC 3', twin: 'u4A-mc3', match: 'Test MC #3', topic: 'Particle motion with a calculator', short: 'Speeding up or slowing down', calc: true,
+  type: 'mc',
+  prompt: T`<p>A particle moves along a line with velocity \(v(t) = t\sin t - 1\) for \(t \ge 0\). Which of the following is true at \(t = 4\)?</p>`,
+  decode: T`Find \(v(4)\) and \(a(4) = v'(4)\) (calculator, radian mode). Same signs → speeding up; opposite signs → slowing down. Two negatives count as the <b>same</b> sign.`,
+  choices: [T`\(v(4) \approx -0.721\), and the particle is slowing down`, T`\(v(4) \approx -4.027\), and the particle is slowing down`, T`\(v(4) \approx -3.371\), and the particle is slowing down`, T`\(v(4) \approx -4.027\), and the particle is speeding up`],
+  ans: 3, ansTex: T`\(v(4) \approx -4.027 < 0\) and \(a(4) \approx -3.371 < 0\): speeding up`,
+  steps: [
+    T`\(v(4) = 4\sin 4 - 1 \approx 4(-0.7568) - 1 \approx -4.027\). Negative.`,
+    T`\(a(4) = v'(4) \approx -3.371\) (calculator). Negative.`,
+    T`(By hand: \(v'(t) = \sin t + t\cos t\), so \(v'(4) = \sin 4 + 4\cos 4 \approx -3.371\).)`,
+    T`Both negative → <b>same sign</b> → speeding up (moving left faster). <b>Answer: D</b>`
+  ],
+  trap: T`Choice B assumes negative acceleration always means slowing down. Not here: with \(v < 0\) too, the particle is speeding up. Choice A is degree mode; Choice C reports \(a(4)\) as the velocity.`
+},
+{ id: 'u4B-mc4', set: 'B', code: 'MC 4', twin: 'u4A-mc4', match: 'Test MC #4', topic: 'Approximating with linearization', short: 'Linear approximation', calc: false,
+  type: 'mc',
+  prompt: T`<p>The function \(g\) is differentiable with \(g(-1) = 2\) and \(g'(-1) = 5\). What is the approximation of \(g(-1.1)\) found by using the line tangent to the graph of \(g\) at \(x = -1\)?</p>`,
+  decode: T`Tangent line at \(x = -1\): \(L(x) = g(-1) + g'(-1)\big(x - (-1)\big) = 2 + 5(x + 1)\). Then plug in \(-1.1\). Watch the double negative.`,
+  choices: [T`\(-0.5\)`, T`\(2.5\)`, T`\(-3.5\)`, T`\(1.5\)`], ans: 3, ansTex: T`\(g(-1.1) \approx 1.5\)`,
+  steps: [
+    T`\(L(x) = 2 + 5(x + 1)\)`,
+    T`\(L(-1.1) = 2 + 5(-1.1 + 1) = 2 + 5(-0.1)\)`,
+    T`\(= 2 - 0.5 = 1.5\). <b>Answer: D</b>`
+  ],
+  trap: T`Choice B uses \(x - 1\) instead of \(x + 1\), making the step \(+0.1\). Choice A forgets to start from \(g(-1) = 2\). Choice C plugs \(-1.1\) in without subtracting \(a\).`
+},
+{ id: 'u4B-mc5', set: 'B', code: 'MC 5', twin: 'u4A-mc5', match: 'Test MC #5', topic: 'L’Hôpital’s Rule from a graph', short: 'L’Hôpital from a graph', calc: false,
+  type: 'mc',
+  prompt: T`<p>The graph of the function \(f\), made of straight segments, is shown. What is \(\displaystyle\lim_{x \to 1} \frac{x^3 - 1}{f(x)}\)?</p>`,
+  graph: GRAPH_LB,
+  decode: T`Plug in: the top is \(1 - 1 = 0\); read \(f(1)\) from the graph. If it’s \(\frac{0}{0}\), use L’Hôpital: derivative of the top over \(f'(1)\), the slope of the segment through \(x = 1\).`,
+  choices: [T`\(\dfrac{2}{3}\)`, T`\(\dfrac{3}{2}\)`, T`\(6\)`, T`The limit does not exist.`], ans: 1, ansTex: T`\(\displaystyle\lim_{x\to 1}\frac{x^3 - 1}{f(x)} = \frac{3(1)^2}{f'(1)} = \frac{3}{2}\)`,
+  steps: [
+    T`Plug in: \(1^3 - 1 = 0\) and \(f(1) = 0\) from the graph. \(\frac{0}{0}\), so L’Hôpital applies.`,
+    T`Derivative of the top: \(3x^2\), which is \(3\) at \(x = 1\).`,
+    T`The segment from \((0, -2)\) to \((2, 2)\) has slope \(\dfrac{2 - (-2)}{2 - 0} = 2\), so \(f'(1) = 2\).`,
+    T`\(\displaystyle\lim_{x\to 1}\frac{x^3 - 1}{f(x)} = \frac{3}{2}\). <b>Answer: B</b>`
+  ],
+  trap: T`Choice A flips the fraction. Keep top with top: the derivative of the numerator stays on top. Choice C multiplies instead of divides.`
+},
+{ id: 'u4B-6', set: 'B', code: 'FRQ 6', twin: 'u4A-6', match: 'Test FRQ 6', topic: 'Finding the linearization equation', short: 'Linearization equation', calc: false,
+  type: 'line', lineF: x => 2 - 2 / 3 * (x - 2), label: T`\(L(x) =\) (or \(y =\))`,
+  help: 'Any correct form works, e.g. y = 2 - 2/3(x - 2). No need to simplify.',
+  prompt: T`<p>Let \(f(x) = \dfrac{6}{x + 1}\). Find the linearization \(L(x)\) of \(f\) at \(x = 2\).</p>`,
+  decode: T`Linearization = tangent line: \(L(x) = f(2) + f'(2)(x - 2)\). Rewrite \(f(x) = 6(x + 1)^{-1}\) to take the derivative with the Power and Chain Rules.`,
+  ansTex: T`\(L(x) = 2 - \tfrac{2}{3}(x - 2)\)`,
+  steps: [
+    T`<b>Point:</b> \(f(2) = \dfrac{6}{3} = 2\).`,
+    T`<b>Derivative:</b> \(f(x) = 6(x + 1)^{-1}\), so \(f'(x) = -6(x + 1)^{-2} = -\dfrac{6}{(x + 1)^2}\)`,
+    T`<b>Slope:</b> \(f'(2) = -\dfrac{6}{9} = -\dfrac{2}{3}\)`,
+    T`\(L(x) = 2 - \dfrac{2}{3}(x - 2)\)`
+  ],
+  trap: T`Dropping the negative from the power rule gives slope \(+\frac{2}{3}\). A decreasing function like this one must have a negative slope, which is a good check.`
+},
+{ id: 'u4B-7', set: 'B', code: 'FRQ 7', twin: 'u4A-7', match: 'Test FRQ 7', topic: 'Over- or underestimate from concavity', short: 'Over or under?', calc: false,
+  type: 'mc',
+  prompt: T`<p>Let \(f(x) = \dfrac{6}{x + 1}\), with linearization \(L(x) = 2 - \tfrac{2}{3}(x - 2)\) at \(x = 2\) (from FRQ 6). The value \(L(2.3) = 1.8\) is used to approximate \(f(2.3)\). Which statement correctly describes this approximation?</p>`,
+  decode: T`Find \(f''\) and check its sign near \(x = 2\). \(f'' > 0\): concave up, curve above its tangent, so the line is too low → underestimate. \(f'' < 0\): overestimate.`,
+  choices: [
+    T`Overestimate, because \(f'(x) < 0\), so \(f\) is decreasing`,
+    T`Underestimate, because \(f''(x) > 0\), so \(f\) is concave up and its graph lies above the tangent line`,
+    T`Overestimate, because \(f''(x) > 0\), so the graph lies below the tangent line`,
+    T`Underestimate, because \(f'(x) < 0\), so the tangent line is below the graph`
+  ],
+  ans: 1, ansTex: T`Underestimate, since \(f'' > 0\) (concave up)`,
+  steps: [
+    T`From FRQ 6: \(f'(x) = -6(x + 1)^{-2}\).`,
+    T`Differentiate again: \(f''(x) = 12(x + 1)^{-3} = \dfrac{12}{(x + 1)^3}\)`,
+    T`For \(x\) near 2, \(x + 1 > 0\), so \(f''(x) > 0\). The graph is <b>concave up</b>.`,
+    T`A concave-up graph lies <b>above</b> its tangent line, so \(L(2.3) = 1.8\) is too small: an <b>underestimate</b>. <b>Answer: B</b>`
+  ],
+  trap: T`Choice C has the right reason but the wrong conclusion: concave up means the curve is <b>above</b> the line. Picture a smile (concave up) with a tangent line resting under it.`
+},
+{ id: 'u4B-8a', set: 'B', code: 'FRQ 8a', twin: 'u4A-8a', match: 'Test FRQ 8', topic: 'Moving right, left, or stopped from a velocity graph', short: 'Right, left, stopped', calc: false,
+  type: 'classify', graph: GRAPH_VB, opts: DIR,
+  rows: [[T`\(0 \le t < 2\)`, 'right'], [T`\(t = 2\)`, 'stop'], [T`\(2 < t < 6\)`, 'left'], [T`\(t = 6\)`, 'stop'], [T`\(6 < t \le 8\)`, 'right']],
+  prompt: T`${STEM_B8}<p>For each time or interval, decide whether the particle is moving right, moving left, or stopped.</p>`,
+  decode: T`Only the <b>sign of \(v\)</b> matters for direction: above the axis is right, below is left, on the axis is stopped.`,
+  ansTex: T`Right on \(0 \le t < 2\) and \(6 < t \le 8\); left on \(2 < t < 6\); stopped at \(t = 2\) and \(t = 6\)`,
+  steps: [
+    T`\(0 \le t < 2\): \(v(t) > 0\) → <b>moving right</b> (even though \(v\) is falling).`,
+    T`\(t = 2\) and \(t = 6\): \(v = 0\) → <b>stopped</b> for an instant.`,
+    T`\(2 < t < 6\): \(v(t) < 0\) → <b>moving left</b>, including the flat stretch \(4 < t < 5\).`,
+    T`\(6 < t \le 8\): \(v(t) > 0\) → <b>moving right</b>.`,
+    T`<b>Write it like this:</b> “The particle moves right on \(0 \le t < 2\) and \(6 < t \le 8\) because \(v(t) > 0\), moves left on \(2 < t < 6\) because \(v(t) < 0\), and is stopped at \(t = 2\) and \(t = 6\) because \(v(t) = 0\).”`
+  ],
+  trap: T`The flat segment at \(v = -2\) is <b>not</b> stopped; the particle is moving left at a steady 2 units per second. Stopped means \(v = 0\), on the axis.`
+},
+{ id: 'u4B-8b', set: 'B', code: 'FRQ 8b', twin: 'u4A-8b', match: 'Test FRQ 8', topic: 'Speeding up or slowing down from a velocity graph', short: 'Speeding up / slowing down', calc: false,
+  type: 'classify', graph: GRAPH_VB, opts: SPD,
+  rows: [[T`\(0 < t < 2\)`, 'down'], [T`\(2 < t < 4\)`, 'up'], [T`\(4 < t < 5\)`, 'neither'], [T`\(5 < t < 6\)`, 'down'], [T`\(6 < t < 8\)`, 'up']],
+  prompt: T`${STEM_B8}<p>For each interval, decide whether the particle is speeding up, slowing down, or neither.</p>`,
+  decode: T`Sign of \(v\) (above/below the axis) versus sign of \(a\) (the graph rising or falling). Same → speeding up. Opposite → slowing down. Flat → constant speed.`,
+  ansTex: T`Speeding up on \(2 < t < 4\) and \(6 < t < 8\); slowing down on \(0 < t < 2\) and \(5 < t < 6\); neither on \(4 < t < 5\)`,
+  steps: [
+    T`\(0 < t < 2\): \(v > 0\), \(a < 0\) → <b>slowing down</b>.`,
+    T`\(2 < t < 4\): \(v < 0\), \(a < 0\) → <b>speeding up</b>.`,
+    T`\(4 < t < 5\): \(a = 0\) → <b>neither</b>.`,
+    T`\(5 < t < 6\): \(v < 0\), \(a > 0\) → <b>slowing down</b>. \(6 < t < 8\): \(v > 0\), \(a > 0\) → <b>speeding up</b>.`,
+    T`<b>Write it like this:</b> “Speeding up on \(2 < t < 4\) and \(6 < t < 8\) because \(v(t)\) and \(a(t)\) have the same sign; slowing down on \(0 < t < 2\) and \(5 < t < 6\) because they have opposite signs.”`
+  ],
+  trap: T`Shortcut that always works: speeding up when the graph moves <b>away</b> from the \(t\)-axis, slowing down when it moves <b>toward</b> the axis. But on the test, the justification must be the sign comparison of \(v\) and \(a\).`
+},
+{ id: 'u4B-8c', set: 'B', code: 'FRQ 8c', twin: 'u4A-8c', match: 'Test FRQ 8', topic: 'Intervals of increasing and decreasing position from v(t)', short: 'Increasing / decreasing', calc: false,
+  type: 'classify', opts: POS,
+  rows: [[T`\(0 < t < 1\)`, 'dec'], [T`\(1 < t < 4\)`, 'inc'], [T`\(4 < t < 6\)`, 'dec']],
+  prompt: T`<p>A particle moves along the \(x\)-axis with velocity \(v(t) = -t^2 + 5t - 4\) for \(0 \le t \le 6\). On which intervals is the particle’s position increasing, and on which is it decreasing?</p>`,
+  decode: T`Position increases where \(v(t) > 0\) and decreases where \(v(t) < 0\). Find the zeros of \(v\), then test each interval. Factor out the \(-1\) first to make factoring easier.`,
+  ansTex: T`Increasing on \(1 < t < 4\); decreasing on \(0 < t < 1\) and \(4 < t < 6\)`,
+  steps: [
+    T`\(v(t) = -(t^2 - 5t + 4) = -(t - 1)(t - 4)\). Zeros at \(t = 1\) and \(t = 4\).`,
+    T`Test values: \(v(0.5) = -1.75 < 0\), \(v(2) = 2 > 0\), \(v(5) = -4 < 0\).`,
+    T`<b>Sign chart:</b>${vtable([['\\(t\\)', ['\\(0<t<1\\)', '\\(1<t<4\\)', '\\(4<t<6\\)']], ['\\(v(t)\\)', ['\\(-\\)', '\\(+\\)', '\\(-\\)']], ['position', ['decreasing', 'increasing', 'decreasing']]])}`,
+    T`<b>Write it like this:</b> “The position is increasing on \(1 < t < 4\) because \(v(t) > 0\), and decreasing on \(0 < t < 1\) and \(4 < t < 6\) because \(v(t) < 0\).”`
+  ],
+  trap: T`The leading \(-t^2\) flips the usual pattern: this parabola opens <b>down</b>, so it’s positive <b>between</b> its zeros. Always test a value instead of assuming.`
+},
+{ id: 'u4B-8d', set: 'B', code: 'FRQ 8d', twin: 'u4A-8d', match: 'Test FRQ 8', topic: 'Evaluating a limit with L’Hôpital’s Rule', short: 'L’Hôpital limit', calc: false,
+  type: 'num', answer: 0.5, label: T`\(\displaystyle\lim_{x\to 0}\frac{e^x - 1 - x}{x^2} =\)`,
+  prompt: T`<p>Find \(\displaystyle\lim_{x \to 0} \frac{e^x - 1 - x}{x^2}\). Show the work that justifies using L’Hôpital’s Rule.</p>`,
+  decode: T`Plug in: \(e^0 - 1 - 0 = 0\) and \(0^2 = 0\). That’s \(\frac{0}{0}\), so differentiate the top and bottom separately. You may need to do it twice.`,
+  ansTex: T`\(\dfrac{1}{2}\)`,
+  steps: [
+    T`Check the form: top \(\to e^0 - 1 - 0 = 0\), bottom \(\to 0\). It’s \(\frac{0}{0}\).`,
+    T`L’Hôpital: \(\displaystyle\lim_{x\to 0}\frac{e^x - 1}{2x}\). Still \(\frac{0}{0}\).`,
+    T`Again: \(\displaystyle\lim_{x\to 0}\frac{e^x}{2}\)`,
+    T`\(= \dfrac{e^0}{2} = \dfrac{1}{2}\)`
+  ],
+  trap: T`Stopping after one round and calling \(\frac{0}{0}\) “undefined” is the most common mistake. Keep going until plugging in gives a real number.`
+},
+{ id: 'u4B-9a', set: 'B', code: 'FRQ 9a', twin: 'u4A-9a', match: 'Test FRQ 9', topic: 'Average rate of change from a table, with units', short: 'Average rate with units', calc: true,
+  type: 'num', answer: 5.5 / 6, tol: 0.0015, units: UNITS_B9, unitAns: 'in/hr', label: T`Average rate on \(1 \le t \le 7\):`,
+  help: 'A fraction like 5.5/6 is fine, or give 3 decimal places. Then choose the units.',
+  prompt: T`${STEM_B9}<p>Find the average rate of change of \(D(t)\) over the interval \(1 \le t \le 7\). Include units.</p>`,
+  decode: T`Slope between the endpoints: \(\dfrac{D(7) - D(1)}{7 - 1}\). Units: inches per hour.`,
+  ansTex: T`\(\dfrac{10.3 - 4.8}{7 - 1} = \dfrac{5.5}{6} \approx 0.917\) in/hr`,
+  steps: [
+    T`\(\dfrac{D(7) - D(1)}{7 - 1} = \dfrac{10.3 - 4.8}{6}\)`,
+    T`\(= \dfrac{5.5}{6} \approx 0.917\)`,
+    T`Units: inches per hour. <b>Answer: 0.917 in/hr</b>`
+  ],
+  trap: T`Using \(t = 0\) instead of \(t = 1\) for the start of the interval is an easy slip. Read the interval carefully and circle both endpoints in the table.`
+},
+{ id: 'u4B-9b', set: 'B', code: 'FRQ 9b', twin: 'u4A-9b', match: 'Test FRQ 9', topic: 'Approximating the instantaneous rate of change', short: 'Approximate IROC', calc: true,
+  type: 'num', answer: 1.35, tol: 0.0015, units: UNITS_B9, unitAns: 'in/hr', label: T`\(D'(2) \approx\)`,
+  help: 'Give your answer as a number or fraction. Then choose the units.',
+  prompt: T`${STEM_B9}<p>Use the data in the table to approximate \(D'(2)\). Include units.</p>`,
+  decode: T`\(t = 2\) isn’t in the table. Use the two data points that surround it, \(t = 1\) and \(t = 3\), and find the slope between them.`,
+  ansTex: T`\(D'(2) \approx \dfrac{7.5 - 4.8}{3 - 1} = 1.35\) in/hr`,
+  steps: [
+    T`The table times on either side of \(t = 2\) are \(t = 1\) and \(t = 3\).`,
+    T`\(D'(2) \approx \dfrac{D(3) - D(1)}{3 - 1} = \dfrac{7.5 - 4.8}{2}\)`,
+    T`\(= \dfrac{2.7}{2} = 1.35\) in/hr`
+  ],
+  trap: T`Write the setup \(\frac{D(3) - D(1)}{3 - 1}\) on the FRQ. And it’s inches per <b>hour</b>, not inches: a rate always has “per.”`
+},
+{ id: 'u4B-9c', set: 'B', code: 'FRQ 9c', twin: 'u4A-9c', match: 'Test FRQ 9', topic: 'Derivative in context, described with a sentence', short: 'Interpret D′(5)', calc: true,
+  type: 'mc',
+  prompt: T`${STEM_B9}<p>The snow depth is modeled by \(D(t) = 2 + 4\ln(t + 1)\). Use your calculator to find \(D'(5)\). Which sentence correctly interprets the result?</p>`,
+  decode: T`Find \(D'(5)\) with the calculator. The sentence needs <b>when</b> (\(t = 5\) hours), <b>what</b> (snow depth), <b>direction</b> (from the sign), and <b>rate with units</b> (inches per hour).`,
+  choices: [
+    T`At \(t = 5\) hours, the snow depth is increasing at a rate of about 9.167 inches per hour.`,
+    T`At \(t = 5\) hours, the snow is 0.667 inches deep.`,
+    T`At \(t = 5\) hours, the snow depth is increasing at a rate of about 0.667 inches per hour.`,
+    T`During the first 5 hours, the snow depth increased by an average of 0.667 inches per hour.`
+  ],
+  ans: 2, ansTex: T`\(D'(5) \approx 0.667\): at \(t = 5\) hr, the depth is increasing at about 0.667 in/hr`,
+  steps: [
+    T`Calculator: \(\dfrac{d}{dt}\big(2 + 4\ln(t + 1)\big)\Big|_{t=5} \approx 0.667\).`,
+    T`(By hand: \(D'(t) = \dfrac{4}{t + 1}\), so \(D'(5) = \dfrac{4}{6} \approx 0.667\).)`,
+    T`Positive means the depth is going <b>up</b>. Units: inches per hour.`,
+    T`“At \(t = 5\) hours, the depth of the snow is increasing at a rate of 0.667 inches per hour.” <b>Answer: C</b>`
+  ],
+  trap: T`Choice A uses \(D(5) \approx 9.167\), the depth itself. Choice B calls the rate a depth. Choice D describes an average over an interval; a derivative is an instantaneous rate at one moment.`
+}
+];
+
+/* ============================================================
+   Math input reader (accepts unsimplified answers)
+   ============================================================ */
+const NAMES = ['sqrt', 'sin', 'cos', 'tan', 'sec', 'csc', 'cot', 'ln', 'log', 'abs', 'pi', 'e', 'x', 'y', 't'];
+const FUNCS = {
+  sqrt: Math.sqrt, sin: Math.sin, cos: Math.cos, tan: Math.tan,
+  sec: v => 1 / Math.cos(v), csc: v => 1 / Math.sin(v), cot: v => 1 / Math.tan(v),
+  ln: Math.log, log: Math.log10, abs: Math.abs
+};
+function tokenize(s) {
+  s = s.toLowerCase()
+    .replace(/[−–—]/g, '-').replace(/[×·∙]/g, '*').replace(/÷/g, '/')
+    .replace(/√/g, 'sqrt').replace(/π/g, 'pi').replace(/²/g, '^2').replace(/³/g, '^3');
+  const out = []; let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    if (/[0-9.]/.test(c)) {
+      const m = s.slice(i).match(/^(\d+\.?\d*|\.\d+)/);
+      if (!m) throw new Error('number');
+      out.push({ t: 'n', v: parseFloat(m[0]) }); i += m[0].length; continue;
+    }
+    if (/[a-z]/.test(c)) {
+      const nm = NAMES.find(n => s.startsWith(n, i));
+      if (!nm) throw new Error('Unknown letters: “' + s.slice(i).match(/^[a-z]+/)[0] + '”');
+      out.push({ t: 'id', v: nm }); i += nm.length; continue;
+    }
+    if ('+-*/^(),'.includes(c)) { out.push({ t: c }); i++; continue; }
+    if (c === '[' || c === '{') { out.push({ t: '(' }); i++; continue; }
+    if (c === ']' || c === '}') { out.push({ t: ')' }); i++; continue; }
+    throw new Error('Unexpected “' + c + '”');
+  }
+  return out;
+}
+function compile(src) {
+  const tk = tokenize(src); let p = 0;
+  const peek = () => tk[p], take = () => tk[p++];
+  const startsFactor = t => t && (t.t === 'n' || t.t === 'id' || t.t === '(');
+  function expr() {
+    let a = term();
+    while (peek() && (peek().t === '+' || peek().t === '-')) {
+      const op = take().t, b = term(), l = a;
+      a = op === '+' ? (v => l(v) + b(v)) : (v => l(v) - b(v));
+    }
+    return a;
+  }
+  function term() {
+    let a = unary();
+    while (true) {
+      const t = peek();
+      if (t && (t.t === '*' || t.t === '/')) {
+        take(); const b = unary(), l = a;
+        a = t.t === '*' ? (v => l(v) * b(v)) : (v => l(v) / b(v));
+      } else if (startsFactor(t)) {
+        const b = power(), l = a; a = v => l(v) * b(v);
+      } else break;
+    }
+    return a;
+  }
+  function unary() {
+    const t = peek();
+    if (t && t.t === '-') { take(); const a = unary(); return v => -a(v); }
+    if (t && t.t === '+') { take(); return unary(); }
+    return power();
+  }
+  function power() {
+    const base = primary();
+    if (peek() && peek().t === '^') { take(); const ex = unary(); return v => Math.pow(base(v), ex(v)); }
+    return base;
+  }
+  function primary() {
+    const t = take();
+    if (!t) throw new Error('Incomplete answer');
+    if (t.t === 'n') { const n = t.v; return () => n; }
+    if (t.t === '(') { const a = expr(); if (!peek() || take().t !== ')') throw new Error('Missing “)”'); return a; }
+    if (t.t === 'id') {
+      if (t.v === 'pi') return () => Math.PI;
+      if (t.v === 'e') return () => Math.E;
+      if (t.v === 'x') return v => v.x;
+      if (t.v === 'y') return v => v.y;
+      if (t.v === 't') return v => v.t;
+      const fn = FUNCS[t.v];
+      let arg;
+      if (peek() && peek().t === '(') arg = primary(); else arg = power();
+      return v => fn(arg(v));
+    }
+    throw new Error('Unexpected “' + t.t + '”');
+  }
+  const f = expr();
+  if (p < tk.length) throw new Error('Check your answer near “' + (tk[p].v ?? tk[p].t) + '”');
+  return f;
+}
+const close = (a, b) => Number.isFinite(a) && Math.abs(a - b) <= 1e-6 * Math.max(1, Math.abs(b));
+function readNumber(raw) {
+  let s = raw.trim();
+  if (!s) throw new Error('Type an answer first');
+  if (/^dne$/i.test(s)) return NaN;
+  if (s.includes('=')) s = s.slice(s.lastIndexOf('=') + 1);
+  const f = compile(s), val = f({ x: NaN, y: NaN });
+  if (!Number.isFinite(val)) throw new Error('That doesn’t work out to a number');
+  return val;
+}
+function checkAnswer(q, raw) {
+  if (q.type === 'num') return close(readNumber(raw), q.answer);
+  if (q.type === 'set') {
+    let s = raw.replace(/\b(and|or)\b/gi, ',').replace(/x\s*=/gi, '');
+    const vals = s.split(/[,;]/).map(t => t.trim()).filter(Boolean).map(readNumber);
+    if (!vals.length) throw new Error('Type an answer first');
+    const uniq = [];
+    vals.forEach(v => { if (!uniq.some(u => close(v, u))) uniq.push(v); });
+    return uniq.length === q.answer.length && q.answer.every(a => uniq.some(u => close(u, a)));
+  }
+  if (q.type === 'line') {
+    const s = raw.trim();
+    if (!s) throw new Error('Type an answer first');
+    let F;
+    if (s.includes('=')) {
+      const [L, R] = s.split('=');
+      if (!L.trim() || !R.trim() || s.split('=').length > 2) throw new Error('Use one “=” sign');
+      const l = compile(L), r = compile(R); F = v => l(v) - r(v);
+    } else { const r = compile(s); F = v => v.y - r(v); }
+    return [-2, 0.5, 3].every(x => {
+      const y = q.lineF(x);
+      const on = F({ x, y }), off = F({ x, y: y + 1 });
+      return Number.isFinite(on) && Math.abs(on) < 1e-6 && Math.abs(off) > 1e-6;
+    });
+  }
+}
+function previewText(q, raw) {
+  if (!raw.trim()) return { t: '' };
+  try {
+    if (q.type === 'num') { const v = readNumber(raw); return { t: 'Reads as ≈ ' + fmt(v) }; }
+    if (q.type === 'set') {
+      const s = raw.replace(/\b(and|or)\b/gi, ',').replace(/x\s*=/gi, '');
+      const vals = s.split(/[,;]/).map(t => t.trim()).filter(Boolean).map(readNumber);
+      return { t: 'Reads as x ≈ ' + vals.map(fmt).join(', ') };
+    }
+    if (q.type === 'line') {
+      const s = raw.trim();
+      if (s.includes('=')) { const [L, R] = s.split('='); compile(L); compile(R || '0'); } else compile(s);
+      return { t: 'Looks readable ✓' };
+    }
+    if (q.type === 'expr') {
+      let s = raw.trim(); if (s.includes('=')) s = s.slice(s.lastIndexOf('=') + 1);
+      const f = compile(s); f({ t: 1, x: NaN, y: NaN });
+      return { t: 'Looks readable ✓' };
+    }
+  } catch (e) { return { t: e.message, err: true }; }
+}
+const fmt = v => Number.isInteger(v) ? String(v) : (Math.round(v * 10000) / 10000).toString();
+
+/* ============================================================
+   Graph drawing
+   ============================================================ */
+function graphSVG(g) {
+  const W = 400, H = 320, P = 24;
+  const sx = x => P + (x - g.xmin) / (g.xmax - g.xmin) * (W - 2 * P);
+  const sy = y => H - P - (y - g.ymin) / (g.ymax - g.ymin) * (H - 2 * P);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${g.caption}" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif">`;
+  s += `<defs><clipPath id="plotclip"><rect x="${P}" y="${P}" width="${W - 2 * P}" height="${H - 2 * P}"/></clipPath></defs>`;
+  for (let x = g.xmin; x <= g.xmax; x++) s += `<line x1="${sx(x)}" y1="${sy(g.ymin)}" x2="${sx(x)}" y2="${sy(g.ymax)}" stroke="var(--plot-grid)" stroke-width="1"/>`;
+  for (let y = g.ymin; y <= g.ymax; y++) s += `<line x1="${sx(g.xmin)}" y1="${sy(y)}" x2="${sx(g.xmax)}" y2="${sy(y)}" stroke="var(--plot-grid)" stroke-width="1"/>`;
+  s += `<line x1="${sx(g.xmin)}" y1="${sy(0)}" x2="${sx(g.xmax)}" y2="${sy(0)}" stroke="var(--axis)" stroke-width="1.6"/>`;
+  s += `<line x1="${sx(0)}" y1="${sy(g.ymin)}" x2="${sx(0)}" y2="${sy(g.ymax)}" stroke="var(--axis)" stroke-width="1.6"/>`;
+  g.asym.forEach(a => { s += `<line x1="${sx(a)}" y1="${sy(g.ymin)}" x2="${sx(a)}" y2="${sy(g.ymax)}" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="6 5"/>`; });
+  for (let x = g.xmin; x <= g.xmax; x++) if (x !== 0) s += `<text x="${sx(x)}" y="${sy(0) + 15}" font-size="11" text-anchor="middle" fill="var(--muted)" stroke="var(--paper)" stroke-width="3" paint-order="stroke">${x < 0 ? '−' + (-x) : x}</text>`;
+  for (let y = g.ymin; y <= g.ymax; y++) if (y !== 0) s += `<text x="${sx(0) - 6}" y="${sy(y) + 4}" font-size="11" text-anchor="end" fill="var(--muted)">${y < 0 ? '−' + (-y) : y}</text>`;
+  s += `<text x="${sx(g.xmax) - 2}" y="${sy(0) - 6}" font-size="13" font-style="italic" text-anchor="end" fill="var(--ink)">${g.xlab || 'x'}</text>`;
+  s += `<text x="${sx(0) + 6}" y="${sy(g.ymax) + 12}" font-size="13" font-style="italic" fill="var(--ink)">${g.ylab || 'y'}</text>`;
+  s += '<g clip-path="url(#plotclip)">';
+  g.curves.forEach(c => {
+    let d = '', pen = false; const N = 400;
+    for (let i = 0; i <= N; i++) {
+      const x = c.a + (c.b - c.a) * i / N, y = c.f(x);
+      if (!Number.isFinite(y) || y > g.ymax + 3 || y < g.ymin - 3) { pen = false; continue; }
+      d += (pen ? 'L' : 'M') + sx(x).toFixed(2) + ' ' + sy(y).toFixed(2) + ' '; pen = true;
+    }
+    s += `<path d="${d}" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+  s += '</g>';
+  g.open.forEach(([x, y]) => { s += `<circle cx="${sx(x)}" cy="${sy(y)}" r="5.5" fill="var(--paper)" stroke="var(--blue)" stroke-width="2.6"/>`; });
+  g.closed.forEach(([x, y]) => { s += `<circle cx="${sx(x)}" cy="${sy(y)}" r="5.5" fill="var(--blue)" stroke="var(--blue)" stroke-width="2"/>`; });
+  return s + '</svg>';
+}
+
+/* ============================================================
+   Registry of every question (Unit 2 days + Unit 3 tests)
+   ============================================================ */
+Q.forEach(q => { q.id = String(q.day); q.unit = 'u2'; q.set = 'D'; });
+U3.forEach(q => { q.unit = 'u3'; });
+U4.forEach(q => { q.unit = 'u4'; });
+const UNAME = { u2: 'Unit 2', u3: 'Unit 3', u4: 'Unit 4' };
+const BYID = {};
+[...Q, ...U3, ...U4].forEach(q => { BYID[q.id] = q; });
+const SEQ = {
+  u2: Q.map(q => q.id),
+  u3A: U3.filter(q => q.set === 'A').map(q => q.id),
+  u3B: U3.filter(q => q.set === 'B').map(q => q.id),
+  u4A: U4.filter(q => q.set === 'A').map(q => q.id),
+  u4B: U4.filter(q => q.set === 'B').map(q => q.id)
+};
+const seqOf = q => q.unit === 'u2' ? 'u2' : q.unit + q.set;
+const titleOf = q => q.unit === 'u2' ? 'Day ' + q.day : 'Test ' + q.set + ' · ' + q.code;
+const longName = q => q.unit === 'u2' ? 'Unit 2 · Day ' + q.day : UNAME[q.unit] + ' · Test ' + q.set + ' · ' + q.code;
+
+/* ============================================================
+   State (saved in this browser)
+   ============================================================ */
+const KEY = 'dailyDerivative_unit2_v1'; // kept so earlier progress carries over
+let store = { a: {} };
+try { const raw = localStorage.getItem(KEY); if (raw) store = JSON.parse(raw) || store; } catch (e) {}
+if (!store.a) store.a = {};
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+let view = { name: 'home', filter: 'all' };
+let draft = {};              // in-progress answers, not yet submitted
+const retrying = new Set();  // questions reopened with "Try this one again"
+
+const app = document.getElementById('app');
+const recOf = id => store.a[id];
+function statusOf(id) { const r = store.a[id]; return !r ? 'new' : (r.correct ? 'ok' : 'no'); }
+function everMissed(id) { const r = store.a[id]; return !!r && (!r.correct || (r.hist || []).some(h => !h.correct)); }
+function nextDay() {
+  const firstNew = Q.find(q => statusOf(q.id) === 'new');
+  if (firstNew) return firstNew.day;
+  const firstMiss = Q.find(q => statusOf(q.id) === 'no');
+  return firstMiss ? firstMiss.day : null;
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function curTab() {
+  if (!store.seenU4) { store.seenU4 = 1; store.tab = 'u4'; save(); } // open on the newest unit once
+  return store.tab || 'u4';
+}
+
+window.typesetApp = function () {
+  if (!window.__mjReady) return;
+  try { MathJax.typesetClear(); } catch (e) {}
+  MathJax.typesetPromise([app]).catch(() => {});
+};
+
+const LOGO = `<svg width="54" height="54" viewBox="0 0 54 54" aria-hidden="true"><rect x="1" y="1" width="52" height="52" rx="12" fill="var(--ink)"/><path d="M8 42 C 18 42, 22 12, 46 10" fill="none" stroke="var(--paper)" stroke-width="3.2" stroke-linecap="round"/><line x1="10" y1="35" x2="42" y2="15" stroke="var(--hi)" stroke-width="3.2" stroke-linecap="round"/><circle cx="25.6" cy="25.3" r="3.6" fill="var(--hi)"/></svg>`;
+
+/* ---------- Shared pieces ---------- */
+function meterHTML(ok, no, total, label) {
+  return `<div class="meter" role="img" aria-label="${label}: ${ok} correct, ${no} missed, out of ${total}"><span class="g" style="width:${ok / total * 100}%"></span><span class="b" style="width:${no / total * 100}%"></span></div>`;
+}
+function tileHTML(q, opts = {}) {
+  const st = statusOf(q.id);
+  const fixed = st === 'ok' && everMissed(q.id);
+  const mark = st === 'ok' ? '✓' : st === 'no' ? '✕' : '';
+  const head = q.unit === 'u2' ? 'Day ' + q.day : q.code;
+  const sub = opts.long ? (q.unit === 'u2' ? 'Unit 2' : UNAME[q.unit] + ' · Test ' + q.set) : (q.unit === 'u2' ? q.match.replace('Test ', '') : (q.calc ? 'Calculator' : q.calc === false ? 'No calculator' : ''));
+  return `<button class="tile ${st} ${opts.up ? 'up' : ''}" data-go="${q.id}" data-seq="${opts.seq || seqOf(q)}" aria-label="${longName(q)}: ${esc(q.short)}${st === 'ok' ? (fixed ? ', fixed on retry' : ', correct') : st === 'no' ? ', missed' : ''}">
+    <span class="d">${head}</span><span class="t">${q.short}</span>${sub ? `<span class="t">${sub}</span>` : ''}${mark ? `<span class="s" aria-hidden="true">${mark}</span>` : ''}</button>`;
+}
+function saveSectionHTML() {
+  const answered = Object.keys(store.a).length;
+  let status;
+  if (store.savedAt) {
+    const when = new Date(store.savedAt).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    status = `Last saved to a file: <b>${when}</b>.` + (store.dirty ? ` <span class="warn">${store.dirty} new answer${store.dirty === 1 ? '' : 's'} since then — save again to keep ${store.dirty === 1 ? 'it' : 'them'}.</span>` : ' Your file is up to date.');
+  } else {
+    status = answered ? `<span class="warn">You haven’t saved a progress file yet.</span>` : 'Nothing to save yet. Answer a question first.';
+  }
+  return `<section class="howto" id="sync"><h3>Save your progress</h3>
+    <p class="note">Answers save only in this browser. Save a progress file to your Google Drive to switch devices (Chromebook, home computer, phone) or keep a backup for the final.</p>
+    <p class="sync-status">${status}</p>
+    <div class="row"><button class="btn" id="saveFile">Save progress file</button><button class="btn ghost" id="loadFile">Load progress file</button>
+    <input type="file" id="fileIn" accept=".json,application/json" hidden></div>
+    <p id="fileMsg" class="note" role="status"></p>
+    <details class="more"><summary>Other options</summary>
+      <p class="note">Can’t save files on this device? Copy a progress code instead and paste it on the other device.</p>
+      <div class="row"><button class="btn ghost" id="mk">Show my progress code</button></div>
+      <textarea id="codeOut" readonly hidden aria-label="Your progress code"></textarea>
+      <p class="note" style="margin-top:12px">Paste a code from another device:</p>
+      <textarea id="codeIn" aria-label="Paste progress code"></textarea>
+      <div class="row"><button class="btn ghost" id="ld">Load progress code</button></div>
+      <div class="row" style="margin-top:16px"><button class="btn ghost" id="rs">Start over (clear all answers)</button></div>
+    </details>
+  </section>`;
+}
+
+/* ---------- Home ---------- */
+function renderHome() {
+  const tab = curTab();
+  let h = `<header class="mast">${LOGO}<h1 class="wordmark">The Daily Derivative<small>AP Calculus AB practice, written the way the tests ask it.</small></h1></header>`;
+  const missedCount = Object.keys(store.a).filter(id => BYID[id] && everMissed(id)).length;
+  const tabs = [['u4', 'Unit 4 Test Sprint'], ['u3', 'Unit 3 Test Sprint'], ['u2', 'Unit 2 Daily'], ['review', 'Final Review' + (missedCount ? ` (${missedCount})` : '')]];
+  h += '<nav class="tabs" aria-label="Units">';
+  tabs.forEach(([k, lab]) => { h += `<button class="tab" data-tab="${k}" aria-current="${tab === k ? 'page' : 'false'}">${lab}</button>`; });
+  h += '</nav>';
+
+  if (tab === 'u2') h += homeU2();
+  else if (tab === 'u3' || tab === 'u4') h += homeTest(tab);
+  else h += homeReview();
+
+  app.innerHTML = h;
+  wireHome();
+  typesetApp();
+}
+
+function homeU2() {
+  const done = Q.filter(q => statusOf(q.id) !== 'new').length;
+  const ok = Q.filter(q => statusOf(q.id) === 'ok').length;
+  const no = done - ok;
+  const nd = nextDay();
+  let h = '<section class="next">';
+  if (nd) {
+    const q = Q[nd - 1];
+    const isRetry = statusOf(q.id) === 'no';
+    h += `<h2>${isRetry ? 'Try again: ' : 'Up next: '}Day ${nd}</h2><p>${q.topic}. Matches ${q.match} on the Unit 2 study guide.</p>`;
+    h += `<button class="btn" data-go="${q.id}" data-seq="u2">${isRetry ? 'Retry' : 'Start'} Day ${nd}</button>`;
+  } else {
+    h += `<h2>All 30 days correct</h2><p>You’ve worked every question type on the Unit 2 Test. Revisit any day below to practice again.</p>`;
+  }
+  h += meterHTML(ok, no, 30, 'Unit 2');
+  h += `<div class="meter-label">${ok} correct · ${no} to retry · ${30 - done} not started</div></section>`;
+  h += saveSectionHTML();
+
+  const filters = [['all', 'All days'], ['mc', 'Multiple choice'], ['frq1', 'Free response 1'], ['frq2', 'Free response 2 (table)'], ['todo', 'Not done'], ['miss', 'To retry']];
+  h += '<h2 class="sec-h">All 30 days</h2><div class="filters" role="group" aria-label="Filter days">';
+  filters.forEach(([k, lab]) => { h += `<button class="chip" data-filter="${k}" aria-pressed="${view.filter === k}">${lab}</button>`; });
+  h += '</div><div class="grid">';
+  const list = Q.filter(q => {
+    const f = view.filter, st = statusOf(q.id);
+    if (f === 'all') return true;
+    if (f === 'todo') return st === 'new';
+    if (f === 'miss') return st === 'no';
+    return q.group === f;
+  });
+  list.forEach(q => { h += tileHTML(q, { up: q.day === nd }); });
+  if (!list.length) h += '<p class="empty">Nothing here yet. Choose “All days” to see every question.</p>';
+  h += '</div>';
+  h += `<section class="howto"><h3>How it works</h3>
+    <p>Each day is one question modeled on an item from the Unit 2 Test study guide. Before answering, open <b>“What is this question really asking?”</b> if the wording throws you. After you submit, you’ll see the full step-by-step solution and the trap most students fall into.</p>
+    <p>For write-in answers, you don’t need to simplify: <b>(16−4)/4</b>, <b>-14/16</b>, and <b>y+2 = -1(x-1)</b> are all accepted.</p></section>`;
+  return h;
+}
+
+const TEST_CFG = {
+  u3: { intro: 'in the same order as the Unit 3 Test: multiple choice 1–7, then free response 8, 10 and 11 (calculator allowed on 10 and 11).',
+    plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution and the trap that catches most students.</p>
+    <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording. Getting the twin right is how you know you’ve got it.</p>
+    <p>Have a calculator in <b>radian mode</b> for questions 10 and 11. Write-in answers don’t need simplifying: <b>1/5</b>, <b>8+5sin(2)</b>, and <b>y-3 = 2(x-1)</b> all work.</p>` },
+  u4: { intro: 'in the same order as the Unit 4 Test: multiple choice 1–5 (calculator on 1–3), then free response 6–9 (calculator only on 9).',
+    plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution, the trap that catches most students, and for free response, the exact sentence to write for full credit.</p>
+    <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording.</p>
+    <p>Know every derivative rule cold, and have your calculator in <b>radian mode</b> for MC 1–3 and FRQ 9. Practice its derivative function (nDeriv) on MC 3 and FRQ 9c. For the velocity graph questions (FRQ 8a–c), pick an answer for every row of the chart.</p>` }
+};
+function testNext(u) {
+  const A = SEQ[u + 'A'].map(id => BYID[id]), B = SEQ[u + 'B'].map(id => BYID[id]);
+  const aNew = A.find(q => statusOf(q.id) === 'new');
+  if (aNew) return { q: aNew, kind: 'A' };
+  const twinTodo = A.filter(q => everMissed(q.id)).map(q => BYID[q.twin]).find(t => statusOf(t.id) === 'new');
+  if (twinTodo) return { q: twinTodo, kind: 'twin' };
+  const bNew = B.find(q => statusOf(q.id) === 'new');
+  if (bNew) return { q: bNew, kind: 'B' };
+  const miss = [...A, ...B].find(q => statusOf(q.id) === 'no');
+  if (miss) return { q: miss, kind: 'retry' };
+  return null;
+}
+function homeTest(u) {
+  const A = SEQ[u + 'A'].map(id => BYID[id]), B = SEQ[u + 'B'].map(id => BYID[id]);
+  const cfg = TEST_CFG[u];
+  const cnt = arr => ({ ok: arr.filter(q => statusOf(q.id) === 'ok').length, no: arr.filter(q => statusOf(q.id) === 'no').length });
+  const a = cnt(A), b = cnt(B), n = A.length;
+  const firstScoreA = A.filter(q => { const r = recOf(q.id); if (!r) return false; const first = (r.hist && r.hist.length) ? r.hist[0] : r; return first.correct; }).length;
+  const nx = testNext(u);
+  let h = '<section class="next">';
+  if (!nx) {
+    h += `<h2>Both practice tests correct</h2><p>You’re ready. Check Final Review for anything you missed along the way.</p>`;
+  } else if (nx.kind === 'A') {
+    const started = a.ok + a.no > 0;
+    h += `<h2>${started ? 'Keep going: Test A · ' + nx.q.code : 'Start with Practice Test A'}</h2>`;
+    h += `<p>${n} questions ${cfg.intro} Every miss links to a matching “twin” question in Test B.</p>`;
+    h += `<button class="btn" data-go="${nx.q.id}" data-seq="${u}A">${started ? 'Continue' : 'Start Test A'}</button>`;
+  } else {
+    const tw = nx.kind === 'twin' ? BYID[nx.q.twin] : null;
+    h += `<h2>Test A: ${firstScoreA} of ${n} on the first try</h2>`;
+    if (nx.kind === 'twin') h += `<p>Next, fix what you missed. You missed <b>${tw.code}</b> (${tw.short}), so practice its twin in Test B.</p><button class="btn" data-go="${nx.q.id}" data-seq="${u}B">Practice Test B · ${nx.q.code}</button>`;
+    else if (nx.kind === 'B') h += `<p>Every miss has been practiced. Take the rest of Test B as a second full practice run.</p><button class="btn" data-go="${nx.q.id}" data-seq="${u}B">Continue with Test B · ${nx.q.code}</button>`;
+    else h += `<p>One more try on the questions still marked wrong.</p><button class="btn" data-go="${nx.q.id}" data-seq="${seqOf(nx.q)}">Retry ${titleOf(nx.q)}</button>`;
+  }
+  h += `<div class="meters2"><div><div class="meter-label">Test A</div>${meterHTML(a.ok, a.no, n, 'Test A')}<div class="meter-label">${a.ok} correct · ${a.no} to retry · ${n - a.ok - a.no} not started</div></div>`;
+  h += `<div><div class="meter-label">Test B</div>${meterHTML(b.ok, b.no, n, 'Test B')}<div class="meter-label">${b.ok} correct · ${b.no} to retry · ${n - b.ok - b.no} not started</div></div></div>`;
+  h += '</section>';
+  h += saveSectionHTML();
+  const upId = nx ? nx.q.id : null;
+  h += `<h2 class="sec-h">Practice Test A</h2><div class="grid">${A.map(q => tileHTML(q, { up: q.id === upId })).join('')}</div>`;
+  h += `<h2 class="sec-h">Practice Test B <span class="sec-note">same skills, new numbers and wording</span></h2><div class="grid">${B.map(q => tileHTML(q, { up: q.id === upId })).join('')}</div>`;
+  h += `<section class="howto"><h3>Tonight’s plan</h3>${cfg.plan}</section>`;
+  return h;
+}
+
+function homeReview() {
+  const all = [...Q, ...U3, ...U4];
+  const missedIds = all.filter(q => everMissed(q.id));
+  const still = missedIds.filter(q => statusOf(q.id) === 'no');
+  const fixed = missedIds.filter(q => statusOf(q.id) === 'ok');
+  let h = '<section class="next">';
+  h += `<h2>Final Review</h2><p>Every question you’ve missed in any unit stays here for the final, along with your earlier answers and the full solution.</p>`;
+  if (still.length) h += `<button class="btn" data-go="${still[0].id}" data-seq="review">Review ${still.length} still missed</button>`;
+  else if (fixed.length) h += `<button class="btn" data-go="${fixed[0].id}" data-seq="review">Look back at ${fixed.length} fixed question${fixed.length === 1 ? '' : 's'}</button>`;
+  h += `<div class="meter-label" style="margin-top:12px">${still.length} still missed · ${fixed.length} fixed on a retry</div></section>`;
+  h += saveSectionHTML();
+  if (!missedIds.length) {
+    h += '<p class="empty" style="margin-top:20px">Nothing here yet. Questions you miss in Units 2, 3 or 4 will collect here automatically, even after you fix them.</p>';
+    return h;
+  }
+  const group = (title, list, note) => {
+    if (!list.length) return '';
+    let g = `<h2 class="sec-h">${title} <span class="sec-note">${note}</span></h2>`;
+    ['u4', 'u3', 'u2'].forEach(u => {
+      const sub = list.filter(q => q.unit === u);
+      if (sub.length) g += `<h3 class="sub-h">${UNAME[u]}</h3><div class="grid">${sub.map(q => tileHTML(q, { long: true, seq: 'review' })).join('')}</div>`;
+    });
+    return g;
+  };
+  h += group('Still missed', still, 'work on these first');
+  h += group('Fixed on a retry', fixed, 'worth one more look before the final');
+  return h;
+}
+
+function reviewList() {
+  const all = [...U4, ...U3, ...Q].filter(q => everMissed(q.id));
+  return [...all.filter(q => statusOf(q.id) === 'no'), ...all.filter(q => statusOf(q.id) === 'ok')].map(q => q.id);
+}
+
+function wireHome() {
+  app.querySelectorAll('[data-go]').forEach(b => b.onclick = () => openQ(b.dataset.go, b.dataset.seq));
+  app.querySelectorAll('[data-filter]').forEach(b => b.onclick = () => { view.filter = b.dataset.filter; renderHome(); });
+  app.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { store.tab = b.dataset.tab; save(); renderHome(); });
+  const setMsg = t => { const m = document.getElementById('fileMsg'); if (m) m.textContent = t; };
+  document.getElementById('saveFile').onclick = saveProgressFile;
+  const fileIn = document.getElementById('fileIn');
+  document.getElementById('loadFile').onclick = () => fileIn.click();
+  fileIn.onchange = async () => {
+    const f = fileIn.files[0]; if (!f) return;
+    try {
+      const d = JSON.parse(await f.text());
+      if (!d || d.app !== 'daily-derivative' || typeof d.a !== 'object') throw 0;
+      const n = mergeProgress(d.a);
+      renderHome(); flashSync(`Loaded “${f.name}” (${n} question${n === 1 ? '' : 's'} of work).`);
+    } catch (e) { setMsg('That isn’t a Daily Derivative progress file. Choose the file named daily-derivative-progress.json.'); }
+  };
+  document.getElementById('mk').onclick = () => {
+    const out = document.getElementById('codeOut');
+    out.value = 'DD2-' + btoa(unescape(encodeURIComponent(JSON.stringify({ a: store.a }))));
+    out.hidden = false; out.focus(); out.select();
+  };
+  document.getElementById('ld').onclick = () => {
+    try {
+      const raw = document.getElementById('codeIn').value.trim().replace(/^DD2-/, '');
+      const data = JSON.parse(decodeURIComponent(escape(atob(raw))));
+      if (!data || typeof data.a !== 'object') throw 0;
+      const n = mergeProgress(data.a);
+      renderHome(); flashSync(`Progress code loaded (${n} question${n === 1 ? '' : 's'} of work).`);
+    } catch (e) { setMsg('That code didn’t work. Copy the whole code, including “DD2-”.'); }
+  };
+  document.getElementById('rs').onclick = () => {
+    if (confirm('Clear all of your answers on this device?')) { store = { a: {}, tab: store.tab }; save(); renderHome(); }
+  };
+}
+
+/* ---------- Progress file ---------- */
+function flashSync(text) {
+  const m = document.getElementById('fileMsg'); if (m) m.textContent = text;
+  const sec = document.getElementById('sync'); if (sec) sec.scrollIntoView({ block: 'nearest' });
+}
+// Combine a loaded file with this device's answers; the more recent answer for each question wins.
+function mergeProgress(incoming) {
+  let keptLocal = 0;
+  const merged = {};
+  const ids = new Set([...Object.keys(store.a), ...Object.keys(incoming)]);
+  ids.forEach(k => {
+    const r = incoming[k], cur = store.a[k];
+    const rOk = r && typeof r.correct === 'boolean';
+    if (rOk && (!cur || (r.at || 0) >= (cur.at || 0))) merged[k] = r;
+    else if (cur) { merged[k] = cur; if (rOk || !r) keptLocal += (cur.at || 0) > ((r && r.at) || 0) ? 1 : 0; }
+  });
+  store.a = merged;
+  store.dirty = keptLocal;
+  store.savedAt = store.savedAt || Date.now();
+  save();
+  return Object.keys(incoming).length;
+}
+async function saveProgressFile() {
+  const data = JSON.stringify({ app: 'daily-derivative', v: 2, savedAt: new Date().toISOString(), a: store.a });
+  const name = 'daily-derivative-progress.json';
+  let downloads = null;
+  try { downloads = window.claude ? await window.claude.use('downloads') : null; } catch (e) { downloads = null; }
+  try {
+    if (downloads) {
+      await downloads.save({ filename: name, data });
+    } else if (window.showSaveFilePicker && window.self === window.top) {
+      const handle = await window.showSaveFilePicker({ suggestedName: name, types: [{ description: 'Daily Derivative progress', accept: { 'application/json': ['.json'] } }] });
+      const w = await handle.createWritable(); await w.write(data); await w.close();
+    } else {
+      const url = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
+      const a = document.createElement('a'); a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    }
+    store.savedAt = Date.now(); store.dirty = 0; save();
+    renderHome(); flashSync(`Saved “${name}”. Keep it in your Google Drive so you can load it anywhere.`);
+  } catch (e) {
+    if (e && e.name === 'AbortError') return;
+    const code = e && e.code;
+    if (code === 'declined') { flashSync('Save canceled. Your answers are still here in this browser.'); return; }
+    if (code === 'rate_limited') { flashSync('A save prompt is already open. Finish that one, then try again.'); return; }
+    flashSync('The file couldn’t be saved on this device. Use “Other options” to copy a progress code instead.');
+  }
+}
+
+/* ============================================================
+   Answer checking for each question type
+   ============================================================ */
+function grade(q, resp) {
+  // returns { correct, note?, cells? }
+  if (q.type === 'mc') return { correct: resp === q.ans };
+  if (q.type === 'num') {
+    const v = readNumber(resp.v != null ? resp.v : resp);
+    const numOk = q.tol ? Math.abs(v - q.answer) <= q.tol : close(v, q.answer);
+    if (!q.units) return { correct: numOk };
+    const unitOk = resp.u === q.unitAns;
+    let note = '';
+    if (numOk && !unitOk) note = 'Your number is right, but the units aren’t. On the test that costs a point.';
+    if (!numOk && unitOk) note = 'Your units are right; the number isn’t.';
+    return { correct: numOk && unitOk, note };
+  }
+  if (q.type === 'table') {
+    const cells = [];
+    let all = true;
+    q.cells.forEach((row, r) => row.forEach((ans, c) => {
+      const raw = resp[r * 4 + c] || '';
+      let ok = false;
+      try { ok = raw.trim() !== '' && close(readNumber(raw), ans); } catch (e) { ok = false; }
+      cells.push(ok); if (!ok) all = false;
+    }));
+    return { correct: all, cells };
+  }
+  if (q.type === 'classify') {
+    const cells = q.rows.map((r, i) => resp[i] === r[1]);
+    return { correct: cells.every(Boolean), cells };
+  }
+  if (q.type === 'expr') {
+    let s = resp.trim();
+    if (!s) throw new Error('Type an answer first');
+    if (s.includes('=')) s = s.slice(s.lastIndexOf('=') + 1);
+    const f = compile(s);
+    const ok = [0.4, 1.3, 2.7, 3.6].every(t => { const v = f({ t, x: NaN, y: NaN }); return close(v, q.exprF(t)); });
+    return { correct: ok };
+  }
+  return { correct: checkAnswer(q, resp) };
+}
+function respText(q, resp) {
+  if (resp == null) return '';
+  if (q.type === 'mc') return 'ABCD'[resp];
+  if (q.type === 'num' && q.units) return (resp.v || '') + ' ' + (resp.u || '(no units)');
+  if (q.type === 'table') return 'table';
+  if (q.type === 'classify') return 'chart';
+  return String(resp);
+}
+
+/* ---------- Question view ---------- */
+function openQ(id, seq) {
+  const q = BYID[id];
+  seq = seq || seqOf(q);
+  const list = seq === 'review' ? reviewList() : SEQ[seq];
+  view = { name: 'q', id, seq, list: list.includes(id) ? list : [id], filter: view.filter };
+  renderQ(); window.scrollTo(0, 0);
+}
+function backHome() {
+  if (view.seq === 'review') store.tab = 'review';
+  else store.tab = view.seq.slice(0, 2);
+  save();
+  view = { name: 'home', filter: view.filter }; renderHome(); window.scrollTo(0, 0);
+}
+
+function invTableHTML(q, resp, cells, locked) {
+  const labels = INV_LABELS;
+  let h = '<div class="tbl-wrap"><table class="vals fill"><caption>Table for \\(f^{-1}\\)</caption><tbody>';
+  for (let r = 0; r < 3; r++) {
+    h += `<tr><th scope="row">${labels[r]}</th>`;
+    for (let c = 0; c < 4; c++) {
+      const i = r * 4 + c;
+      const val = resp ? (resp[i] || '') : '';
+      const cls = cells ? (cells[i] ? 'right' : 'wrong') : '';
+      h += `<td class="${cls}"><input class="cell" data-i="${i}" aria-label="Row ${r + 1}, column ${c + 1}" value="${esc(val)}" ${locked ? 'disabled' : ''} autocomplete="off" spellcheck="false">`;
+      if (cells && !cells[i]) h += `<span class="cell-ans">\\(${q.cellTex[r][c]}\\)</span>`;
+      h += '</td>';
+    }
+    h += '</tr>';
+  }
+  return h + '</tbody></table></div>';
+}
+
+function classifyHTML(q, resp, cells, locked) {
+  let h = '<div class="tbl-wrap"><table class="vals fill cls"><thead><tr><th scope="col">Time</th><th scope="col">Your answer</th></tr></thead><tbody>';
+  q.rows.forEach(([lab, ans], i) => {
+    const val = resp ? (resp[i] || '') : '';
+    const cls = cells ? (cells[i] ? 'right' : 'wrong') : '';
+    h += `<tr><th scope="row">${lab}</th><td class="${cls}"><select class="csel" data-i="${i}" aria-label="Answer for row ${i + 1}" ${locked ? 'disabled' : ''}><option value="">Choose…</option>`;
+    q.opts.forEach(([k, txt]) => { h += `<option value="${k}" ${k === val ? 'selected' : ''}>${txt}</option>`; });
+    h += '</select>';
+    if (cells && !cells[i]) h += `<span class="cell-ans">Correct: ${q.opts.find(o => o[0] === ans)[1]}</span>`;
+    h += '</td></tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+
+function renderQ() {
+  const q = BYID[view.id];
+  const rec = recOf(q.id);
+  const isRetry = retrying.has(q.id);
+  const locked = !!rec && !isRetry;
+  const pos = view.list.indexOf(q.id);
+  const prevId = pos > 0 ? view.list[pos - 1] : null;
+  const nextId = pos >= 0 && pos < view.list.length - 1 ? view.list[pos + 1] : null;
+  const backLabel = view.seq === 'review' ? 'Final Review' : (q.unit === 'u2' ? 'All days' : UNAME[q.unit]);
+  const navName = id => { const t = BYID[id]; return view.seq === 'review' ? 'Next missed' : (t.unit === 'u2' ? 'Day ' + t.day : t.code); };
+
+  let h = `<nav class="topbar" aria-label="Question navigation">
+    <button class="iconbtn" id="home">← ${backLabel}</button><span class="spacer"></span>
+    <button class="iconbtn" id="prev" ${prevId ? '' : 'disabled'} aria-label="Previous question">‹ ${prevId && view.seq !== 'review' ? navName(prevId) : 'Prev'}</button>
+    <button class="iconbtn" id="next" ${nextId ? '' : 'disabled'} aria-label="Next question">${nextId && view.seq !== 'review' ? navName(nextId) : 'Next'} ›</button></nav>`;
+  h += `<article class="qcard"><div class="qhead"><h2>${titleOf(q)}</h2>`;
+  if (view.seq === 'review') h += `<span class="unit-chip">${UNAME[q.unit]}</span>`;
+  h += `<span class="match">${q.unit !== 'u2' ? UNAME[q.unit] + ' ' : ''}${q.match}: ${q.topic}</span>`;
+  if (q.calc === true) h += `<span class="calc">Calculator allowed</span>`;
+  if (q.calc === false) h += `<span class="calc no">No calculator</span>`;
+  h += '</div>';
+  h += `<div class="prompt">${q.prompt.replace('{TABLE}', tableHTML(null))}</div>`;
+  if (q.graph) h += `<figure>${graphSVG(q.graph)}<figcaption>${q.graph.caption}</figcaption></figure>`;
+  h += `<details class="decode"><summary>What is this question really asking?</summary><div>${q.decode}</div></details>`;
+
+  // Earlier attempts (retry history)
+  const hist = rec ? [...(rec.hist || []), ...(isRetry ? [rec] : [])] : [];
+  if (hist.length) {
+    h += `<div class="history"><b>${isRetry ? 'Your earlier attempts' : 'Earlier attempts'}</b><ul>`;
+    hist.forEach((a, i) => {
+      const when = a.at ? new Date(a.at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : '';
+      h += `<li class="${a.correct ? 'ok' : 'no'}"><span aria-hidden="true">${a.correct ? '✓' : '✕'}</span> Attempt ${i + 1}${when ? ' (' + when + ')' : ''}: ${q.type === 'table' || q.type === 'classify' ? (a.correct ? (q.type === 'table' ? 'table' : 'chart') + ' correct' : (q.type === 'table' ? 'table' : 'chart') + ' had mistakes') : 'answered <b>' + esc(respText(q, a.resp)) + '</b>'}</li>`;
+    });
+    h += '</ul></div>';
+  }
+
+  const shown = locked ? rec.resp : draft[q.id];
+  let graded = null;
+  if (locked) { try { graded = grade(q, rec.resp); } catch (e) { graded = { correct: rec.correct }; } }
+
+  if (q.type === 'mc') {
+    h += '<div class="choices" role="group" aria-label="Answer choices">';
+    q.choices.forEach((c, i) => {
+      let cls = '';
+      if (locked) { if (i === q.ans) cls = 'right'; else if (i === shown) cls = 'wrong'; }
+      h += `<button class="choice ${cls}" data-i="${i}" aria-pressed="${!locked && shown === i}" ${locked ? 'disabled' : ''}><span class="L">${'ABCD'[i]}</span><span class="body">${c}</span></button>`;
+    });
+    h += '</div>';
+  } else if (q.type === 'classify') {
+    h += classifyHTML(q, shown, locked ? graded.cells : null, locked);
+  } else if (q.type === 'table') {
+    h += invTableHTML(q, shown, locked ? graded.cells : null, locked);
+    h += `<p class="note">Fractions like 1/4 are fine. Use - for negatives.</p>`;
+  } else {
+    const val = q.type === 'num' && q.units ? (shown ? shown.v : '') : (shown || '');
+    const help = q.help || (q.type === 'line'
+      ? 'Any correct form works, e.g. y - 3 = 2(x - 5). No need to simplify.'
+      : 'Fractions like -14/16 are fine. Use sqrt(3) and pi if needed. No need to simplify.');
+    h += `<div class="field"><label for="ans">${q.label || 'Your answer:'}</label>`;
+    if (q.units) {
+      const u = shown ? shown.u : '';
+      h += `<div class="with-units"><input id="ans" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(val)}" ${locked ? 'disabled' : ''}>
+        <select id="unit" aria-label="Units" ${locked ? 'disabled' : ''}><option value="">Units…</option>${q.units.map(o => `<option ${o === u ? 'selected' : ''}>${o}</option>`).join('')}</select></div>`;
+    } else {
+      h += `<input id="ans" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(val)}" ${locked ? 'disabled' : ''}>`;
+    }
+    h += `<div class="help">${help}</div><div class="reads" id="reads" aria-live="polite"></div></div>`;
+  }
+
+  if (!locked) {
+    h += `<div class="actions"><button class="btn" id="submit">Submit answer</button>${isRetry ? '<button class="btn ghost" id="cancelRetry">Cancel</button>' : ''}<span class="note" id="err" role="alert"></span></div>`;
+  } else {
+    const ok = rec.correct;
+    h += `<div class="verdict ${ok ? 'ok' : 'no'}" role="status"><strong class="big">${ok ? 'Correct!' : 'Not quite.'}</strong>
+      ${q.type !== 'mc' && q.type !== 'table' && q.type !== 'classify' ? `<div>Your answer: <b>${esc(respText(q, rec.resp))}</b></div>` : ''}
+      ${graded && graded.note ? `<div class="vnote">${graded.note}</div>` : ''}
+      <div class="ans">Correct answer: ${q.ansTex}${q.units ? '' : ''}</div></div>`;
+    h += '<section class="solution"><h3>Step-by-step solution</h3>';
+    if (q.table) h += tableHTML(q.table);
+    h += '<ol class="steps">';
+    q.steps.forEach((s, i) => { h += `<li class="${i === q.steps.length - 1 ? 'final' : ''}">${s}</li>`; });
+    h += `</ol><div class="trap"><b>Test trap</b>${q.trap}</div></section>`;
+    const twin = q.twin ? BYID[q.twin] : null;
+    let twinBtn = '';
+    if (twin && !ok) {
+      const tSt = statusOf(twin.id);
+      twinBtn = `<button class="btn twin" id="go-twin">${q.set === 'A' ? 'Practice the twin' : 'See the matching question'}: Test ${twin.set} · ${twin.code}${tSt === 'ok' ? ' ✓' : ''}</button>`;
+    }
+    h += `<div class="actions" style="margin-top:18px">${twinBtn}
+      ${nextId ? `<button class="btn ${twinBtn ? 'ghost' : ''}" id="go-next">${view.seq === 'review' ? 'Next in review' : 'Go to ' + navName(nextId)}</button>` : `<button class="btn ${twinBtn ? 'ghost' : ''}" id="home2">Back to ${backLabel}</button>`}
+      <button class="btn ghost" id="retry">Try this one again</button></div>`;
+  }
+  h += '</article>';
+  app.innerHTML = h;
+
+  document.getElementById('home').onclick = backHome;
+  document.getElementById('prev').onclick = () => { if (prevId) openQ(prevId, view.seq); };
+  document.getElementById('next').onclick = () => { if (nextId) openQ(nextId, view.seq); };
+
+  if (!locked) {
+    if (q.type === 'mc') {
+      app.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+        draft[q.id] = +b.dataset.i;
+        app.querySelectorAll('.choice').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        document.getElementById('err').textContent = '';
+      });
+    } else if (q.type === 'classify') {
+      const sels = [...app.querySelectorAll('.csel')];
+      sels.forEach(s => s.onchange = () => { draft[q.id] = sels.map(x => x.value); document.getElementById('err').textContent = ''; });
+    } else if (q.type === 'table') {
+      const cellsEls = [...app.querySelectorAll('.cell')];
+      const upd = () => { draft[q.id] = cellsEls.map(c => c.value); };
+      cellsEls.forEach(c => { c.oninput = upd; c.onkeydown = e => { if (e.key === 'Enter') submit(); }; });
+    } else {
+      const inp = document.getElementById('ans'), reads = document.getElementById('reads');
+      const sel = document.getElementById('unit');
+      const upd = () => {
+        draft[q.id] = q.units ? { v: inp.value, u: sel.value } : inp.value;
+        const p = previewText(q, inp.value); reads.textContent = p.t; reads.className = 'reads' + (p.err ? ' err' : '');
+      };
+      inp.oninput = upd; if (sel) sel.onchange = upd; upd();
+      inp.onkeydown = e => { if (e.key === 'Enter') submit(); };
+    }
+    document.getElementById('submit').onclick = submit;
+    const cr = document.getElementById('cancelRetry');
+    if (cr) cr.onclick = () => { retrying.delete(q.id); delete draft[q.id]; renderQ(); };
+  } else {
+    document.getElementById('retry').onclick = () => { retrying.add(q.id); delete draft[q.id]; renderQ(); };
+    const gn = document.getElementById('go-next'); if (gn) gn.onclick = () => openQ(nextId, view.seq);
+    const h2 = document.getElementById('home2'); if (h2) h2.onclick = backHome;
+    const gt = document.getElementById('go-twin'); if (gt) gt.onclick = () => openQ(q.twin, seqOf(BYID[q.twin]));
+  }
+
+  function submit() {
+    const err = document.getElementById('err');
+    let resp, result;
+    if (q.type === 'mc') {
+      resp = draft[q.id];
+      if (resp == null) { err.textContent = 'Choose an answer first.'; return; }
+    } else if (q.type === 'classify') {
+      resp = [...app.querySelectorAll('.csel')].map(s => s.value);
+      if (resp.some(v => !v)) { err.textContent = 'Choose an answer for every row first.'; return; }
+    } else if (q.type === 'table') {
+      resp = [...app.querySelectorAll('.cell')].map(c => c.value);
+      if (resp.some(v => !v.trim())) { err.textContent = 'Fill in every cell of the table first.'; return; }
+      const bad = resp.findIndex(v => { try { readNumber(v); return false; } catch (e) { return true; } });
+      if (bad >= 0) { err.textContent = `Cell ${bad + 1} isn’t a number I can read.`; return; }
+    } else if (q.units) {
+      resp = { v: document.getElementById('ans').value, u: document.getElementById('unit').value };
+      if (!resp.u) { try { readNumber(resp.v); } catch (e) { err.textContent = e.message + '.'; return; } err.textContent = 'Choose the units too.'; return; }
+    } else {
+      resp = document.getElementById('ans').value;
+    }
+    try { result = grade(q, resp); }
+    catch (e) { err.textContent = e.message + '.'; return; }
+    const prev = recOf(q.id);
+    const hist = prev ? [...(prev.hist || []), { resp: prev.resp, correct: prev.correct, at: prev.at }] : [];
+    store.a[q.id] = { resp, correct: result.correct, tries: (prev ? prev.tries || 1 : 0) + 1, at: Date.now(), hist };
+    retrying.delete(q.id); delete draft[q.id];
+    store.dirty = (store.dirty || 0) + 1;
+    save(); renderQ();
+    const v = app.querySelector('.verdict'); if (v) v.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  typesetApp();
+}
+
+renderHome();
+</script>
+</body>
+</html>
