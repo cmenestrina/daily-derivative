@@ -1526,6 +1526,78 @@ const U4 = [
   ],
   trap: T`Stopping at \(t = 3\) answers <i>when</i>, not <i>how fast</i>: the question asks for speed, so you must plug into \(v(t)\). Times are in seconds, not m/sec. And speed is the absolute value of velocity, so \(-5\) becomes 5.`
 },
+/* ---- Extra practice: related rates (Topics 4.4–4.5) ---- */
+{ id: 'u4A-x4', set: 'A', code: 'Extra 4', twin: 'u4B-x4', match: 'Related rates (4.4–4.5)', topic: 'One formula (circle area)', short: 'RR: spreading circle', calc: false,
+  type: 'mc',
+  prompt: T`<p>A stone dropped in a pond makes a circular ripple. The radius of the ripple is increasing at a constant rate of 3 cm per second. How fast is the <b>area</b> inside the ripple increasing when the radius is 10 cm?</p>`,
+  decode: T`Related rates: two quantities (radius and area) change with <b>time</b>. Write the formula that links them, \(A = \pi r^2\), then differentiate both sides <b>with respect to \(t\)</b>. Every variable that changes picks up its own rate: \(\frac{dA}{dt}\) and \(\frac{dr}{dt}\). Plug in numbers only <b>after</b> differentiating.`,
+  choices: [T`\(30\pi\) cm²/sec`, T`\(60\pi\) cm²/sec`, T`\(100\pi\) cm²/sec`, T`\(6\pi\) cm²/sec`], ans: 1, ansTex: T`\(\dfrac{dA}{dt} = 60\pi\) cm²/sec`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dr}{dt} = 3\) cm/sec, \(r = 10\) cm. Want \(\frac{dA}{dt}\).`,
+    T`<b>Equation:</b> \(A = \pi r^2\)`,
+    T`<b>Differentiate with respect to \(t\):</b> \(\dfrac{dA}{dt} = 2\pi r\,\dfrac{dr}{dt}\)`,
+    T`<b>Plug in:</b> \(\dfrac{dA}{dt} = 2\pi(10)(3) = 60\pi\) cm²/sec. <b>Answer: B</b>`
+  ],
+  trap: T`Choice C is the area itself (\(\pi\cdot 10^2\)), not its rate. Choice D forgets the \(r\) from the Chain Rule. Plugging \(r = 10\) in <b>before</b> differentiating makes \(A\) a constant and gives a rate of 0: always differentiate first.`
+},
+{ id: 'u4A-x5', set: 'A', code: 'Extra 5', twin: 'u4B-x5', match: 'Related rates (4.4–4.5)', topic: 'Sliding ladder (Pythagorean theorem)', short: 'RR: sliding ladder', calc: false,
+  type: 'num', answer: -5 / 6, units: ['feet', 'ft/sec', 'ft²/sec', 'seconds'], unitAns: 'ft/sec', label: T`\(\dfrac{dy}{dt} =\)`,
+  help: 'A fraction like -5/6 is fine. The sign matters. Then choose the units.',
+  prompt: T`<p>A 13-foot ladder leans against a vertical wall. The bottom of the ladder slides away from the wall at a rate of 2 feet per second. Let \(y\) be the height of the top of the ladder. Find \(\dfrac{dy}{dt}\), the rate at which the height of the top is changing, when the bottom of the ladder is 5 feet from the wall.</p>`,
+  decode: T`Draw a right triangle: \(x\) = distance from the wall to the bottom, \(y\) = height of the top, ladder = 13 (the hypotenuse never changes). Use \(x^2 + y^2 = 13^2\). You’ll need \(y\) at that moment too, so solve for it with the same equation.`,
+  ansTex: T`\(\dfrac{dy}{dt} = -\dfrac{5}{6}\) ft/sec (the top slides down at \(\frac56\) ft/sec)`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dx}{dt} = 2\) ft/sec, \(x = 5\). Want \(\frac{dy}{dt}\).`,
+    T`<b>Equation:</b> \(x^2 + y^2 = 169\). At this moment \(25 + y^2 = 169\), so \(y = 12\).`,
+    T`<b>Differentiate with respect to \(t\):</b> \(2x\dfrac{dx}{dt} + 2y\dfrac{dy}{dt} = 0\) (169 is a constant, so its derivative is 0).`,
+    T`<b>Plug in:</b> \(2(5)(2) + 2(12)\dfrac{dy}{dt} = 0 \;\Rightarrow\; 20 + 24\dfrac{dy}{dt} = 0 \;\Rightarrow\; \dfrac{dy}{dt} = -\dfrac{20}{24} = -\dfrac{5}{6}\)`,
+    T`<b>Answer with units and meaning:</b> \(-\frac{5}{6}\) ft/sec. The negative sign means the height is decreasing: the top slides <b>down</b> at \(\frac{5}{6}\) ft/sec.`
+  ],
+  trap: T`Leaving off the negative sign is the most common mistake. A quantity that is getting smaller has a <b>negative</b> rate. (If a question asks “how fast is the top sliding <i>down</i>,” the answer is the positive \(\frac56\), because the direction is already in the words.)`
+},
+{ id: 'u4A-x6', set: 'A', code: 'Extra 6', twin: 'u4B-x6', match: 'Related rates (4.4–4.5)', topic: 'Filling a cone (similar triangles)', short: 'RR: filling a cone', calc: false,
+  type: 'num', answer: 2 / Math.PI, tol: 0.0015, units: ['feet', 'ft/min', 'ft³/min', 'minutes'], unitAns: 'ft/min', label: T`\(\dfrac{dh}{dt} =\)`,
+  help: 'Type pi for π (e.g. 2/pi), or give 3 decimal places. Then choose the units.',
+  prompt: T`<p>Water is poured into a tank shaped like an inverted cone (point down) at a rate of 8 cubic feet per minute. The tank is 10 feet tall and its top has a radius of 5 feet. How fast is the water level rising when the water is 4 feet deep?</p>`,
+  decode: T`Cone volume is \(V = \frac{1}{3}\pi r^2 h\), but you only know \(\frac{dV}{dt}\) and want \(\frac{dh}{dt}\). That’s one variable too many. Use <b>similar triangles</b> to write \(r\) in terms of \(h\) <b>before</b> differentiating: the water forms a smaller cone with the same shape as the tank.`,
+  ansTex: T`\(\dfrac{dh}{dt} = \dfrac{2}{\pi} \approx 0.637\) ft/min`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dV}{dt} = 8\) ft³/min, \(h = 4\). Want \(\frac{dh}{dt}\).`,
+    T`<b>Similar triangles:</b> the tank has \(\frac{r}{h} = \frac{5}{10}\), so the water always has \(r = \frac{h}{2}\).`,
+    T`<b>Substitute:</b> \(V = \dfrac{1}{3}\pi\left(\dfrac{h}{2}\right)^2 h = \dfrac{\pi h^3}{12}\)`,
+    T`<b>Differentiate with respect to \(t\):</b> \(\dfrac{dV}{dt} = \dfrac{\pi h^2}{4}\,\dfrac{dh}{dt}\)`,
+    T`<b>Plug in:</b> \(8 = \dfrac{\pi(16)}{4}\,\dfrac{dh}{dt} = 4\pi\dfrac{dh}{dt}\), so \(\dfrac{dh}{dt} = \dfrac{2}{\pi} \approx 0.637\) ft/min.`
+  ],
+  trap: T`Treating \(r\) as the tank’s radius (always 5) is wrong: the water’s radius changes as it rises. Replace \(r\) with \(\frac{h}{2}\) <b>before</b> you differentiate, so the only rates left are \(\frac{dV}{dt}\) and \(\frac{dh}{dt}\).`
+},
+{ id: 'u4A-x7', set: 'A', code: 'Extra 7', twin: 'u4B-x7', match: 'Related rates (4.4–4.5)', topic: 'Inflating a sphere', short: 'RR: balloon radius', calc: false,
+  type: 'num', answer: 1 / Math.PI, tol: 0.0015, units: ['cm', 'cm/sec', 'cm³/sec', 'seconds'], unitAns: 'cm/sec', label: T`\(\dfrac{dr}{dt} =\)`,
+  help: 'Type pi for π (e.g. 1/pi), or give 3 decimal places. Then choose the units.',
+  prompt: T`<p>Air is pumped into a spherical balloon at a rate of 100 cubic centimeters per second. How fast is the radius of the balloon increasing when the radius is 5 cm? (\(V = \frac{4}{3}\pi r^3\))</p>`,
+  decode: T`You’re given the rate of the <b>volume</b> and asked for the rate of the <b>radius</b>. Differentiate \(V = \frac43\pi r^3\) with respect to \(t\), then solve for \(\frac{dr}{dt}\).`,
+  ansTex: T`\(\dfrac{dr}{dt} = \dfrac{1}{\pi} \approx 0.318\) cm/sec`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dV}{dt} = 100\) cm³/sec, \(r = 5\). Want \(\frac{dr}{dt}\).`,
+    T`<b>Differentiate:</b> \(\dfrac{dV}{dt} = 4\pi r^2\,\dfrac{dr}{dt}\)`,
+    T`<b>Plug in:</b> \(100 = 4\pi(25)\dfrac{dr}{dt} = 100\pi\dfrac{dr}{dt}\)`,
+    T`\(\dfrac{dr}{dt} = \dfrac{1}{\pi} \approx 0.318\) cm/sec`
+  ],
+  trap: T`The units tell you what you found: cm³/sec is a volume rate, cm/sec is a radius rate. Picking the wrong one is an easy units point to lose.`
+},
+{ id: 'u4A-x8', set: 'A', code: 'Extra 8', twin: 'u4B-x8', match: 'Related rates (4.4–4.5)', topic: 'Distance between two moving objects', short: 'RR: two cars', calc: false,
+  type: 'num', answer: 50, units: ['miles', 'mph', 'mi²/hr', 'hours'], unitAns: 'mph', label: T`\(\dfrac{dz}{dt} =\)`,
+  help: 'Enter a number, then choose the units.',
+  prompt: T`<p>Two cars leave the same intersection. Car 1 drives north at 30 mph and Car 2 drives east at 40 mph. At the moment Car 1 is 3 miles north and Car 2 is 4 miles east of the intersection, how fast is the distance between the cars changing?</p>`,
+  decode: T`Right triangle again, but now <b>both legs</b> change: \(x\) (east) and \(y\) (north), and the distance between the cars is the hypotenuse \(z\). Use \(x^2 + y^2 = z^2\), and differentiate all three terms.`,
+  ansTex: T`\(\dfrac{dz}{dt} = 50\) mph`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dy}{dt} = 30\), \(\frac{dx}{dt} = 40\), \(y = 3\), \(x = 4\). Want \(\frac{dz}{dt}\).`,
+    T`<b>Equation:</b> \(x^2 + y^2 = z^2\). At this moment \(z = \sqrt{16 + 9} = 5\).`,
+    T`<b>Differentiate:</b> \(2x\dfrac{dx}{dt} + 2y\dfrac{dy}{dt} = 2z\dfrac{dz}{dt}\)`,
+    T`<b>Plug in:</b> \(2(4)(40) + 2(3)(30) = 2(5)\dfrac{dz}{dt} \;\Rightarrow\; 320 + 180 = 10\dfrac{dz}{dt} \;\Rightarrow\; \dfrac{dz}{dt} = 50\) mph`
+  ],
+  trap: T`Unlike the ladder, the hypotenuse here is <b>not</b> a constant, so it gets its own rate \(\frac{dz}{dt}\). Also, don’t just add the speeds (70 mph): the cars move at right angles.`
+},
 /* ===================== PRACTICE TEST B ===================== */
 { id: 'u4B-mc1', set: 'B', code: 'MC 1', twin: 'u4A-mc1', match: 'Test MC #1', topic: 'Approximating a derivative from a table', short: 'Derivative from a table', calc: true,
   type: 'mc',
@@ -1775,6 +1847,75 @@ const U4 = [
     T`Speed \(= |-12| = 12\) ft/sec.`
   ],
   trap: T`The answer is a speed, so it needs velocity units (ft/sec), not acceleration units, and it’s never negative. Labeling the <i>time</i> \(t = 4\) with ft/sec is a common way to lose the units point.`
+},
+/* ---- Extra practice: related rates (Topics 4.4–4.5) ---- */
+{ id: 'u4B-x4', set: 'B', code: 'Extra 4', twin: 'u4A-x4', match: 'Related rates (4.4–4.5)', topic: 'One formula (square area)', short: 'RR: growing square', calc: false,
+  type: 'mc',
+  prompt: T`<p>The sides of a square are increasing at a rate of 4 inches per minute. At what rate is the area of the square increasing when each side is 6 inches long?</p>`,
+  decode: T`Link the quantities with \(A = s^2\), differentiate with respect to \(t\), then plug in. Both \(A\) and \(s\) change with time, so each gets a rate.`,
+  choices: [T`\(24\) in²/min`, T`\(36\) in²/min`, T`\(48\) in²/min`, T`\(8\) in²/min`], ans: 2, ansTex: T`\(\dfrac{dA}{dt} = 48\) in²/min`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{ds}{dt} = 4\) in/min, \(s = 6\). Want \(\frac{dA}{dt}\).`,
+    T`<b>Equation:</b> \(A = s^2\)`,
+    T`<b>Differentiate:</b> \(\dfrac{dA}{dt} = 2s\,\dfrac{ds}{dt}\)`,
+    T`\(\dfrac{dA}{dt} = 2(6)(4) = 48\) in²/min. <b>Answer: C</b>`
+  ],
+  trap: T`Choice B is the area (\(6^2\)), not the rate. Choice A drops the 2 from the Power Rule. Choice D drops the \(s\).`
+},
+{ id: 'u4B-x5', set: 'B', code: 'Extra 5', twin: 'u4A-x5', match: 'Related rates (4.4–4.5)', topic: 'Sliding ladder (Pythagorean theorem)', short: 'RR: sliding ladder', calc: false,
+  type: 'num', answer: 9 / 8, units: ['feet', 'ft/sec', 'ft²/sec', 'seconds'], unitAns: 'ft/sec', label: T`\(\dfrac{dx}{dt} =\)`,
+  help: 'A fraction like 9/8 is fine. Then choose the units.',
+  prompt: T`<p>A 10-foot ladder leans against a wall. The top of the ladder slides down the wall at 1.5 feet per second. How fast is the bottom of the ladder moving away from the wall when the top is 6 feet above the ground?</p>`,
+  decode: T`Let \(x\) = distance of the bottom from the wall and \(y\) = height of the top. The top is sliding <b>down</b>, so \(\frac{dy}{dt}\) is <b>negative</b>: \(-1.5\). Use \(x^2 + y^2 = 100\).`,
+  ansTex: T`\(\dfrac{dx}{dt} = \dfrac{9}{8} = 1.125\) ft/sec`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dy}{dt} = -1.5\) ft/sec (height decreasing), \(y = 6\). Want \(\frac{dx}{dt}\).`,
+    T`<b>Equation:</b> \(x^2 + y^2 = 100\). At this moment \(x^2 + 36 = 100\), so \(x = 8\).`,
+    T`<b>Differentiate:</b> \(2x\dfrac{dx}{dt} + 2y\dfrac{dy}{dt} = 0\)`,
+    T`<b>Plug in:</b> \(2(8)\dfrac{dx}{dt} + 2(6)(-1.5) = 0 \;\Rightarrow\; 16\dfrac{dx}{dt} = 18 \;\Rightarrow\; \dfrac{dx}{dt} = \dfrac{9}{8}\) ft/sec`
+  ],
+  trap: T`Entering \(\frac{dy}{dt}\) as \(+1.5\) gives \(-\frac98\), a bottom moving <b>toward</b> the wall, which makes no sense here. Decide the sign of every given rate from the words before you plug in.`
+},
+{ id: 'u4B-x6', set: 'B', code: 'Extra 6', twin: 'u4A-x6', match: 'Related rates (4.4–4.5)', topic: 'Draining a cone (similar triangles)', short: 'RR: draining a cone', calc: false,
+  type: 'num', answer: -3 / (4 * Math.PI), tol: 0.0015, units: ['feet', 'ft/min', 'ft³/min', 'minutes'], unitAns: 'ft/min', label: T`\(\dfrac{dh}{dt} =\)`,
+  help: 'Type pi for π (e.g. -3/(4pi)), or give 3 decimal places. The sign matters. Then choose the units.',
+  prompt: T`<p>A conical tank (point down) is 12 feet tall with a top radius of 4 feet. Water drains out at 3 cubic feet per minute. At what rate is the water level changing when the water is 6 feet deep?</p>`,
+  decode: T`Similar triangles first: \(\frac{r}{h} = \frac{4}{12}\), so \(r = \frac{h}{3}\). Substitute into \(V = \frac13\pi r^2 h\) before differentiating. Draining means \(\frac{dV}{dt}\) is <b>negative</b>.`,
+  ansTex: T`\(\dfrac{dh}{dt} = -\dfrac{3}{4\pi} \approx -0.239\) ft/min (the level falls about 0.239 ft/min)`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dV}{dt} = -3\) ft³/min, \(h = 6\). Want \(\frac{dh}{dt}\).`,
+    T`<b>Similar triangles:</b> \(r = \frac{h}{3}\), so \(V = \dfrac{1}{3}\pi\left(\dfrac{h}{3}\right)^2 h = \dfrac{\pi h^3}{27}\).`,
+    T`<b>Differentiate:</b> \(\dfrac{dV}{dt} = \dfrac{\pi h^2}{9}\,\dfrac{dh}{dt}\)`,
+    T`<b>Plug in:</b> \(-3 = \dfrac{\pi(36)}{9}\dfrac{dh}{dt} = 4\pi\dfrac{dh}{dt}\), so \(\dfrac{dh}{dt} = -\dfrac{3}{4\pi} \approx -0.239\) ft/min.`
+  ],
+  trap: T`Water <b>draining</b> means volume is decreasing, so \(\frac{dV}{dt} = -3\), not 3. The negative answer then tells you the level is dropping.`
+},
+{ id: 'u4B-x7', set: 'B', code: 'Extra 7', twin: 'u4A-x7', match: 'Related rates (4.4–4.5)', topic: 'Melting sphere', short: 'RR: melting snowball', calc: false,
+  type: 'num', answer: -72 * Math.PI, tol: 0.0015, units: ['cm', 'cm/min', 'cm³/min', 'minutes'], unitAns: 'cm³/min', label: T`\(\dfrac{dV}{dt} =\)`,
+  help: 'Type pi for π (e.g. -72pi), or give 3 decimal places. The sign matters. Then choose the units.',
+  prompt: T`<p>A spherical snowball is melting so that its radius decreases at 0.5 cm per minute. At what rate is its volume changing when the radius is 6 cm? (\(V = \frac{4}{3}\pi r^3\))</p>`,
+  decode: T`This time you know \(\frac{dr}{dt}\) (negative, because it’s shrinking) and want \(\frac{dV}{dt}\). Differentiate \(V = \frac43\pi r^3\) with respect to \(t\).`,
+  ansTex: T`\(\dfrac{dV}{dt} = -72\pi \approx -226.195\) cm³/min`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dr}{dt} = -0.5\) cm/min, \(r = 6\). Want \(\frac{dV}{dt}\).`,
+    T`<b>Differentiate:</b> \(\dfrac{dV}{dt} = 4\pi r^2\dfrac{dr}{dt}\)`,
+    T`<b>Plug in:</b> \(\dfrac{dV}{dt} = 4\pi(36)(-0.5) = -72\pi \approx -226.195\) cm³/min.`
+  ],
+  trap: T`The units of a volume rate are cm³/min, not cm/min. And the volume is decreasing, so the answer must be negative.`
+},
+{ id: 'u4B-x8', set: 'B', code: 'Extra 8', twin: 'u4A-x8', match: 'Related rates (4.4–4.5)', topic: 'Distance between two moving objects', short: 'RR: two cars', calc: false,
+  type: 'num', answer: 75, units: ['miles', 'mph', 'mi²/hr', 'hours'], unitAns: 'mph', label: T`\(\dfrac{dz}{dt} =\)`,
+  help: 'Enter a number, then choose the units.',
+  prompt: T`<p>Car A travels east at 45 mph and Car B travels north at 60 mph, both starting from the same point. How fast is the distance between them increasing when Car A is 9 miles east and Car B is 12 miles north of the starting point?</p>`,
+  decode: T`Both legs change, and so does the hypotenuse \(z\). Use \(x^2 + y^2 = z^2\), find \(z\) at that moment, then differentiate all three terms.`,
+  ansTex: T`\(\dfrac{dz}{dt} = 75\) mph`,
+  steps: [
+    T`<b>Know / want:</b> \(\frac{dx}{dt} = 45\), \(\frac{dy}{dt} = 60\), \(x = 9\), \(y = 12\). Want \(\frac{dz}{dt}\).`,
+    T`At this moment \(z = \sqrt{81 + 144} = 15\).`,
+    T`<b>Differentiate:</b> \(2x\dfrac{dx}{dt} + 2y\dfrac{dy}{dt} = 2z\dfrac{dz}{dt}\)`,
+    T`<b>Plug in:</b> \(9(45) + 12(60) = 15\dfrac{dz}{dt} \;\Rightarrow\; 405 + 720 = 15\dfrac{dz}{dt} \;\Rightarrow\; \dfrac{dz}{dt} = 75\) mph (the 2s cancel)`
+  ],
+  trap: T`Finding \(z = 15\) is a separate step. Students often plug in the distances but forget they need \(z\) at that moment, or use \(z = 9 + 12\).`
 }
 ];
 
@@ -2122,10 +2263,10 @@ const TEST_CFG = {
     plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution and the trap that catches most students.</p>
     <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording. Getting the twin right is how you know you’ve got it.</p>
     <p>Have a calculator in <b>radian mode</b> for questions 10 and 11. Write-in answers don’t need simplifying: <b>1/5</b>, <b>8+5sin(2)</b>, and <b>y-3 = 2(x-1)</b> all work.</p>` },
-  u4: { intro: 'in the same order as the Unit 4 Test: multiple choice 1–5 (calculator on 1–3), free response 6–9 (calculator only on 9), then 3 extra questions on skills from the 4.1–4.2 quiz.',
+  u4: { intro: 'in the same order as the Unit 4 Test: multiple choice 1–5 (calculator on 1–3), free response 6–9 (calculator only on 9), then 8 extra questions: 3 on skills from the 4.1–4.2 quiz and 5 on related rates.',
     plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution, the trap that catches most students, and for free response, the exact sentence to write for full credit.</p>
     <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording.</p>
-    <p>Know every derivative rule cold, and have your calculator in <b>radian mode</b> for MC 1–3 and FRQ 9. Practice its derivative function (nDeriv) on MC 3 and FRQ 9c. The <b>Extra</b> questions at the end cover motion skills that showed up on the quiz but not in the homework: speeding up/slowing down from a position function, average acceleration, and speed at a given acceleration. For the chart questions (FRQ 8a–c), pick an answer for every row.</p>` }
+    <p>Know every derivative rule cold, and have your calculator in <b>radian mode</b> for MC 1–3 and FRQ 9. Practice its derivative function (nDeriv) on MC 3 and FRQ 9c. The <b>Extra</b> questions at the end cover motion skills that showed up on the quiz but not in the homework: speeding up/slowing down from a position function, average acceleration, and speed at a given acceleration. Extras 4–8 are <b>related rates</b>: every solution follows the same five steps (know/want, equation, differentiate with respect to t, plug in, answer with units and sign). For the chart questions (FRQ 8a–c), pick an answer for every row.</p>` }
 };
 function testNext(u) {
   const A = SEQ[u + 'A'].map(id => BYID[id]), B = SEQ[u + 'B'].map(id => BYID[id]);
