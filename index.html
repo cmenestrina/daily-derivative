@@ -1478,6 +1478,54 @@ const U4 = [
   trap: T`Choice A calls a <b>rate</b> a temperature. Choice C describes an <b>average</b> over an interval, but a derivative is at one instant. Choice D is \(H(10)\), the temperature itself, not the derivative.`
 },
 
+
+/* ---- Extra practice: skills from the 4.1–4.2 quiz ---- */
+{ id: 'u4A-x1', set: 'A', code: 'Extra 1', twin: 'u4B-x1', match: 'Quiz 4.1–4.2', topic: 'Speeding up or slowing down from a position function', short: 'Speed chart from s(t)', calc: true,
+  type: 'mc',
+  prompt: T`<p>A particle moves along a straight line with position \(s(t) = t^3 - 9t^2 + 24t + 1\) for \(t \ge 0\). Which statement correctly describes when the particle is speeding up and slowing down?</p>`,
+  decode: T`This needs <b>two</b> sign charts on one number line. Find \(v(t) = s'(t)\) and where it’s 0, then \(a(t) = v'(t)\) and where it’s 0. Mark <b>all</b> of those times, then compare the signs of \(v\) and \(a\) in every interval. Same sign: speeding up. Opposite signs: slowing down.`,
+  choices: [
+    T`Slowing down on \(0 < t < 2\) and \(3 < t < 4\); speeding up on \(2 < t < 3\) and \(t > 4\)`,
+    T`Speeding up on \(0 < t < 2\) and \(3 < t < 4\); slowing down on \(2 < t < 3\) and \(t > 4\)`,
+    T`Slowing down on \(0 < t < 3\); speeding up on \(t > 3\)`,
+    T`Speeding up on \(0 < t < 2\) and \(t > 4\); slowing down on \(2 < t < 4\)`
+  ],
+  ans: 0, ansTex: T`Slowing down on \(0<t<2\) and \(3<t<4\); speeding up on \(2<t<3\) and \(t>4\)`,
+  steps: [
+    T`Velocity: \(v(t) = 3t^2 - 18t + 24 = 3(t - 2)(t - 4)\). Zeros at \(t = 2\) and \(t = 4\).`,
+    T`Acceleration: \(a(t) = 6t - 18 = 6(t - 3)\). Zero at \(t = 3\).`,
+    T`Put all three times on one chart and test each interval:${vtable([['\\(t\\)', ['\\(0<t<2\\)', '\\(2<t<3\\)', '\\(3<t<4\\)', '\\(t>4\\)']], ['\\(v(t)\\)', ['\\(+\\)', '\\(-\\)', '\\(-\\)', '\\(+\\)']], ['\\(a(t)\\)', ['\\(-\\)', '\\(-\\)', '\\(+\\)', '\\(+\\)']], ['speed', ['slowing', 'speeding', 'slowing', 'speeding']]])}`,
+    T`Opposite signs on \(0<t<2\) and \(3<t<4\) (slowing down); same signs on \(2<t<3\) and \(t>4\) (speeding up). <b>Answer: A</b>`
+  ],
+  trap: T`Choice C uses only the sign of \(a\), and Choice D uses only the direction of motion. You need <b>both</b> \(v\) and \(a\), so the chart has every zero of \(v\) <b>and</b> of \(a\): here that’s three dividing points (2, 3 and 4), not two. Choice B has every interval flipped.`
+},
+{ id: 'u4A-x2', set: 'A', code: 'Extra 2', twin: 'u4B-x2', match: 'Quiz 4.1–4.2', topic: 'Average acceleration over an interval, with units', short: 'Average acceleration', calc: false,
+  type: 'num', answer: 5, units: UNITS_B, unitAns: 'm/sec²', label: T`Average acceleration on \(1 \le t \le 3\):`,
+  help: 'Enter a number, then choose the units.',
+  prompt: T`<p>The velocity of an object, in meters per second, is \(v(t) = t^3 - 2t^2 + 3\) for \(t \ge 0\). Find the <b>average acceleration</b> of the object over the interval \(1 \le t \le 3\). Include units.</p>`,
+  decode: T`“Average acceleration” is the <b>average rate of change of velocity</b>: \(\dfrac{v(3) - v(1)}{3 - 1}\). Plug the endpoints into \(v\) itself. You don’t take a derivative at all.`,
+  ansTex: T`\(\dfrac{v(3) - v(1)}{3 - 1} = \dfrac{12 - 2}{2} = 5\) m/sec²`,
+  steps: [
+    T`Average acceleration on \([1, 3]\) \(= \dfrac{v(3) - v(1)}{3 - 1}\).`,
+    T`\(v(3) = 27 - 18 + 3 = 12\) and \(v(1) = 1 - 2 + 3 = 2\).`,
+    T`\(\dfrac{12 - 2}{2} = 5\). Units: velocity units per second, so <b>m/sec²</b>.`
+  ],
+  trap: T`Finding \(a(t) = v'(t)\) first and then averaging \(a(1)\) and \(a(3)\), or taking \(\frac{a(3) - a(1)}{2}\), gives 8, which is wrong. “Average” means the slope of the <b>velocity</b> between the endpoints, just like “average rate of change” of any function.`
+},
+{ id: 'u4A-x3', set: 'A', code: 'Extra 3', twin: 'u4B-x3', match: 'Quiz 4.1–4.2', topic: 'Speed at the time the acceleration has a given value', short: 'Speed when a(t) = 9', calc: false,
+  type: 'num', answer: 5, units: UNITS_B, unitAns: 'm/sec', label: 'Speed:',
+  help: 'Speed is never negative. Enter a number, then choose the units.',
+  prompt: T`<p>The velocity of an object, in meters per second, is \(v(t) = t^3 - 3t^2 - 5\) for \(t \ge 0\). Find the <b>speed</b> of the object at the time when its acceleration equals 9. Include units.</p>`,
+  decode: T`Three moves: (1) find \(a(t) = v'(t)\) and set it equal to 9 to find the <b>time</b>; (2) throw out any time that isn’t allowed (\(t \ge 0\)); (3) plug that time into \(v(t)\), then take the absolute value, because <b>speed = \(|v(t)|\)</b>.`,
+  ansTex: T`At \(t = 3\): \(v(3) = -5\), so speed \(= |-5| = 5\) m/sec`,
+  steps: [
+    T`\(a(t) = v'(t) = 3t^2 - 6t\). Set it equal to 9: \(3t^2 - 6t - 9 = 0\).`,
+    T`Divide by 3 and factor: \(t^2 - 2t - 3 = (t - 3)(t + 1) = 0\), so \(t = 3\) or \(t = -1\).`,
+    T`\(t = -1\) is not allowed (\(t \ge 0\)), so the only time is \(t = 3\) <b>seconds</b>.`,
+    T`\(v(3) = 27 - 27 - 5 = -5\). Speed \(= |v(3)| = 5\) m/sec.`
+  ],
+  trap: T`Stopping at \(t = 3\) answers <i>when</i>, not <i>how fast</i>: the question asks for speed, so you must plug into \(v(t)\). Times are in seconds, not m/sec. And speed is the absolute value of velocity, so \(-5\) becomes 5.`
+},
 /* ===================== PRACTICE TEST B ===================== */
 { id: 'u4B-mc1', set: 'B', code: 'MC 1', twin: 'u4A-mc1', match: 'Test MC #1', topic: 'Approximating a derivative from a table', short: 'Derivative from a table', calc: true,
   type: 'mc',
@@ -1680,6 +1728,53 @@ const U4 = [
     T`“At \(t = 5\) hours, the depth of the snow is increasing at a rate of 0.667 inches per hour.” <b>Answer: C</b>`
   ],
   trap: T`Choice A uses \(D(5) \approx 9.167\), the depth itself. Choice B calls the rate a depth. Choice D describes an average over an interval; a derivative is an instantaneous rate at one moment.`
+},
+/* ---- Extra practice: skills from the 4.1–4.2 quiz ---- */
+{ id: 'u4B-x1', set: 'B', code: 'Extra 1', twin: 'u4A-x1', match: 'Quiz 4.1–4.2', topic: 'Speeding up or slowing down from a position function', short: 'Speed chart from s(t)', calc: true,
+  type: 'mc',
+  prompt: T`<p>A particle moves along a straight line with position \(s(t) = -t^3 + 12t^2 - 36t + 5\) for \(t \ge 0\). Which statement correctly describes when the particle is speeding up and slowing down?</p>`,
+  decode: T`Find every zero of \(v(t) = s'(t)\) <b>and</b> every zero of \(a(t) = v'(t)\). Put them all on one number line, then compare the signs of \(v\) and \(a\) in each interval. The negative leading coefficient flips the usual signs, so test values instead of guessing.`,
+  choices: [
+    T`Speeding up on \(0 < t < 2\) and \(4 < t < 6\); slowing down on \(2 < t < 4\) and \(t > 6\)`,
+    T`Speeding up on \(0 < t < 4\); slowing down on \(t > 4\)`,
+    T`Slowing down on \(0 < t < 2\) and \(4 < t < 6\); speeding up on \(2 < t < 4\) and \(t > 6\)`,
+    T`Speeding up on \(2 < t < 6\); slowing down on \(0 < t < 2\) and \(t > 6\)`
+  ],
+  ans: 2, ansTex: T`Slowing down on \(0<t<2\) and \(4<t<6\); speeding up on \(2<t<4\) and \(t>6\)`,
+  steps: [
+    T`\(v(t) = -3t^2 + 24t - 36 = -3(t - 2)(t - 6)\). Zeros at \(t = 2\) and \(t = 6\).`,
+    T`\(a(t) = -6t + 24 = -6(t - 4)\). Zero at \(t = 4\).`,
+    T`Test each interval:${vtable([['\\(t\\)', ['\\(0<t<2\\)', '\\(2<t<4\\)', '\\(4<t<6\\)', '\\(t>6\\)']], ['\\(v(t)\\)', ['\\(-\\)', '\\(+\\)', '\\(+\\)', '\\(-\\)']], ['\\(a(t)\\)', ['\\(+\\)', '\\(+\\)', '\\(-\\)', '\\(-\\)']], ['speed', ['slowing', 'speeding', 'slowing', 'speeding']]])}`,
+    T`Opposite signs on \(0<t<2\) and \(4<t<6\) (slowing down); same signs on \(2<t<4\) and \(t>6\) (speeding up). <b>Answer: C</b>`
+  ],
+  trap: T`Choice B looks only at \(a\) (positive before 4, negative after). Choice D treats “moving right” as “speeding up.” The particle is speeding up for \(t > 6\) even though it’s moving <b>left</b>, because \(v\) and \(a\) are both negative.`
+},
+{ id: 'u4B-x2', set: 'B', code: 'Extra 2', twin: 'u4A-x2', match: 'Quiz 4.1–4.2', topic: 'Average acceleration over an interval, with units', short: 'Average acceleration', calc: false,
+  type: 'num', answer: 3, units: UNITS_A, unitAns: 'ft/sec²', label: T`Average acceleration on \(1 \le t \le 3\):`,
+  help: 'Enter a number, then choose the units.',
+  prompt: T`<p>The velocity of a cart, in feet per second, is \(v(t) = 4t^2 - t^3 + 1\) for \(t \ge 0\). Find the <b>average acceleration</b> of the cart from \(t = 1\) to \(t = 3\). Include units.</p>`,
+  decode: T`Average acceleration = average rate of change of <b>velocity</b> = \(\dfrac{v(3) - v(1)}{3 - 1}\). Use \(v\) at the endpoints; no derivative needed.`,
+  ansTex: T`\(\dfrac{v(3) - v(1)}{3 - 1} = \dfrac{10 - 4}{2} = 3\) ft/sec²`,
+  steps: [
+    T`\(v(3) = 36 - 27 + 1 = 10\) and \(v(1) = 4 - 1 + 1 = 4\).`,
+    T`\(\dfrac{v(3) - v(1)}{3 - 1} = \dfrac{10 - 4}{2} = 3\)`,
+    T`Units: ft/sec per second = <b>ft/sec²</b>.`
+  ],
+  trap: T`Using \(a(t) = 8t - 3t^2\) and computing \(\frac{a(3) - a(1)}{2}\) gives \(\frac{-3 - 5}{2} = -4\), which is wrong. Average acceleration comes from velocity values, the same way average velocity comes from position values.`
+},
+{ id: 'u4B-x3', set: 'B', code: 'Extra 3', twin: 'u4A-x3', match: 'Quiz 4.1–4.2', topic: 'Speed at the time the acceleration has a given value', short: 'Speed when a(t) = 24', calc: false,
+  type: 'num', answer: 12, units: UNITS_A, unitAns: 'ft/sec', label: 'Speed:',
+  help: 'Speed is never negative. Enter a number, then choose the units.',
+  prompt: T`<p>The velocity of a particle, in feet per second, is \(v(t) = 2t^3 - 9t^2 + 4\) for \(t \ge 0\). Find the <b>speed</b> of the particle at the time when its acceleration is 24. Include units.</p>`,
+  decode: T`Set \(a(t) = v'(t)\) equal to 24 and solve for \(t\). Keep only times with \(t \ge 0\). Then speed \(= |v(t)|\) at that time.`,
+  ansTex: T`At \(t = 4\): \(v(4) = -12\), so speed \(= 12\) ft/sec`,
+  steps: [
+    T`\(a(t) = 6t^2 - 18t\). Set equal to 24: \(6t^2 - 18t - 24 = 0\).`,
+    T`Divide by 6: \(t^2 - 3t - 4 = (t - 4)(t + 1) = 0\), so \(t = 4\) or \(t = -1\). Only \(t = 4\) seconds works.`,
+    T`\(v(4) = 2(64) - 9(16) + 4 = 128 - 144 + 4 = -12\).`,
+    T`Speed \(= |-12| = 12\) ft/sec.`
+  ],
+  trap: T`The answer is a speed, so it needs velocity units (ft/sec), not acceleration units, and it’s never negative. Labeling the <i>time</i> \(t = 4\) with ft/sec is a common way to lose the units point.`
 }
 ];
 
@@ -2027,10 +2122,10 @@ const TEST_CFG = {
     plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution and the trap that catches most students.</p>
     <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording. Getting the twin right is how you know you’ve got it.</p>
     <p>Have a calculator in <b>radian mode</b> for questions 10 and 11. Write-in answers don’t need simplifying: <b>1/5</b>, <b>8+5sin(2)</b>, and <b>y-3 = 2(x-1)</b> all work.</p>` },
-  u4: { intro: 'in the same order as the Unit 4 Test: multiple choice 1–5 (calculator on 1–3), then free response 6–9 (calculator only on 9).',
+  u4: { intro: 'in the same order as the Unit 4 Test: multiple choice 1–5 (calculator on 1–3), free response 6–9 (calculator only on 9), then 3 extra questions on skills from the 4.1–4.2 quiz.',
     plan: `<p>Take Test A first, in order, like the real test. After each question you’ll see the full solution, the trap that catches most students, and for free response, the exact sentence to write for full credit.</p>
     <p>For every question you miss, the button under the solution takes you to its <b>twin</b> in Test B: the same skill with different numbers and wording.</p>
-    <p>Know every derivative rule cold, and have your calculator in <b>radian mode</b> for MC 1–3 and FRQ 9. Practice its derivative function (nDeriv) on MC 3 and FRQ 9c. For the chart questions (FRQ 8a–c), pick an answer for every row.</p>` }
+    <p>Know every derivative rule cold, and have your calculator in <b>radian mode</b> for MC 1–3 and FRQ 9. Practice its derivative function (nDeriv) on MC 3 and FRQ 9c. The <b>Extra</b> questions at the end cover motion skills that showed up on the quiz but not in the homework: speeding up/slowing down from a position function, average acceleration, and speed at a given acceleration. For the chart questions (FRQ 8a–c), pick an answer for every row.</p>` }
 };
 function testNext(u) {
   const A = SEQ[u + 'A'].map(id => BYID[id]), B = SEQ[u + 'B'].map(id => BYID[id]);
